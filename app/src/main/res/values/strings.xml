@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TianDuan</string>
+
+    <!--login activity-->
+    <string name="str_login_title">欢迎使用掌上天锻</string>
+    <string name="str_login_phone">手机号</string>
+    <string name="str_login_password">密码</string>
+    <string name="str_login">登录</string>
+
 </resources>

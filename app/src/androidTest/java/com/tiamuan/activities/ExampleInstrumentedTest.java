@@ -1,4 +1,4 @@
-package com.tiamuan.tianduan;
+package com.tiamuan.activities;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.tiamuan.tianduan", appContext.getPackageName());
+        assertEquals("com.tiamuan.activities", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package com.tiamuan.tianduan;
+package com.tiamuan.activities;
 
 import org.junit.Test;
 
