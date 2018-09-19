@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_expand_detail_engineer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/general_margin"
+    android:layout_marginLeft="@dimen/general_xlarge_margin"
+    android:layout_marginRight="@dimen/general_xlarge_margin"
+    android:layout_marginTop="@dimen/general_margin"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/general_margin"
+    android:paddingRight="@dimen/general_margin">
+
+    <ImageView
+        android:id="@+id/iv_repair_expand_repair_engineer_picture"
+        android:layout_width="@dimen/repair_expand_repair_engineer_picture"
+        android:layout_height="@dimen/repair_expand_repair_engineer_picture"
+        android:src="@mipmap/ic_launcher" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_item_detail_engineer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/general_small_margin"
+            android:text="工程师" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/repair_expand_contract_engineer_button_height"
+        android:layout_marginBottom="@dimen/general_small_margin"
+        android:layout_marginRight="@dimen/general_small_margin"
+        android:layout_marginTop="@dimen/general_small_margin"
+        android:background="@drawable/selector_login_button"
+        android:text="@string/item_detail_contract_engineer"
+        android:textSize="@dimen/repair_expand_contract_engineer_button_text_size" />
+
+</LinearLayout>

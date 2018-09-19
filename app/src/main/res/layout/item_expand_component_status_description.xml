@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/general_margin"
+    android:layout_marginTop="@dimen/general_margin"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_item_detail_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/general_margin"
+        android:text="进行中..."
+        android:textColor="@color/item_detail_status"
+        android:textSize="@dimen/repair_expand_status_text_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_item_detail_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="系统正在派单，请耐心等待"
+        android:textColor="@color/item_detail_description"
+        android:textSize="@dimen/repair_expand_description_text_size" />
+
+</LinearLayout>

@@ -1,10 +1,29 @@
 <resources>
-    <string name="app_name">TianDuan</string>
+    <string name="app_name">掌上天锻</string>
 
     <!--login activity-->
-    <string name="str_login_title">欢迎使用掌上天锻</string>
-    <string name="str_login_phone">手机号</string>
-    <string name="str_login_password">密码</string>
-    <string name="str_login">登录</string>
+    <string name="login_title">欢迎使用掌上天锻</string>
+    <string name="login_phone">手机号</string>
+    <string name="login_password">密码</string>
+    <string name="login">登录</string>
+
+    <!-- button bar -->
+    <string name="bar_message">消息</string>
+    <string name="bar_me">我的</string>
+    <string name="bar_repair">报修</string>
+    <string name="bar_maintain">维修</string>
+
+    <!-- item detail -->
+    <string name="item_detail_contract_engineer">联系他</string>
+    <string name="item_detail_repair_completed">完成</string>
+    <string name="item_detail_contract_customer_service">联系客服</string>
+
+    <!-- repair activity -->
+    <string name="repair_new">新建报修</string>
+
+    <!-- repair status -->
+    <string name="repair_status_committed">提交报修</string>
+    <string name="repair_status_distributing">派单</string>
+    <string name="repair_status_completed">保修完成</string>
 
 </resources>

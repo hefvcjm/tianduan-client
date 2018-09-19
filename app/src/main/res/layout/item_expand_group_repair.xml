@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/general_small_margin"
+    android:paddingLeft="@dimen/repair_expand_margin_left"
+    android:paddingRight="@dimen/general_margin"
+    android:paddingTop="@dimen/general_small_margin">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/general_margin"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_item_repair_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/general_small_margin"
+            android:text="报修部件内容标题"
+            android:textColor="@color/item_expand_repair_normal"
+            android:textSize="@dimen/repair_expand_title"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_item_repair_ticket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清单号：1234567"
+            android:textColor="@color/item_expand_repair_gray"
+            android:textSize="@dimen/repair_expand_ticket" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_item_repair_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/general_small_margin"
+            android:gravity="right"
+            android:text="进行中"
+            android:textColor="@color/item_expand_repair_title"
+            android:textSize="@dimen/repair_expand_status"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_item_repair_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="2018/08/08"
+            android:textColor="@color/item_expand_repair_gray"
+            android:textSize="@dimen/repair_expand_time" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- general dimen -->
+    <dimen name="general_xlarge_margin">50dp</dimen>
+    <dimen name="general_large_margin">30dp</dimen>
+    <dimen name="general_medium_margin">18dp</dimen>
+    <dimen name="general_margin">10dp</dimen>
+    <dimen name="general_small_margin">7dp</dimen>
+
+    <!-- button bar -->
+    <dimen name="bar_height">60dp</dimen>
+    <dimen name="bar_image_size">30dp</dimen>
+    <dimen name="bar_text_size">12sp</dimen>
+
+    <!-- item expand repair -->
+    <dimen name="repair_expand_margin_left">30dp</dimen>
+    <dimen name="repair_expand_title">18sp</dimen>
+    <dimen name="repair_expand_ticket">15sp</dimen>
+    <dimen name="repair_expand_status">20sp</dimen>
+    <dimen name="repair_expand_time">15sp</dimen>
+    <!-- item expand repair detail-->
+    <dimen name="repair_expand_status_icon_size">30dp</dimen>
+    <dimen name="repair_expand_status_text_size">23sp</dimen>
+    <dimen name="repair_expand_description_text_size">15sp</dimen>
+    <dimen name="repair_expand_repair_engineer_picture">30dp</dimen>
+    <dimen name="repair_expand_contract_engineer_button_text_size">13sp</dimen>
+    <dimen name="repair_expand_contract_engineer_button_width">60dp</dimen>
+    <dimen name="repair_expand_contract_engineer_button_height">30dp</dimen>
+    <dimen name="repair_expand_completed_button_height">35dp</dimen>
+    <dimen name="repair_expand_completed_text_size">15sp</dimen>
+
+    <!-- repair activity -->
+    <dimen name="repair_new_button_size">60dp</dimen>
+    <dimen name="repair_new_size">15sp</dimen>
+
+</resources>

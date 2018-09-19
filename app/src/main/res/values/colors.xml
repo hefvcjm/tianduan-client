@@ -3,4 +3,30 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- general color -->
+    <color name="white">#FFFFFF</color>
+
+    <!-- login activity -->
+    <color name="login_background">#F4F5F6</color>
+    <color name="login_title">#323232</color>
+    <color name="login_subtitle">#424242</color>
+    <color name="login_button_default">#0065E5</color>
+    <color name="login_button_pressed">#0095E6</color>
+
+    <!-- button bar -->
+    <color name="button_bar_border">#E2E3E4</color>
+
+    <!-- item repair -->
+    <color name="item_expand_repair_title">#0095E6</color>
+    <color name="item_expand_repair_gray">#999999</color>
+    <color name="item_expand_repair_normal">#323232</color>
+    <!-- item detail -->
+    <color name="item_detail_background">#FAFAFA</color>
+    <color name="item_detail_status">#FEAD2E</color>
+    <color name="item_detail_description">#A0A0A0</color>
+
+    <!-- repair activity -->
+    <color name="repair_new">#686868</color>
+
 </resources>
