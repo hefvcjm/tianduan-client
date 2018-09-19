@@ -5,6 +5,57 @@
     android:layout_marginBottom="@dimen/general_margin"
     android:layout_marginTop="@dimen/general_margin">
 
+    <!--<ImageView-->
+        <!--android:id="@+id/iv_expand_status_icon_1"-->
+        <!--android:layout_width="@dimen/repair_expand_status_icon_size"-->
+        <!--android:layout_height="@dimen/repair_expand_status_icon_size"-->
+        <!--android:layout_marginLeft="@dimen/general_xlarge_margin"-->
+        <!--android:src="@mipmap/ic_launcher" />-->
+
+
+    <!--<ImageView-->
+        <!--android:id="@+id/iv_expand_status_icon_2"-->
+        <!--android:layout_width="@dimen/repair_expand_status_icon_size"-->
+        <!--android:layout_height="@dimen/repair_expand_status_icon_size"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:src="@mipmap/ic_launcher" />-->
+
+
+    <!--<ImageView-->
+        <!--android:id="@+id/iv_expand_status_icon_3"-->
+        <!--android:layout_width="@dimen/repair_expand_status_icon_size"-->
+        <!--android:layout_height="@dimen/repair_expand_status_icon_size"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_marginRight="@dimen/general_xlarge_margin"-->
+        <!--android:src="@mipmap/ic_launcher" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/iv_expand_status_1"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:of="@id/iv_expand_status_icon_1"-->
+        <!--android:layout_below="@id/iv_expand_status_icon_1"-->
+        <!--android:text="@string/repair_status_committed"-->
+        <!--android:textSize="@dimen/bar_text_size" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/iv_expand_status_2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/iv_expand_status_icon_2"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:text="@string/repair_status_distributing"-->
+        <!--android:textSize="@dimen/bar_text_size" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/iv_expand_status_3"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignLeft="@id/iv_expand_status_icon_3"-->
+        <!--android:layout_below="@id/iv_expand_status_icon_3"-->
+        <!--android:text="@string/repair_status_completed"-->
+        <!--android:textSize="@dimen/bar_text_size" />-->
+
     <LinearLayout
         android:id="@+id/ll_status_bar"
         android:layout_width="match_parent"

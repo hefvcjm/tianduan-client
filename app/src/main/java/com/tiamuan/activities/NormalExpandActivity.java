@@ -22,7 +22,7 @@ public class NormalExpandActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_repair);
         mExpandableListView = findViewById(R.id.expandable_list);
         final NormalExpandableListAdapter adapter = new NormalExpandableListAdapter(Constant.BOOKS, Constant.FIGURES);
         mExpandableListView.setAdapter(adapter);

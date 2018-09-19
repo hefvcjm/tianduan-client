@@ -26,4 +26,26 @@
     <string name="repair_status_distributing">派单</string>
     <string name="repair_status_completed">保修完成</string>
 
+    <!-- suggest argue activity -->
+    <string name="suggest_title">建议（可空）</string>
+    <string name="suggest_hint">10-500字</string>
+    <string name="argue_title">投诉（可空）</string>
+    <string name="argue_ticket">清单号</string>
+    <string name="argue_name">投诉对象姓名</string>
+    <string name="argue_reason">原因</string>
+
+    <!-- new repair activity -->
+    <string name="repair_new_device_name">设备名称</string>
+    <string name="repair_new_device_name_note">*需填写设备标签上的设备名称</string>
+    <string name="repair_new_device_code">设备编号</string>
+    <string name="repair_new_question_description">问题描述</string>
+    <string name="repair_new_question_description_hint">10-300字，请简述故障状态</string>
+    <string name="repair_new_fault_part">故障部位（选填）</string>
+    <string name="repair_new_picture">图片</string>
+    <string name="repair_new_audio">语音</string>
+    <string name="repair_new_video">视频</string>
+    <string name="repair_new_company">单位</string>
+    <string name="repair_new_address">地址</string>
+    <string name="repair_new_commit">提交</string>
+
 </resources>
