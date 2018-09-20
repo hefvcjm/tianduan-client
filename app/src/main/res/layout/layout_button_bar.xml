@@ -31,6 +31,7 @@
                 android:src="@mipmap/ic_message_default" />
 
             <TextView
+                android:id="@+id/tv_bar_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bar_message"
@@ -54,6 +55,7 @@
                 android:src="@mipmap/ic_repair_default" />
 
             <TextView
+                android:id="@+id/tv_bar_repair"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bar_repair"
@@ -77,6 +79,7 @@
                 android:src="@mipmap/ic_me_default" />
 
             <TextView
+                android:id="@+id/tv_bar_me"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bar_me"
