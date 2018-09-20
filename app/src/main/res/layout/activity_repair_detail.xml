@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f5f6"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/sv_repair_detail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:id="@+id/scroll_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/general_small_margin"
+            android:paddingLeft="@dimen/general_margin"
+            android:paddingRight="@dimen/general_margin">
+
+            <include layout="@layout/item_expand_group_repair" />
+
+            <include layout="@layout/layout_repair_detail" />
+
+            <include layout="@layout/item_expand_component_status_bar" />
+
+            <include layout="@layout/item_expand_component_status_description" />
+
+            <include layout="@layout/item_expand_component_repair_engineer" />
+
+            <Button
+                android:id="@+id/bn_item_expand_repair_completed"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/repair_expand_completed_button_height"
+                android:layout_marginBottom="@dimen/general_margin"
+                android:layout_marginLeft="@dimen/general_xlarge_margin"
+                android:layout_marginRight="@dimen/general_xlarge_margin"
+                android:background="@drawable/selector_login_button"
+                android:text="@string/item_detail_repair_completed"
+                android:textSize="@dimen/repair_expand_completed_text_size" />
+
+            <TextView
+                android:id="@+id/tv_change_login_way"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/general_margin"
+                android:clickable="true"
+                android:text="@string/item_detail_contract_customer_service"
+                android:textColor="@color/selector_contract_customer_service" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

@@ -5,4 +5,56 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="new_repair_edit">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/selector_edit_layout</item>
+        <item name="android:paddingLeft">@dimen/general_small_margin</item>
+        <item name="android:paddingRight">@dimen/general_small_margin</item>
+        <item name="android:paddingTop">@dimen/general_small_margin</item>
+        <item name="android:paddingBottom">@dimen/general_small_margin</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="new_repair_textview">
+        <item name="android:layout_marginTop">@dimen/general_margin</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#323232</item>
+    </style>
+
+    <style name="suggest_argue_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginTop">@dimen/general_medium_margin</item>
+        <item name="android:layout_marginBottom">@dimen/general_margin</item>
+        <item name="android:textColor">#323232</item>
+    </style>
+
+    <style name="suggest_argue_subtext">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">right</item>
+        <item name="android:paddingRight">@dimen/general_small_margin</item>
+        <item name="android:textColor">#4D4D4D</item>
+    </style>
+
+    <style name="repair_detail_text">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
 </resources>

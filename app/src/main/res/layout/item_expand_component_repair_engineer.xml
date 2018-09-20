@@ -7,17 +7,19 @@
     android:layout_marginLeft="@dimen/general_xlarge_margin"
     android:layout_marginRight="@dimen/general_xlarge_margin"
     android:layout_marginTop="@dimen/general_margin"
-    android:background="@color/white"
+    android:background="@drawable/shape_rect_border"
     android:gravity="center_vertical"
     android:orientation="horizontal"
+    android:paddingBottom="@dimen/general_small_margin"
     android:paddingLeft="@dimen/general_margin"
-    android:paddingRight="@dimen/general_margin">
+    android:paddingRight="@dimen/general_margin"
+    android:paddingTop="@dimen/general_small_margin">
 
     <ImageView
         android:id="@+id/iv_repair_expand_repair_engineer_picture"
         android:layout_width="@dimen/repair_expand_repair_engineer_picture"
         android:layout_height="@dimen/repair_expand_repair_engineer_picture"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_head_portrait" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,7 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/general_small_margin"
-            android:text="工程师" />
+            android:text="工程师"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -42,6 +45,7 @@
         android:layout_marginTop="@dimen/general_small_margin"
         android:background="@drawable/selector_login_button"
         android:text="@string/item_detail_contract_engineer"
+        android:textColor="@color/white"
         android:textSize="@dimen/repair_expand_contract_engineer_button_text_size" />
 
 </LinearLayout>

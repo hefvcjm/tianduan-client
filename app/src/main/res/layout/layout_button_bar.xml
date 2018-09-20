@@ -34,6 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bar_message"
+                android:textColor="@color/button_bar_text_default"
                 android:textSize="@dimen/bar_text_size" />
 
         </LinearLayout>
@@ -50,12 +51,13 @@
                 android:id="@+id/iv_bar_role"
                 android:layout_width="@dimen/bar_image_size"
                 android:layout_height="@dimen/bar_image_size"
-                android:src="@mipmap/ic_repair_active" />
+                android:src="@mipmap/ic_repair_default" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bar_repair"
+                android:textColor="@color/button_bar_text_default"
                 android:textSize="@dimen/bar_text_size" />
 
         </LinearLayout>
@@ -78,6 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bar_me"
+                android:textColor="@color/button_bar_text_default"
                 android:textSize="@dimen/bar_text_size" />
 
         </LinearLayout>

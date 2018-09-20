@@ -15,8 +15,8 @@ import com.tiamuan.adapters.OnGroupExpandedListener;
 /**
  * 普通 ExpandableListView，支持只展开一个子项
  */
-public class NormalExpandActivity extends Activity {
-    private static final String TAG = "NormalExpandActivity";
+public class RepairActivity extends Activity {
+    private static final String TAG = "RepairActivity";
     private ExpandableListView mExpandableListView;
 
     @Override
@@ -47,7 +47,7 @@ public class NormalExpandActivity extends Activity {
         mExpandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Toast.makeText(NormalExpandActivity.this, Constant.FIGURES[groupPosition][childPosition], Toast.LENGTH_SHORT).show();
+                Toast.makeText(RepairActivity.this, Constant.FIGURES[groupPosition][childPosition], Toast.LENGTH_SHORT).show();
                 return true;
             }
         });

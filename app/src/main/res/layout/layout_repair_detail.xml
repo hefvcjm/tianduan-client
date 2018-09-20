@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/general_margin"
+    android:layout_marginBottom="@dimen/general_margin"
+    android:paddingBottom="@dimen/general_small_margin"
+    android:background="@color/white"
+    android:paddingLeft="@dimen/repair_expand_margin_left"
+    android:paddingRight="@dimen/general_margin"
+    android:paddingTop="@dimen/general_small_margin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/general_small_margin"
+            android:layout_weight="1"
+            android:gravity="right|top"
+            android:text="@string/repair_detail_device_name"
+            android:textColor="@color/repair_detail_title"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_repair_detail_device_name"
+            style="@style/repair_detail_text"
+            android:text="test" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/general_small_margin"
+            android:layout_weight="1"
+            android:gravity="right|top"
+            android:text="@string/repair_detail_device_code"
+            android:textColor="@color/repair_detail_title"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_repair_detail_device_code"
+            style="@style/repair_detail_text"
+            android:text="test" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/general_small_margin"
+            android:layout_weight="1"
+            android:gravity="right|top"
+            android:text="@string/repair_detail_fault_part"
+            android:textColor="@color/repair_detail_title"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_repair_detail_fault_part"
+            style="@style/repair_detail_text"
+            android:text="test" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/general_small_margin"
+            android:layout_weight="1"
+            android:gravity="right|top"
+            android:text="@string/repair_detail_question_description"
+            android:textColor="@color/repair_detail_title"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_repair_detail_question_description"
+            style="@style/repair_detail_text"
+            android:fadeScrollbars="true"
+            android:maxLines="5"
+            android:scrollbars="vertical"
+            android:text="test" />
+
+    </LinearLayout>
+
+</LinearLayout>

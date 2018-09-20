@@ -6,6 +6,9 @@
 
     <!-- general color -->
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#999999</color>
+    <color name="dark">#444444</color>
 
     <!-- login activity -->
     <color name="login_background">#F4F5F6</color>
@@ -16,6 +19,8 @@
 
     <!-- button bar -->
     <color name="button_bar_border">#E2E3E4</color>
+    <color name="button_bar_text_default">#999999</color>
+    <color name="button_bar_text_active">#0095E6</color>
 
     <!-- item repair -->
     <color name="item_expand_repair_title">#0095E6</color>
@@ -28,5 +33,8 @@
 
     <!-- repair activity -->
     <color name="repair_new">#686868</color>
+
+    <!-- repair detail activity -->
+    <color name="repair_detail_title">#999999</color>
 
 </resources>

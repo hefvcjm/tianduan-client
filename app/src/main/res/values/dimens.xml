@@ -23,8 +23,8 @@
     <dimen name="repair_expand_status_icon_size">30dp</dimen>
     <dimen name="repair_expand_status_text_size">23sp</dimen>
     <dimen name="repair_expand_description_text_size">15sp</dimen>
-    <dimen name="repair_expand_repair_engineer_picture">30dp</dimen>
-    <dimen name="repair_expand_contract_engineer_button_text_size">13sp</dimen>
+    <dimen name="repair_expand_repair_engineer_picture">40dp</dimen>
+    <dimen name="repair_expand_contract_engineer_button_text_size">14sp</dimen>
     <dimen name="repair_expand_contract_engineer_button_width">60dp</dimen>
     <dimen name="repair_expand_contract_engineer_button_height">30dp</dimen>
     <dimen name="repair_expand_completed_button_height">35dp</dimen>
