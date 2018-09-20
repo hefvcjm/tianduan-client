@@ -7,49 +7,59 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/general_margin"
-        android:background="@color/white"
-        android:gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical">
 
-        <ImageButton
-            android:layout_width="@dimen/repair_new_button_size"
-            android:layout_height="@dimen/repair_new_button_size"
-            android:layout_marginBottom="@dimen/general_medium_margin"
-            android:layout_marginTop="@dimen/general_margin"
-            android:src="@mipmap/ic_launcher" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/general_margin"
-            android:text="@string/repair_new"
-            android:textColor="@color/repair_new"
-            android:textSize="@dimen/repair_new_size" />
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/ib_new_repair"
+                android:layout_width="@dimen/repair_new_button_size"
+                android:layout_height="@dimen/repair_new_button_size"
+                android:layout_marginBottom="@dimen/general_medium_margin"
+                android:layout_marginTop="@dimen/general_margin"
+                android:background="@drawable/selector_new_repair"
+                android:scaleType="center"
+                android:src="@mipmap/ic_new_repair" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/general_margin"
+                android:text="@string/repair_new"
+                android:textColor="@color/repair_new"
+                android:textSize="@dimen/repair_new_size" />
+
+        </LinearLayout>
+
+        <ExpandableListView
+            android:id="@+id/expandable_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/general_small_margin"
+            android:layout_marginLeft="@dimen/general_margin"
+            android:layout_marginRight="@dimen/general_margin"
+            android:layout_weight="1"
+            android:visibility="visible">
+
+        </ExpandableListView>
+
+        <ImageView
+            android:id="@+id/iv_nothing"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_none"
+            android:visibility="gone" />
 
     </LinearLayout>
 
-    <ExpandableListView
-        android:id="@+id/expandable_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/general_small_margin"
-        android:layout_marginLeft="@dimen/general_margin"
-        android:layout_marginRight="@dimen/general_margin"
-        android:layout_weight="1"
-        android:visibility="visible">
-
-    </ExpandableListView>
-
-    <ImageView
-        android:id="@+id/iv_nothing"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:src="@mipmap/ic_none"
-        android:visibility="gone" />
-
-    <include layout="@layout/layout_button_bar" />
 
 </LinearLayout>

@@ -31,7 +31,7 @@
     <dimen name="repair_expand_completed_text_size">15sp</dimen>
 
     <!-- repair activity -->
-    <dimen name="repair_new_button_size">60dp</dimen>
+    <dimen name="repair_new_button_size">80dp</dimen>
     <dimen name="repair_new_size">15sp</dimen>
 
     <!-- me activity -->

@@ -1,6 +1,7 @@
 package com.tiamuan.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -50,30 +51,32 @@ public class LoginActivity extends Activity {
         bn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                phone = et_phone.getText().toString();
-                password = et_password.getText().toString();
-                StringRequest stringRequest = new StringRequest(Request.Method.POST
-                        , "http://192.168.2.224:8080/tianduan/user/login"
-                        , new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        tv_log.setText(response);
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        tv_log.setText("error");
-                    }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<>();
-                        params.put("phone", et_phone.getText().toString());
-                        params.put("password", et_password.getText().toString());
-                        return params;
-                    }
-                };
-                queue.add(stringRequest);
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                finish();
+//                phone = et_phone.getText().toString();
+//                password = et_password.getText().toString();
+//                StringRequest stringRequest = new StringRequest(Request.Method.POST
+//                        , "http://192.168.2.224:8080/tianduan/user/login"
+//                        , new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        tv_log.setText(response);
+//                    }
+//                }, new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        tv_log.setText("error");
+//                    }
+//                }) {
+//                    @Override
+//                    protected Map<String, String> getParams() throws AuthFailureError {
+//                        Map<String, String> params = new HashMap<>();
+//                        params.put("phone", et_phone.getText().toString());
+//                        params.put("password", et_password.getText().toString());
+//                        return params;
+//                    }
+//                };
+//                queue.add(stringRequest);
             }
         });
     }

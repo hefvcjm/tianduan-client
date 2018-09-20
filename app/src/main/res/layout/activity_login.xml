@@ -77,7 +77,4 @@
 
     </LinearLayout>
 
-
-    <include layout="@layout/layout_button_bar" />
-
 </LinearLayout>
