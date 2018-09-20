@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.tiamuan.activities.RepairDetailActivity"
+            android:name="com.tiamuan.activities.RepairActivity"
             android:hardwareAccelerated="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MeActivity" />
+        <activity android:name=".MessageActivity" />
     </application>
 
 </manifest>

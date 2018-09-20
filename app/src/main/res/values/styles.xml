@@ -57,4 +57,16 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="me_ll_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingBottom">@dimen/general_small_margin</item>
+        <item name="android:paddingLeft">@dimen/general_medium_margin</item>
+        <item name="android:paddingRight">@dimen/general_medium_margin</item>
+        <item name="android:paddingTop">@dimen/general_small_margin</item>
+    </style>
+
 </resources>

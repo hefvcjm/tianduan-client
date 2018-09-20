@@ -11,9 +11,11 @@
         android:background="@color/button_bar_border" />
 
     <LinearLayout
+        android:id="@+id/ll_bar_message"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:clickable="true"
         android:orientation="horizontal">
 
 
@@ -42,14 +44,16 @@
 
 
         <LinearLayout
+            android:id="@+id/ll_bar_repair"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:clickable="true"
             android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/iv_bar_role"
+                android:id="@+id/iv_bar_repair"
                 android:layout_width="@dimen/bar_image_size"
                 android:layout_height="@dimen/bar_image_size"
                 android:src="@mipmap/ic_repair_default" />
@@ -66,9 +70,11 @@
 
 
         <LinearLayout
+            android:id="@+id/ll_bar_me"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:clickable="true"
             android:gravity="center"
             android:orientation="vertical">
 

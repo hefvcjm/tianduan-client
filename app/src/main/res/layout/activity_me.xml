@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/me_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/me_background"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_me_user"
+            style="@style/me_ll_item">
+
+            <TextView
+                android:id="@+id/tv_me_user"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="李白小哥哥" />
+
+            <ImageView
+                android:id="@+id/iv_head_portrait"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_head_portrait" />
+
+            <ImageView
+                android:layout_width="@dimen/me_unfolded_icon_size"
+                android:layout_height="@dimen/me_unfolded_icon_size"
+                android:layout_marginLeft="@dimen/general_small_margin"
+                android:scaleType="fitEnd"
+                android:src="@mipmap/ic_back" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_me_emall"
+            style="@style/me_ll_item"
+            android:layout_marginBottom="@dimen/general_medium_margin"
+            android:layout_marginTop="@dimen/general_medium_margin">
+
+            <ImageView
+                android:layout_width="@dimen/me_item_icon_size"
+                android:layout_height="@dimen/me_item_icon_size"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_emall" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/general_small_margin"
+                android:layout_weight="1"
+                android:text="@string/me_emall"
+                android:textColor="@color/me_item"
+                android:textSize="@dimen/me_item_text_size" />
+
+            <ImageView
+                android:layout_width="@dimen/me_unfolded_icon_size"
+                android:layout_height="@dimen/me_unfolded_icon_size"
+                android:layout_marginLeft="@dimen/general_small_margin"
+                android:scaleType="fitEnd"
+                android:src="@mipmap/ic_back" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_me_devices"
+            style="@style/me_ll_item">
+
+            <ImageView
+                android:layout_width="@dimen/me_item_icon_size"
+                android:layout_height="@dimen/me_item_icon_size"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_my_devices" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/general_small_margin"
+                android:layout_weight="1"
+                android:text="@string/me_devices"
+                android:textColor="@color/me_item"
+                android:textSize="@dimen/me_item_text_size" />
+
+            <ImageView
+                android:layout_width="@dimen/me_unfolded_icon_size"
+                android:layout_height="@dimen/me_unfolded_icon_size"
+                android:layout_marginLeft="@dimen/general_small_margin"
+                android:scaleType="fitEnd"
+                android:src="@mipmap/ic_back" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_me_repairs"
+            style="@style/me_ll_item">
+
+            <ImageView
+                android:layout_width="@dimen/me_item_icon_size"
+                android:layout_height="@dimen/me_item_icon_size"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_my_repairs" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/general_small_margin"
+                android:layout_weight="1"
+                android:text="@string/me_repairs"
+                android:textColor="@color/me_item"
+                android:textSize="@dimen/me_item_text_size" />
+
+            <ImageView
+                android:layout_width="@dimen/me_unfolded_icon_size"
+                android:layout_height="@dimen/me_unfolded_icon_size"
+                android:layout_marginLeft="@dimen/general_small_margin"
+                android:scaleType="fitEnd"
+                android:src="@mipmap/ic_back" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_me_setting"
+            style="@style/me_ll_item">
+
+            <ImageView
+                android:layout_width="@dimen/me_item_icon_size"
+                android:layout_height="@dimen/me_item_icon_size"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_my_setting" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/general_small_margin"
+                android:layout_weight="1"
+                android:text="@string/me_setting"
+                android:textColor="@color/me_item"
+                android:textSize="@dimen/me_item_text_size" />
+
+            <ImageView
+                android:layout_width="@dimen/me_unfolded_icon_size"
+                android:layout_height="@dimen/me_unfolded_icon_size"
+                android:layout_marginLeft="@dimen/general_small_margin"
+                android:scaleType="fitEnd"
+                android:src="@mipmap/ic_back" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_me_contract"
+            style="@style/me_ll_item">
+
+            <ImageView
+                android:layout_width="@dimen/me_item_icon_size"
+                android:layout_height="@dimen/me_item_icon_size"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_contract_service" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/general_small_margin"
+                android:layout_weight="1"
+                android:text="@string/me_contract_service"
+                android:textColor="@color/me_item"
+                android:textSize="@dimen/me_item_text_size" />
+
+            <ImageView
+                android:layout_width="@dimen/me_unfolded_icon_size"
+                android:layout_height="@dimen/me_unfolded_icon_size"
+                android:layout_marginLeft="@dimen/general_small_margin"
+                android:scaleType="fitEnd"
+                android:src="@mipmap/ic_back" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_button_bar" />
+
+</LinearLayout>

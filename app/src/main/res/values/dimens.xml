@@ -34,4 +34,12 @@
     <dimen name="repair_new_button_size">60dp</dimen>
     <dimen name="repair_new_size">15sp</dimen>
 
+    <!-- me activity -->
+    <dimen name="me_user_text_size">20sp</dimen>
+    <dimen name="me_icon_size">62dp</dimen>
+    <dimen name="me_item_text_size">16sp</dimen>
+    <dimen name="me_item_icon_size">22dp</dimen>
+    <dimen name="me_unfolded_icon_size">15dp</dimen>
+
+
 </resources>

@@ -37,4 +37,9 @@
     <!-- repair detail activity -->
     <color name="repair_detail_title">#999999</color>
 
+    <!-- me activity -->
+    <color name="me_user">#323232</color>
+    <color name="me_item">#323232</color>
+    <color name="me_background">#f4f5f6</color>
+
 </resources>

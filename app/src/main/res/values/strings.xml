@@ -54,4 +54,12 @@
     <string name="repair_detail_fault_part">故障部位:</string>
     <string name="repair_detail_question_description">问题描述:</string>
 
+    <!-- me activity -->
+    <string name="me_emall">商城</string>
+    <string name="me_devices">我的设备</string>
+    <string name="me_repairs">我的报修</string>
+    <string name="me_setting">设置</string>
+    <string name="me_contract_service">联系我们</string>
+    
+
 </resources>
