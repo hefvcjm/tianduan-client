@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bar_height"
+    android:layout_gravity="top"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_bar_message"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/top_bar_left_side_size"
+            android:layout_height="@dimen/top_bar_left_side_size"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/general_margin"
+            android:scaleType="fitStart"
+            android:src="@mipmap/ic_back" />
+
+        <TextView
+            android:id="@+id/tv_top_bar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="这是标题"
+            android:textColor="@color/top_bar_title"
+            android:textSize="@dimen/top_bar_title_text_size" />
+
+        <TextView
+            android:id="@+id/tv_top_bar_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/general_margin"
+            android:clickable="true"
+            android:text="选项"
+            android:textColor="@color/selector_contract_customer_service"
+            android:textSize="@dimen/top_bar_left_side_size" />
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/button_bar_border" />
+
+</LinearLayout>

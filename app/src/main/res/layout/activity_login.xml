@@ -71,8 +71,10 @@
         <TextView
             android:id="@+id/tv_log"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="5"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fadeScrollbars="true"
+            android:gravity="left"
             android:scrollbars="vertical" />
 
     </LinearLayout>

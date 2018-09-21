@@ -15,6 +15,7 @@ public class HttpUtil {
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static Context mCtx;
+    private String session;
 
     private HttpUtil(Context context) {
         mCtx = context;
@@ -61,4 +62,11 @@ public class HttpUtil {
         return mImageLoader;
     }
 
+    public String getSession() {
+        return session;
+    }
+
+    public void setSession(String session) {
+        this.session = session;
+    }
 }

@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/item_detail_background"
+    android:paddingLeft="@dimen/general_large_margin"
+    android:paddingRight="@dimen/general_large_margin"
     android:orientation="vertical">
 
     <include layout="@layout/item_expand_component_status_bar" />
@@ -16,8 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/repair_expand_completed_button_height"
         android:layout_marginBottom="@dimen/general_margin"
-        android:layout_marginLeft="@dimen/general_xlarge_margin"
-        android:layout_marginRight="@dimen/general_xlarge_margin"
         android:background="@drawable/selector_login_button"
         android:text="@string/item_detail_repair_completed"
         android:textSize="@dimen/repair_expand_completed_text_size" />

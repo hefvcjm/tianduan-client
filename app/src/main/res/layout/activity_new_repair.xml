@@ -6,6 +6,8 @@
     android:background="#f4f5f6"
     android:orientation="vertical">
 
+    <include layout="@layout/layout_top_bar" />
+
     <ScrollView
         android:id="@+id/sv_new_repair"
         android:layout_width="match_parent"

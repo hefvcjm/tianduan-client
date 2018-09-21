@@ -1,6 +1,5 @@
 package com.tiamuan.activities;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.tiamuan.adapters.Constant;
 import com.tiamuan.adapters.NormalExpandableListAdapter;
@@ -26,6 +25,9 @@ public class RepairFragment extends Fragment {
     private NormalExpandableListAdapter adapter;
     private ImageButton ib_new_repair;
 
+    private TextView tv_top_bar_title;
+    private TextView tv_top_bar_right;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,11 @@ public class RepairFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_repair, container, false);
+        View view = inflater.inflate(R.layout.fragment_repair, container, false);
+        tv_top_bar_title = view.findViewById(R.id.tv_top_bar_title);
+        tv_top_bar_right = view.findViewById(R.id.tv_top_bar_right);
+        tv_top_bar_title.setText("报修");
+        tv_top_bar_right.setText("建议与投诉");
         adapter = new NormalExpandableListAdapter(Constant.BOOKS, Constant.FIGURES);
         mExpandableListView = view.findViewById(R.id.expandable_list);
         mExpandableListView.setAdapter(adapter);
@@ -68,6 +74,12 @@ public class RepairFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), NewRepairActivity.class));
+            }
+        });
+        tv_top_bar_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), SuggestArgueActivity.class));
             }
         });
         return view;

@@ -21,8 +21,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="@dimen/me_user_text_size"
-                android:text="李白小哥哥" />
+                android:text="李白小哥哥"
+                android:textSize="@dimen/me_user_text_size" />
 
             <ImageView
                 android:id="@+id/iv_head_portrait"
@@ -35,7 +35,7 @@
                 android:layout_height="@dimen/me_unfolded_icon_size"
                 android:layout_marginLeft="@dimen/general_small_margin"
                 android:scaleType="fitEnd"
-                android:src="@mipmap/ic_back" />
+                android:src="@mipmap/ic_unfolded" />
 
         </LinearLayout>
 
@@ -65,7 +65,7 @@
                 android:layout_height="@dimen/me_unfolded_icon_size"
                 android:layout_marginLeft="@dimen/general_small_margin"
                 android:scaleType="fitEnd"
-                android:src="@mipmap/ic_back" />
+                android:src="@mipmap/ic_unfolded" />
 
         </LinearLayout>
 
@@ -93,7 +93,7 @@
                 android:layout_height="@dimen/me_unfolded_icon_size"
                 android:layout_marginLeft="@dimen/general_small_margin"
                 android:scaleType="fitEnd"
-                android:src="@mipmap/ic_back" />
+                android:src="@mipmap/ic_unfolded" />
 
         </LinearLayout>
 
@@ -121,7 +121,7 @@
                 android:layout_height="@dimen/me_unfolded_icon_size"
                 android:layout_marginLeft="@dimen/general_small_margin"
                 android:scaleType="fitEnd"
-                android:src="@mipmap/ic_back" />
+                android:src="@mipmap/ic_unfolded" />
 
         </LinearLayout>
 
@@ -149,7 +149,7 @@
                 android:layout_height="@dimen/me_unfolded_icon_size"
                 android:layout_marginLeft="@dimen/general_small_margin"
                 android:scaleType="fitEnd"
-                android:src="@mipmap/ic_back" />
+                android:src="@mipmap/ic_unfolded" />
 
         </LinearLayout>
 
@@ -177,7 +177,7 @@
                 android:layout_height="@dimen/me_unfolded_icon_size"
                 android:layout_marginLeft="@dimen/general_small_margin"
                 android:scaleType="fitEnd"
-                android:src="@mipmap/ic_back" />
+                android:src="@mipmap/ic_unfolded" />
 
         </LinearLayout>
 

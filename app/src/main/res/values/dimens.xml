@@ -42,4 +42,10 @@
     <dimen name="me_unfolded_icon_size">15dp</dimen>
 
 
+    <!-- top bar -->
+    <dimen name="top_bar_title_text_size">18sp</dimen>
+    <dimen name="top_bar_right_side_text_size">14sp</dimen>
+    <dimen name="top_bar_left_side_size">16dp</dimen>
+
+
 </resources>

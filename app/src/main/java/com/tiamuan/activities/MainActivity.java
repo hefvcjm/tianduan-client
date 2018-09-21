@@ -12,9 +12,25 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.tiamuan.MyApplication;
+import com.tiamuan.model.User;
+import com.tiamuan.net.MyHttpRequest;
+import com.tiamuan.util.HttpUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -76,6 +92,21 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
             }
         }
+
+        MyHttpRequest stringRequest = new MyHttpRequest(Request.Method.GET
+                , "http://192.168.2.224:8080/tianduan/repair/queryall"
+                , new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("hefvcjm-1", response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("hefvcjm-1", "error");
+            }
+        });
+        MyApplication.newInstance().getRequestQueue().add(stringRequest);
 
     }
 

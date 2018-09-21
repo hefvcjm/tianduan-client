@@ -24,6 +24,8 @@ public class NormalExpandableListAdapter extends BaseExpandableListAdapter {
         this.childData = childData;
     }
 
+
+
     public void setOnGroupExpandedListener(OnGroupExpandedListener onGroupExpandedListener) {
         mOnGroupExpandedListener = onGroupExpandedListener;
     }

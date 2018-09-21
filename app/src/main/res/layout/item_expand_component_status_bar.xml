@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/general_margin"
-    android:layout_marginLeft="@dimen/general_xlarge_margin"
-    android:layout_marginRight="@dimen/general_xlarge_margin"
     android:layout_marginTop="@dimen/general_margin">
 
     <!--<ImageView-->
