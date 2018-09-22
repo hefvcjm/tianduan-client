@@ -2,7 +2,6 @@ package com.tiamuan.model;
 
 import com.tiamuan.annotation.Column;
 
-import java.io.Serializable;
 import java.util.Set;
 
 public class Repair extends Model {
@@ -26,7 +25,7 @@ public class Repair extends Model {
     @Column
     private String videos;
     @Column
-    private Set<RepairStatus> statuses;
+    private Set<Status> statuses;
 
     public Repair() {
 
@@ -104,11 +103,11 @@ public class Repair extends Model {
         this.videos = videos;
     }
 
-    public Set<RepairStatus> getStatuses() {
+    public Set<Status> getStatuses() {
         return statuses;
     }
 
-    public void setStatuses(Set<RepairStatus> statuses) {
+    public void setStatuses(Set<Status> statuses) {
         this.statuses = statuses;
     }
 }

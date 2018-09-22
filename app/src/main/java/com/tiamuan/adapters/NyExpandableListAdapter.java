@@ -4,9 +4,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 
-public class NyEcpandableListAdapter extends BaseExpandableListAdapter {
+import com.tiamuan.model.Maintain;
 
+import java.util.List;
 
+public class NyExpandableListAdapter extends BaseExpandableListAdapter {
+
+    List<Maintain> item;
+    
 
     @Override
     public int getGroupCount() {
