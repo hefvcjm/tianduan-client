@@ -15,6 +15,8 @@ public class MyApplication extends Application {
     private static final String COOKIE_KEY = "Cookie";
     private static final String SESSION_COOKIE = "JSESSIONID";
 
+    private static final String BASE_URL = "http://192.168.43.253:8080/tianduan";
+
     private static MyApplication instance;
     private RequestQueue requestQueue;
     private SharedPreferences preferences;
@@ -72,6 +74,10 @@ public class MyApplication extends Application {
             }
             requestHeaders.put(COOKIE_KEY, builder.toString());
         }
+    }
+
+    public static String buildURL(String uri) {
+        return BASE_URL + uri;
     }
 }
 

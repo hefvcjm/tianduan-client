@@ -93,20 +93,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         }
 
-        MyHttpRequest stringRequest = new MyHttpRequest(Request.Method.GET
-                , "http://192.168.2.224:8080/tianduan/repair/queryall"
-                , new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("hefvcjm-1", response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("hefvcjm-1", "error");
-            }
-        });
-        MyApplication.newInstance().getRequestQueue().add(stringRequest);
+//        MyHttpRequest stringRequest = new MyHttpRequest(Request.Method.GET
+//                , "http://192.168.2.224:8080/tianduan/repair/queryall"
+//                , new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                Log.d("hefvcjm-1", response);
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.d("hefvcjm-1", "error");
+//            }
+//        });
+//        MyApplication.newInstance().getRequestQueue().add(stringRequest);
 
     }
 

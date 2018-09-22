@@ -1,11 +1,16 @@
 package com.tiamuan.model;
 
+import com.tiamuan.annotation.Column;
+
 import java.util.Set;
 
 public class Maintain extends Model {
 
+    @Column
     private Repair repair;
+    @Column
     private Set<Engineer> engineers;
+    @Column
     private Set<Status> statuses;
 
     public Maintain() {

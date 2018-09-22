@@ -11,9 +11,24 @@ import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.tiamuan.MyApplication;
 import com.tiamuan.adapters.Constant;
+import com.tiamuan.adapters.MyExpandableListAdapter;
 import com.tiamuan.adapters.NormalExpandableListAdapter;
 import com.tiamuan.adapters.OnGroupExpandedListener;
+import com.tiamuan.model.Maintain;
+import com.tiamuan.net.MyHttpRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -22,7 +37,7 @@ import com.tiamuan.adapters.OnGroupExpandedListener;
 public class RepairFragment extends Fragment {
     private static final String TAG = "RepairFragment";
     private ExpandableListView mExpandableListView;
-    private NormalExpandableListAdapter adapter;
+    private MyExpandableListAdapter adapter;
     private ImageButton ib_new_repair;
 
     private TextView tv_top_bar_title;
@@ -41,15 +56,52 @@ public class RepairFragment extends Fragment {
         tv_top_bar_right = view.findViewById(R.id.tv_top_bar_right);
         tv_top_bar_title.setText("报修");
         tv_top_bar_right.setText("建议与投诉");
-        adapter = new NormalExpandableListAdapter(Constant.BOOKS, Constant.FIGURES);
         mExpandableListView = view.findViewById(R.id.expandable_list);
-        mExpandableListView.setAdapter(adapter);
-        adapter.setOnGroupExpandedListener(new OnGroupExpandedListener() {
+
+        MyHttpRequest stringRequest = new MyHttpRequest(Request.Method.GET
+                , MyApplication.buildURL("/repair/queryall")
+                , new Response.Listener<String>() {
             @Override
-            public void onGroupExpanded(int groupPosition) {
-                expandOnlyOne(groupPosition);
+            public void onResponse(String response) {
+                Log.d("hefvcjm-1", response);
+                try {
+                    JSONObject json = new JSONObject(response);
+                    JSONArray arrays = new JSONArray(json.getString("data"));
+                    List<Maintain> maintains = new ArrayList<>();
+                    int len = arrays.length();
+                    for (int i = 0; i < len; i++) {
+                        Maintain item = new Gson().fromJson(arrays.getString(i), Maintain.class);
+                        if (item != null) {
+                            maintains.add(item);
+                        }
+                    }
+                    Log.d(TAG, maintains.size() + "");
+                    adapter = new MyExpandableListAdapter(maintains);
+                    mExpandableListView.setAdapter(adapter);
+                    adapter.setOnGroupExpandedListener(new OnGroupExpandedListener() {
+                        @Override
+                        public void onGroupExpanded(int groupPosition) {
+                            expandOnlyOne(groupPosition);
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("hefvcjm-1", "error");
             }
         });
+        MyApplication.newInstance().getRequestQueue().add(stringRequest);
+
+//        adapter.setOnGroupExpandedListener(new OnGroupExpandedListener() {
+//            @Override
+//            public void onGroupExpanded(int groupPosition) {
+//                expandOnlyOne(groupPosition);
+//            }
+//        });
 
         //  设置分组项的点击监听事件
         mExpandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {

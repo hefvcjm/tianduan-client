@@ -65,7 +65,7 @@ public class LoginActivity extends Activity {
                 password = et_password.getText().toString();
 
                 MyHttpRequest stringRequest = new MyHttpRequest(Request.Method.POST
-                        , LOGIN_URL
+                        , MyApplication.buildURL("/user/login")
                         , new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
