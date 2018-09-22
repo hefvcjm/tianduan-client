@@ -21,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/general_small_margin"
+            android:maxLines="1"
             android:text="报修部件内容标题"
             android:textColor="@color/item_expand_repair_normal"
             android:textSize="@dimen/repair_expand_title"
@@ -30,6 +31,7 @@
             android:id="@+id/tv_item_repair_ticket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:text="清单号：1234567"
             android:textColor="@color/item_expand_repair_gray"
             android:textSize="@dimen/repair_expand_ticket" />
@@ -47,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/general_small_margin"
             android:gravity="right"
+            android:maxLines="1"
             android:text="进行中"
             android:textColor="@color/item_expand_repair_title"
             android:textSize="@dimen/repair_expand_status"
@@ -57,6 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
+            android:maxLines="1"
             android:text="2018/08/08"
             android:textColor="@color/item_expand_repair_gray"
             android:textSize="@dimen/repair_expand_time" />
