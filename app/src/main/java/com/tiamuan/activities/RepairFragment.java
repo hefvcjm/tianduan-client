@@ -27,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,31 +44,38 @@ public class RepairFragment extends Fragment {
     private TextView tv_top_bar_title;
     private TextView tv_top_bar_right;
 
+    List<Maintain> maintains;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView");
         View view = inflater.inflate(R.layout.fragment_repair, container, false);
         tv_top_bar_title = view.findViewById(R.id.tv_top_bar_title);
         tv_top_bar_right = view.findViewById(R.id.tv_top_bar_right);
         tv_top_bar_title.setText("报修");
         tv_top_bar_right.setText("建议与投诉");
+//        if (mExpandableListView == null) {
+        Log.d(TAG, "find mExpandableListView");
         mExpandableListView = view.findViewById(R.id.expandable_list);
+//        }
 
         MyHttpRequest stringRequest = new MyHttpRequest(Request.Method.GET
                 , MyApplication.buildURL("/repair/queryall")
                 , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("hefvcjm-1", response);
+                Log.d(TAG, response);
                 try {
                     JSONObject json = new JSONObject(response);
                     JSONArray arrays = new JSONArray(json.getString("data"));
-                    List<Maintain> maintains = new ArrayList<>();
+                    maintains = new ArrayList<>();
                     int len = arrays.length();
                     for (int i = 0; i < len; i++) {
                         Maintain item = new Maintain(arrays.get(i).toString());
@@ -76,14 +84,15 @@ public class RepairFragment extends Fragment {
                         }
                     }
                     Log.d(TAG, maintains.size() + "");
+                    Log.d(TAG, "new adapter");
                     adapter = new MyExpandableListAdapter(maintains);
                     mExpandableListView.setAdapter(adapter);
-                    adapter.setOnGroupExpandedListener(new OnGroupExpandedListener() {
-                        @Override
-                        public void onGroupExpanded(int groupPosition) {
-                            expandOnlyOne(groupPosition);
-                        }
-                    });
+//                        adapter.setOnGroupExpandedListener(new OnGroupExpandedListener() {
+//                            @Override
+//                            public void onGroupExpanded(int groupPosition) {
+//                                expandOnlyOne(groupPosition);
+//                            }
+//                        });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -91,7 +100,7 @@ public class RepairFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("hefvcjm-1", "error");
+                Log.d(TAG, "error");
             }
         });
         MyApplication.newInstance().getRequestQueue().add(stringRequest);
@@ -118,6 +127,13 @@ public class RepairFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 //                Toast.makeText(RepairFragment.this, Constant.FIGURES[groupPosition][childPosition], Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onChildClick: groupPosition:" + groupPosition + ", id:" + id);
+                if (maintains != null) {
+                    Intent intent = new Intent(getActivity(), RepairDetailActivity.class);
+                    Log.d(TAG, maintains.get(groupPosition).toJson().toString());
+                    intent.putExtra("data", maintains.toString());
+                    startActivity(intent);
+                }
                 return true;
             }
         });
@@ -140,39 +156,44 @@ public class RepairFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final NormalExpandableListAdapter adapter = new NormalExpandableListAdapter(Constant.BOOKS, Constant.FIGURES);
-        mExpandableListView = ((MainActivity) getActivity()).findViewById(R.id.expandable_list);
-        mExpandableListView.setAdapter(adapter);
-        adapter.setOnGroupExpandedListener(new OnGroupExpandedListener() {
-            @Override
-            public void onGroupExpanded(int groupPosition) {
-                expandOnlyOne(groupPosition);
-            }
-        });
-
-        //  设置分组项的点击监听事件
-        mExpandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                Log.d(TAG, "onGroupClick: groupPosition:" + groupPosition + ", id:" + id);
-                // 请务必返回 false，否则分组不会展开
-                return false;
-            }
-        });
-
-        //  设置子选项点击监听事件
-        mExpandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//                Toast.makeText(RepairFragment.this, Constant.FIGURES[groupPosition][childPosition], Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
+        Log.d(TAG, "onActivityCreated");
+//        final NormalExpandableListAdapter adapter = new NormalExpandableListAdapter(Constant.BOOKS, Constant.FIGURES);
+//        mExpandableListView = ((MainActivity) getActivity()).findViewById(R.id.expandable_list);
+//        mExpandableListView.setAdapter(adapter);
+//        adapter.setOnGroupExpandedListener(new OnGroupExpandedListener() {
+//            @Override
+//            public void onGroupExpanded(int groupPosition) {
+//                expandOnlyOne(groupPosition);
+//            }
+//        });
+//
+//        //  设置分组项的点击监听事件
+//        mExpandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+//            @Override
+//            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+//                Log.d(TAG, "onGroupClick: groupPosition:" + groupPosition + ", id:" + id);
+//                // 请务必返回 false，否则分组不会展开
+//                return false;
+//            }
+//        });
+//
+//        //  设置子选项点击监听事件
+//        mExpandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+//            @Override
+//            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+////                Toast.makeText(RepairFragment.this, Constant.FIGURES[groupPosition][childPosition], Toast.LENGTH_SHORT).show();
+//                return true;
+//            }
+//        });
     }
 
     @Override
     public void onResume() {
+        Log.d(TAG, "onResume");
         super.onResume();
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
     }
 
     // 每次展开一个分组后，关闭其他的分组

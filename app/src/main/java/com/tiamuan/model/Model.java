@@ -1,5 +1,7 @@
 package com.tiamuan.model;
 
+import android.util.Log;
+
 import com.tiamuan.annotation.Column;
 import com.tiamuan.annotation.ToStringIgnore;
 
@@ -15,14 +17,14 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class Model implements Serializable {
+
+    private static final String TAG = "Model";
 
     @Column
     protected Long id;
@@ -120,32 +122,80 @@ public class Model implements Serializable {
         this.objectId = objectId;
     }
 
-    @Override
-    public String toString() {
-        Map<String, Object> str = new HashMap<>();
+    private String toString(ToStringMethod toStringMethod) {
+        JSONObject str = new JSONObject();
         Class<? extends Model> clazz = this.getClass();
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
-            if (field.getAnnotation(Column.class) != null && field.getAnnotation(ToStringIgnore.class) == null) {
+            boolean condition = true;
+            try {
                 String fieldName = field.getName();
                 String funName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-                try {
-                    Method method = clazz.getMethod(funName);
-                    Object get = method.invoke(this);
+
+                Method method = clazz.getMethod(funName);
+                Object get = method.invoke(this);
+
+                if (toStringMethod == ToStringMethod.FULL) {
+                    condition = true;
+                } else if (toStringMethod == ToStringMethod.COLUMN) {
+                    condition = (field.getAnnotation(Column.class) != null && field.getAnnotation(ToStringIgnore.class) == null);
+                } else if (toStringMethod == ToStringMethod.NOT_NULL) {
+                    condition = !(get == null);
+                }
+                if (condition) {
                     if (get == null) {
                         get = "null";
                     }
                     str.put(fieldName, get);
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
                 }
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+                Log.d(TAG, field.getName());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
         return str.toString();
     }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        Class<? extends Model> clazz = this.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            try {
+                String fieldName = field.getName();
+                String funName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+                Method method = clazz.getMethod(funName);
+                Object get = method.invoke(this);
+                json.put(fieldName, get);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+                Log.d(TAG, field.getName());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return json;
+    }
+
+    @Override
+    public String toString() {
+        return toString(ToStringMethod.COLUMN);
+    }
+
+    public String toStringNotNullField() {
+        return toString(ToStringMethod.NOT_NULL);
+    }
+
+    private enum ToStringMethod {FULL, COLUMN, NOT_NULL}
 
 }

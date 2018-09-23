@@ -45,6 +45,7 @@
         android:background="@drawable/selector_login_button"
         android:text="@string/item_detail_contract_engineer"
         android:textColor="@color/white"
+        android:focusable="false"
         android:textSize="@dimen/repair_expand_contract_engineer_button_text_size" />
 
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tiamuan.MyApplication;
@@ -117,6 +118,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
             childViewHolder.tv_item_detail_engineer_name = convertView.findViewById(R.id.tv_item_detail_engineer_name);
             childViewHolder.bn_item_detail_engineer_contract = convertView.findViewById(R.id.bn_item_detail_engineer_contract);
+            childViewHolder.ll_expand_detail_engineer = convertView.findViewById(R.id.ll_expand_detail_engineer);
             //completed
             childViewHolder.bn_item_expand_repair_completed = convertView.findViewById(R.id.bn_item_expand_repair_completed);
             //contract service
@@ -146,12 +148,19 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             childViewHolder.tv_item_detail_status.setText("报修完成");
             childViewHolder.tv_item_detail_description.setText(map.get("报修完成"));
             //engineer
-            Engineer engineer = items.get(groupPosition).getEngineers().iterator().next();
-            if (engineer.getUser().getPicture()!=null){
-                //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+            Engineer engineer = null;
+            if (items.get(groupPosition).getEngineers() != null && items.get(groupPosition).getEngineers().iterator().hasNext()) {
+                engineer = items.get(groupPosition).getEngineers().iterator().next();
             }
-            //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
-            childViewHolder.tv_item_detail_engineer_name.setText(engineer.getUser().getName());
+            if (engineer != null) {
+                if (engineer.getUser().getPicture() != null) {
+                    //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+                }
+                //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+                childViewHolder.tv_item_detail_engineer_name.setText(engineer.getUser().getName());
+            } else {
+                childViewHolder.ll_expand_detail_engineer.setVisibility(View.GONE);
+            }
 
         } else if (keySet.contains("派单")) {
             //status bar
@@ -167,12 +176,19 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             childViewHolder.tv_item_detail_status.setText("派单");
             childViewHolder.tv_item_detail_description.setText(map.get("派单"));
             //engineer
-            Engineer engineer = items.get(groupPosition).getEngineers().iterator().next();
-            if (engineer.getUser().getPicture()!=null){
-                //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+            Engineer engineer = null;
+            if (items.get(groupPosition).getEngineers() != null && items.get(groupPosition).getEngineers().iterator().hasNext()) {
+                engineer = items.get(groupPosition).getEngineers().iterator().next();
             }
-            //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
-            childViewHolder.tv_item_detail_engineer_name.setText(engineer.getUser().getName());
+            if (engineer != null) {
+                if (engineer.getUser().getPicture() != null) {
+                    //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+                }
+                //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+                childViewHolder.tv_item_detail_engineer_name.setText(engineer.getUser().getName());
+            } else {
+                childViewHolder.ll_expand_detail_engineer.setVisibility(View.GONE);
+            }
         } else {
             //status bar
             childViewHolder.iv_expand_status_icon_1.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));
@@ -187,12 +203,19 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             childViewHolder.tv_item_detail_status.setText("派单");
             childViewHolder.tv_item_detail_description.setText(map.get("派单"));
             //engineer
-            Engineer engineer = items.get(groupPosition).getEngineers().iterator().next();
-            if (engineer.getUser().getPicture()!=null){
-                //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+            Engineer engineer = null;
+            if (items.get(groupPosition).getEngineers() != null && items.get(groupPosition).getEngineers().iterator().hasNext()) {
+                engineer = items.get(groupPosition).getEngineers().iterator().next();
             }
-            //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
-            childViewHolder.tv_item_detail_engineer_name.setText(engineer.getUser().getName());
+            if (engineer != null) {
+                if (engineer.getUser().getPicture() != null) {
+                    //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+                }
+                //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+                childViewHolder.tv_item_detail_engineer_name.setText(engineer.getUser().getName());
+            } else {
+                childViewHolder.ll_expand_detail_engineer.setVisibility(View.GONE);
+            }
         }
         return convertView;
     }
@@ -241,6 +264,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         ImageView iv_repair_expand_repair_engineer_picture;
         TextView tv_item_detail_engineer_name;
         Button bn_item_detail_engineer_contract;
+        LinearLayout ll_expand_detail_engineer;
 
         //completed
         Button bn_item_expand_repair_completed;

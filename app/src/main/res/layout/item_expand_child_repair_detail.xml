@@ -19,6 +19,7 @@
         android:layout_height="@dimen/repair_expand_completed_button_height"
         android:layout_marginBottom="@dimen/general_margin"
         android:background="@drawable/selector_login_button"
+        android:focusable="false"
         android:text="@string/item_detail_repair_completed"
         android:textSize="@dimen/repair_expand_completed_text_size" />
 

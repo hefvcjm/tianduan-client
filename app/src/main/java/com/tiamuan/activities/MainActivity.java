@@ -48,6 +48,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private TextView tv_bar_repair;
     private TextView tv_bar_me;
 
+    MessageFragment messageFragment;
+    RepairFragment repairFragment;
+    MeFragment meFragment;
+    FragmentManager manager;
+    FragmentTransaction transaction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +77,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         iv_bar_repair.setImageResource(R.mipmap.ic_repair_active);
         tv_bar_repair.setTextColor(getResources().getColor(R.color.button_bar_text_active));
+
+        messageFragment = new MessageFragment();
+        repairFragment = new RepairFragment();
+        meFragment = new MeFragment();
+        manager = getFragmentManager();
+//        transaction = manager.beginTransaction();
+//        transaction.add(R.id.page_fragment, messageFragment)
+//                .add(R.id.page_fragment, repairFragment)
+//                .add(R.id.page_fragment, meFragment)
+//                .hide(messageFragment)
+//                .hide(meFragment)
+//                .show(repairFragment)
+//                .commit();
 
         Field[] fields = getClass().getDeclaredFields();
         for (Field field : fields) {
@@ -113,11 +132,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        FragmentManager manager = getFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
+        transaction = manager.beginTransaction();
         switch (id) {
             case R.id.ll_bar_message:
-                MessageFragment messageFragment = new MessageFragment();
+//                transaction.show(messageFragment).hide(repairFragment).hide(meFragment);
                 transaction.replace(R.id.page_fragment, messageFragment);
                 transaction.commit();
                 iv_bar_message.setImageResource(R.mipmap.ic_message_active);
@@ -128,7 +146,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 tv_bar_repair.setTextColor(getResources().getColor(R.color.button_bar_text_default));
                 break;
             case R.id.ll_bar_repair:
-                RepairFragment repairFragment = new RepairFragment();
+//                transaction.hide(messageFragment).show(repairFragment).hide(meFragment);
                 transaction.replace(R.id.page_fragment, repairFragment);
                 transaction.commit();
                 iv_bar_repair.setImageResource(R.mipmap.ic_repair_active);
@@ -139,7 +157,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 tv_bar_message.setTextColor(getResources().getColor(R.color.button_bar_text_default));
                 break;
             case R.id.ll_bar_me:
-                MeFragment meFragment = new MeFragment();
+//                transaction.hide(messageFragment).hide(repairFragment).show(meFragment);
                 transaction.replace(R.id.page_fragment, meFragment);
                 transaction.commit();
                 iv_bar_me.setImageResource(R.mipmap.ic_me_active);

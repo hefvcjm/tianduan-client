@@ -19,6 +19,7 @@ import com.tiamuan.adapters.OnGroupExpandedListener;
 import com.tiamuan.model.Maintain;
 import com.tiamuan.model.Repair;
 import com.tiamuan.net.MyHttpRequest;
+import com.tiamuan.net.MyJsonRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,65 +70,32 @@ public class NewRepairActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (!checkIsEmptyField()) {
-                    MyHttpRequest stringRequest = new MyHttpRequest(Request.Method.PUT
-                            , MyApplication.buildURL("/repair/new")
-                            , new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.d("hefvcjm-1", response);
-                            try {
-                                JSONObject json = new JSONObject(response);
-                                JSONArray arrays = new JSONArray(json.getString("data"));
-                                List<Maintain> maintains = new ArrayList<>();
-                                int len = arrays.length();
-                                for (int i = 0; i < len; i++) {
-                                    Maintain item = new Maintain(arrays.get(i).toString());
-                                    if (item != null) {
-                                        maintains.add(item);
-                                    }
-                                }
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                    Repair repair = new Repair();
+                    repair.setName(et_new_repair_name.getText().toString());
+                    repair.setCode(et_new_repair_code.getText().toString());
+                    repair.setDescription(et_new_repair_question_description.getText().toString());
+                    repair.setFaultpart(et_new_repair_fault_part.getText().toString());
+                    Log.d(TAG, repair.toStringNotNullField());
+                    MyJsonRequest jsonRequest = null;
+                    try {
+                        jsonRequest = new MyJsonRequest(Request.Method.PUT
+                                , MyApplication.buildURL("/repair/new")
+                                , new JSONObject(repair.toStringNotNullField())
+                                , new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d("hefvcjm-1", response.toString());
                             }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d("hefvcjm-1", "error");
-                        }
-                    }) {
-                        @Override
-                        public byte[] getBody() throws AuthFailureError {
-                            Repair repair = new Repair();
-                            repair.setName(et_new_repair_name.getText().toString());
-                            repair.setCode(et_new_repair_code.getText().toString());
-                            repair.setDescription(et_new_repair_question_description.getText().toString());
-                            repair.setFaultpart(et_new_repair_fault_part.getText().toString());
-                            try {
-                                JSONObject json = new JSONObject(repair.toString());
-                                Log.d(TAG, repair.toString());
-                                Iterator<String> keySet = json.keys();
-                                while (keySet.hasNext()) {
-                                    String key = keySet.next();
-                                    if (json.get(key) == JSONObject.NULL) {
-                                        json.remove(key);
-                                    }
-                                }
-                                return json.toString().getBytes();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            Log.d(TAG, repair.toString());
-                            return null;
-                        }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
 
-                        @Override
-                        public String getBodyContentType() {
-                            return "application/json; charset=utf-8";
-                        }
-                    };
-                    MyApplication.newInstance().getRequestQueue().add(stringRequest);
+                            }
+                        });
+                        MyApplication.newInstance().getRequestQueue().add(jsonRequest);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
