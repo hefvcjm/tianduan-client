@@ -23,7 +23,7 @@
         android:textSize="@dimen/repair_expand_completed_text_size" />
 
     <TextView
-        android:id="@+id/tv_change_login_way"
+        android:id="@+id/tv_item_expand_repair_contract_service"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

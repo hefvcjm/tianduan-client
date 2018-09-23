@@ -2,6 +2,8 @@ package com.tiamuan.model;
 
 import com.tiamuan.annotation.Column;
 
+import org.json.JSONException;
+
 import java.util.Set;
 
 public class Maintain extends Model {
@@ -16,9 +18,9 @@ public class Maintain extends Model {
     public Maintain() {
     }
 
-//    public Maintain(long id) {
-//        super(id);
-//    }
+    public Maintain(String json) throws JSONException {
+        super(json);
+    }
 
     public void addEngineer(Engineer engineer) {
         engineers.add(engineer);

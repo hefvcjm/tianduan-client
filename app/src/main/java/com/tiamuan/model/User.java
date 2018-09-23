@@ -2,6 +2,8 @@ package com.tiamuan.model;
 
 import com.tiamuan.annotation.Column;
 
+import org.json.JSONException;
+
 import java.util.Set;
 
 public class User extends Model {
@@ -34,6 +36,10 @@ public class User extends Model {
     private Set<Role> roles;
 
     public User() {
+    }
+
+    public User(String json) throws JSONException {
+        super(json);
     }
 
     public String getUsername() {

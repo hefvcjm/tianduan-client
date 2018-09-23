@@ -1,6 +1,7 @@
 package com.tiamuan;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -15,7 +16,7 @@ public class MyApplication extends Application {
     private static final String COOKIE_KEY = "Cookie";
     private static final String SESSION_COOKIE = "JSESSIONID";
 
-    private static final String BASE_URL = "http://192.168.43.253:8080/tianduan";
+    private static final String BASE_URL = "http://192.168.2.224:8080/tianduan";
 
     private static MyApplication instance;
     private RequestQueue requestQueue;

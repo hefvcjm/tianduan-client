@@ -1,5 +1,7 @@
 package com.tiamuan.model;
 
+import org.json.JSONException;
+
 import java.util.Set;
 
 public class Client extends Model {
@@ -9,6 +11,10 @@ public class Client extends Model {
     private Set<Repair> repairs;
 
     public Client() {
+    }
+
+    public Client(String json) throws JSONException {
+        super(json);
     }
 
     public User getUser() {

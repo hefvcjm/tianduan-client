@@ -70,7 +70,7 @@ public class RepairFragment extends Fragment {
                     List<Maintain> maintains = new ArrayList<>();
                     int len = arrays.length();
                     for (int i = 0; i < len; i++) {
-                        Maintain item = new Gson().fromJson(arrays.getString(i), Maintain.class);
+                        Maintain item = new Maintain(arrays.get(i).toString());
                         if (item != null) {
                             maintains.add(item);
                         }

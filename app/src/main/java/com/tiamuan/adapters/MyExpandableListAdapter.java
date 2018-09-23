@@ -5,12 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tiamuan.MyApplication;
 import com.tiamuan.activities.R;
+import com.tiamuan.model.Engineer;
 import com.tiamuan.model.Maintain;
+import com.tiamuan.model.Status;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -81,8 +90,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         }
         groupViewHolder.title.setText("这是标题");
         groupViewHolder.ticket.setText(items.get(groupPosition).getRepair().getTicket());
-        groupViewHolder.status.setText(items.get(groupPosition).getRepair().getStatuses().toString());
-        groupViewHolder.time.setText(items.get(groupPosition).getRepair().getTime());
+        groupViewHolder.status.setText(items.get(groupPosition).getRepair().getStatuses().iterator().next().getStatus());
+        groupViewHolder.time.setText(items.get(groupPosition).getRepair().getTime().split(" ")[0].replace("-", "/"));
         return convertView;
     }
 
@@ -91,13 +100,100 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         ChildViewHolder childViewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_expand_child_repair_detail, parent, false);
-//            childViewHolder = new ChildViewHolder();
-//            childViewHolder.tvTitle = (TextView) convertView.findViewById(R.id.label_expand_child);
-//            convertView.setTag(childViewHolder);
+            childViewHolder = new ChildViewHolder();
+            //status bar
+            childViewHolder.iv_expand_status_icon_1 = convertView.findViewById(R.id.iv_expand_status_icon_1);
+            childViewHolder.iv_expand_status_icon_2 = convertView.findViewById(R.id.iv_expand_status_icon_2);
+            childViewHolder.iv_expand_status_icon_3 = convertView.findViewById(R.id.iv_expand_status_icon_3);
+            childViewHolder.tv_expand_status_1 = convertView.findViewById(R.id.tv_expand_status_1);
+            childViewHolder.tv_expand_status_2 = convertView.findViewById(R.id.tv_expand_status_2);
+            childViewHolder.tv_expand_status_3 = convertView.findViewById(R.id.tv_expand_status_3);
+            childViewHolder.iv_expand_status_1_to_2 = convertView.findViewById(R.id.iv_expand_status_1_to_2);
+            childViewHolder.iv_expand_status_2_to_3 = convertView.findViewById(R.id.iv_expand_status_2_to_3);
+            //status description
+            childViewHolder.tv_item_detail_status = convertView.findViewById(R.id.tv_item_detail_status);
+            childViewHolder.tv_item_detail_description = convertView.findViewById(R.id.tv_item_detail_description);
+            //engineer
+            childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+            childViewHolder.tv_item_detail_engineer_name = convertView.findViewById(R.id.tv_item_detail_engineer_name);
+            childViewHolder.bn_item_detail_engineer_contract = convertView.findViewById(R.id.bn_item_detail_engineer_contract);
+            //completed
+            childViewHolder.bn_item_expand_repair_completed = convertView.findViewById(R.id.bn_item_expand_repair_completed);
+            //contract service
+            childViewHolder.tv_item_expand_repair_contract_service = convertView.findViewById(R.id.tv_item_expand_repair_contract_service);
+            convertView.setTag(childViewHolder);
         } else {
-//            childViewHolder = (ChildViewHolder) convertView.getTag();
+            childViewHolder = (ChildViewHolder) convertView.getTag();
         }
-//        childViewHolder.tvTitle.setText(childData[groupPosition][childPosition]);
+        Iterator<Status> statusIterator = items.get(groupPosition).getRepair().getStatuses().iterator();
+        Map<String, String> map = new HashMap<>();
+        while (statusIterator.hasNext()) {
+            Status status = statusIterator.next();
+            map.put(status.getStatus(), status.getTime());
+        }
+        Set<String> keySet = map.keySet();
+        if (keySet.contains("报修完成")) {
+            //status bar
+            childViewHolder.iv_expand_status_icon_1.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));
+            childViewHolder.iv_expand_status_icon_2.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));
+            childViewHolder.iv_expand_status_icon_3.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));
+            childViewHolder.tv_expand_status_1.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.gray));
+            childViewHolder.tv_expand_status_2.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.gray));
+            childViewHolder.tv_expand_status_3.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.dark));
+            childViewHolder.iv_expand_status_1_to_2.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.drawable.solid_line));
+            childViewHolder.iv_expand_status_2_to_3.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.drawable.solid_line));
+            //status description
+            childViewHolder.tv_item_detail_status.setText("报修完成");
+            childViewHolder.tv_item_detail_description.setText(map.get("报修完成"));
+            //engineer
+            Engineer engineer = items.get(groupPosition).getEngineers().iterator().next();
+            if (engineer.getUser().getPicture()!=null){
+                //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+            }
+            //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+            childViewHolder.tv_item_detail_engineer_name.setText(engineer.getUser().getName());
+
+        } else if (keySet.contains("派单")) {
+            //status bar
+            childViewHolder.iv_expand_status_icon_1.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));
+            childViewHolder.iv_expand_status_icon_2.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_dealing));
+            childViewHolder.iv_expand_status_icon_3.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_last));
+            childViewHolder.tv_expand_status_1.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.gray));
+            childViewHolder.tv_expand_status_2.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.dark));
+            childViewHolder.tv_expand_status_3.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.gray));
+            childViewHolder.iv_expand_status_1_to_2.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.drawable.solid_line));
+            childViewHolder.iv_expand_status_2_to_3.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.drawable.dotted_line));
+            //status description
+            childViewHolder.tv_item_detail_status.setText("派单");
+            childViewHolder.tv_item_detail_description.setText(map.get("派单"));
+            //engineer
+            Engineer engineer = items.get(groupPosition).getEngineers().iterator().next();
+            if (engineer.getUser().getPicture()!=null){
+                //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+            }
+            //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+            childViewHolder.tv_item_detail_engineer_name.setText(engineer.getUser().getName());
+        } else {
+            //status bar
+            childViewHolder.iv_expand_status_icon_1.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));
+            childViewHolder.iv_expand_status_icon_2.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_dealing));
+            childViewHolder.iv_expand_status_icon_3.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_last));
+            childViewHolder.tv_expand_status_1.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.gray));
+            childViewHolder.tv_expand_status_2.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.dark));
+            childViewHolder.tv_expand_status_3.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.gray));
+            childViewHolder.iv_expand_status_1_to_2.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.drawable.solid_line));
+            childViewHolder.iv_expand_status_2_to_3.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.drawable.dotted_line));
+            //status description
+            childViewHolder.tv_item_detail_status.setText("派单");
+            childViewHolder.tv_item_detail_description.setText(map.get("派单"));
+            //engineer
+            Engineer engineer = items.get(groupPosition).getEngineers().iterator().next();
+            if (engineer.getUser().getPicture()!=null){
+                //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+            }
+            //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+            childViewHolder.tv_item_detail_engineer_name.setText(engineer.getUser().getName());
+        }
         return convertView;
     }
 
@@ -126,7 +222,30 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         TextView time;
     }
 
-    class ChildViewHolder{
+    class ChildViewHolder {
+        //status bar
+        ImageView iv_expand_status_icon_1;
+        ImageView iv_expand_status_icon_2;
+        ImageView iv_expand_status_icon_3;
+        TextView tv_expand_status_1;
+        TextView tv_expand_status_2;
+        TextView tv_expand_status_3;
+        ImageView iv_expand_status_1_to_2;
+        ImageView iv_expand_status_2_to_3;
 
+        //status description
+        TextView tv_item_detail_status;
+        TextView tv_item_detail_description;
+
+        //engineer
+        ImageView iv_repair_expand_repair_engineer_picture;
+        TextView tv_item_detail_engineer_name;
+        Button bn_item_detail_engineer_contract;
+
+        //completed
+        Button bn_item_expand_repair_completed;
+
+        //contract service
+        TextView tv_item_expand_repair_contract_service;
     }
 }

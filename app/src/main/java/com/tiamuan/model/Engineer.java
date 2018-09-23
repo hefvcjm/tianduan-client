@@ -1,5 +1,7 @@
 package com.tiamuan.model;
 
+import org.json.JSONException;
+
 import java.util.Set;
 
 public class Engineer extends Model {
@@ -9,6 +11,10 @@ public class Engineer extends Model {
     private Set<Maintain> maintains;
 
     public Engineer() {
+    }
+
+    public Engineer(String json) throws JSONException {
+        super(json);
     }
 
     public Engineer(User user, String code) {

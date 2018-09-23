@@ -2,6 +2,8 @@ package com.tiamuan.model;
 
 import com.tiamuan.annotation.Column;
 
+import org.json.JSONException;
+
 import java.util.Set;
 
 public class Repair extends Model {
@@ -29,6 +31,10 @@ public class Repair extends Model {
 
     public Repair() {
 
+    }
+
+    public Repair(String json) throws JSONException {
+        super(json);
     }
 
     public String getName() {
