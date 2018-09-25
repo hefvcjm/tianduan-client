@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,13 +12,25 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.tiamuan.MyApplication;
+import com.tiamuan.model.Engineer;
 import com.tiamuan.model.Maintain;
+import com.tiamuan.model.Status;
 
 import org.json.JSONException;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public class RepairDetailActivity extends Activity {
 
     private static final String TAG = "RepairDetailActivity";
+
+    private TextView tv_top_bar_title;
+    private TextView tv_top_bar_right;
 
     TextView title;
     TextView ticket;
@@ -65,19 +78,25 @@ public class RepairDetailActivity extends Activity {
         setContentView(R.layout.activity_repair_detail);
         init();
         Intent intent = getIntent();
-        Log.d(TAG, intent.getStringExtra("data"));
+        Log.d(TAG, "data" + intent.getStringExtra("data"));
 //        try {
-//            maintain = new Maintain(intent.getStringExtra("data"));
-//            Log.d(TAG, maintain.getRepair().toString());
-//            Log.d(TAG, maintain.getEngineers().toString());
-//            Log.d(TAG, maintain.getStatuses().toString());
-            setData();
+        maintain = new Gson().fromJson(intent.getStringExtra("data"), Maintain.class);
+        //maintain = new Maintain(intent.getStringExtra("data"));
+        Log.d(TAG, "repair:" + maintain.getRepair().toString());
+//        Log.d(TAG, "engineers:" + maintain.getEngineers().toString());
+//        Log.d(TAG, "statuses:" + maintain.getStatuses().toString());
+        setData();
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }
     }
 
     private void init() {
+        tv_top_bar_title = findViewById(R.id.tv_top_bar_title);
+        tv_top_bar_right = findViewById(R.id.tv_top_bar_right);
+        tv_top_bar_title.setText("报修详情");
+        tv_top_bar_right.setVisibility(View.GONE);
+
         title = findViewById(R.id.tv_item_repair_title);
         ticket = findViewById(R.id.tv_item_repair_ticket);
         status = findViewById(R.id.tv_item_repair_status);
@@ -116,6 +135,105 @@ public class RepairDetailActivity extends Activity {
         if (maintain == null) {
             return;
         }
+        title.setText("这是标题");
+        ticket.setText(maintain.getRepair().getTicket());
+        status.setText(maintain.getRepair().getStatuses().iterator().next().getStatus());
+        time.setText(maintain.getRepair().getTime().split(" ")[0].replace("-", "/"));
 
+        tv_repair_detail_device_name.setText(maintain.getRepair().getName());
+        tv_repair_detail_device_code.setText(maintain.getRepair().getCode());
+        tv_repair_detail_fault_part.setText(maintain.getRepair().getFaultpart());
+        tv_repair_detail_question_description.setText(maintain.getRepair().getDescription());
+
+        Iterator<Status> statusIterator = maintain.getRepair().getStatuses().iterator();
+        Map<String, String> map = new HashMap<>();
+        while (statusIterator.hasNext()) {
+            Status status = statusIterator.next();
+            map.put(status.getStatus(), status.getTime());
+        }
+        Set<String> keySet = map.keySet();
+        if (keySet.contains("报修完成")) {
+            //status bar
+            iv_expand_status_icon_1.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));
+            iv_expand_status_icon_2.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));
+            iv_expand_status_icon_3.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));
+            tv_expand_status_1.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.gray));
+            tv_expand_status_2.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.gray));
+            tv_expand_status_3.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.dark));
+            iv_expand_status_1_to_2.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.drawable.solid_line));
+            iv_expand_status_2_to_3.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.drawable.solid_line));
+            //status description
+            tv_item_detail_status.setText("报修完成");
+            tv_item_detail_description.setText(map.get("报修完成"));
+            //engineer
+            Engineer engineer = null;
+            if (maintain.getEngineers() != null && maintain.getEngineers().iterator().hasNext()) {
+                engineer = maintain.getEngineers().iterator().next();
+            }
+            if (engineer != null) {
+                if (engineer.getUser().getPicture() != null) {
+                    //iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+                }
+                //iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+                tv_item_detail_engineer_name.setText(engineer.getUser().getName());
+            } else {
+                ll_expand_detail_engineer.setVisibility(View.GONE);
+            }
+
+        } else if (keySet.contains("派单")) {
+            //status bar
+            iv_expand_status_icon_1.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));
+            iv_expand_status_icon_2.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_dealing));
+            iv_expand_status_icon_3.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_last));
+            tv_expand_status_1.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.gray));
+            tv_expand_status_2.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.dark));
+            tv_expand_status_3.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.gray));
+            iv_expand_status_1_to_2.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.drawable.solid_line));
+            iv_expand_status_2_to_3.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.drawable.dotted_line));
+            //status description
+            tv_item_detail_status.setText("派单");
+            tv_item_detail_description.setText(map.get("派单"));
+            //engineer
+            Engineer engineer = null;
+            if (maintain.getEngineers() != null && maintain.getEngineers().iterator().hasNext()) {
+                engineer = maintain.getEngineers().iterator().next();
+            }
+            if (engineer != null) {
+                if (engineer.getUser().getPicture() != null) {
+                    //iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+                }
+                //iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+                tv_item_detail_engineer_name.setText(engineer.getUser().getName());
+            } else {
+                ll_expand_detail_engineer.setVisibility(View.GONE);
+            }
+        } else {
+            //status bar
+            iv_expand_status_icon_1.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));
+            iv_expand_status_icon_2.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_dealing));
+            iv_expand_status_icon_3.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_last));
+            tv_expand_status_1.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.gray));
+            tv_expand_status_2.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.dark));
+            tv_expand_status_3.setTextColor(MyApplication.newInstance().getResources().getColor(R.color.gray));
+            iv_expand_status_1_to_2.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.drawable.solid_line));
+            iv_expand_status_2_to_3.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.drawable.dotted_line));
+            //status description
+            tv_item_detail_status.setText("派单");
+            tv_item_detail_description.setText(map.get("派单"));
+            //engineer
+            Engineer engineer = null;
+            if (maintain.getEngineers() != null && maintain.getEngineers().iterator().hasNext()) {
+                engineer = maintain.getEngineers().iterator().next();
+            }
+            if (engineer != null) {
+                if (engineer.getUser().getPicture() != null) {
+                    //iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+                }
+                //iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+                tv_item_detail_engineer_name.setText(engineer.getUser().getName());
+            } else {
+                ll_expand_detail_engineer.setVisibility(View.GONE);
+            }
+        }
     }
 }

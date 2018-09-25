@@ -1,13 +1,18 @@
 package com.tiamuan.model;
 
+import com.tiamuan.annotation.Column;
+
 import org.json.JSONException;
 
 import java.util.Set;
 
 public class Client extends Model {
 
+    @Column
     private User user;
+    @Column
     private String code;
+    @Column
     private Set<Repair> repairs;
 
     public Client() {

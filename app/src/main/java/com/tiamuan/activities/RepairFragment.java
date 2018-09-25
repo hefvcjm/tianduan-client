@@ -130,8 +130,9 @@ public class RepairFragment extends Fragment {
                 Log.d(TAG, "onChildClick: groupPosition:" + groupPosition + ", id:" + id);
                 if (maintains != null) {
                     Intent intent = new Intent(getActivity(), RepairDetailActivity.class);
-                    Log.d(TAG, maintains.get(groupPosition).toJson().toString());
-                    intent.putExtra("data", maintains.toString());
+//                    Log.d(TAG, maintains.get(groupPosition).toJson().toString());
+                    intent.putExtra("data", new Gson().toJson(maintains.get(groupPosition),Maintain.class));
+                    Log.d(TAG, maintains.get(groupPosition).toString());
                     startActivity(intent);
                 }
                 return true;

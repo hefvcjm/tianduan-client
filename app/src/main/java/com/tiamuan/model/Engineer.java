@@ -1,13 +1,19 @@
 package com.tiamuan.model;
 
+import com.tiamuan.annotation.Column;
+import com.tiamuan.annotation.ToStringIgnore;
+
 import org.json.JSONException;
 
 import java.util.Set;
 
 public class Engineer extends Model {
 
+    @Column
     private User user;
+    @Column
     private String code;
+    @Column
     private Set<Maintain> maintains;
 
     public Engineer() {
