@@ -238,7 +238,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         Log.d(TAG, "onGroupCollapsed() called with: groupPosition = [" + groupPosition + "]");
     }
 
-    class GroupViewHolder {
+    static class GroupViewHolder {
         TextView title;
         TextView ticket;
         TextView status;

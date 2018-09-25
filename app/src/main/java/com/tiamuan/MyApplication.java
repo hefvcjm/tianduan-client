@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.tiamuan.model.User;
 
 import java.util.Map;
 
@@ -21,6 +22,8 @@ public class MyApplication extends Application {
     private static MyApplication instance;
     private RequestQueue requestQueue;
     private SharedPreferences preferences;
+
+    private User user;
 
     public static MyApplication newInstance() {
         return instance;
@@ -79,6 +82,14 @@ public class MyApplication extends Application {
 
     public static String buildURL(String uri) {
         return BASE_URL + uri;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
     }
 }
 

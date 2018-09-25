@@ -42,6 +42,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_me_user:
+                startActivity(new Intent(getActivity(), MeDetailActivity.class));
                 break;
             case R.id.ll_me_emall:
                 break;

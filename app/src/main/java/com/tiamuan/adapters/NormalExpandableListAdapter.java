@@ -71,11 +71,11 @@ public class NormalExpandableListAdapter extends BaseExpandableListAdapter {
         GroupViewHolder groupViewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_expand_group_repair, parent, false);
-//            groupViewHolder = new GroupViewHolder();
+//            groupViewHolder = new ViewHolder();
 //            groupViewHolder.tvTitle = convertView.findViewById(R.id.tv_item_repair_title);
 //            convertView.setTag(groupViewHolder);
         } else {
-//            groupViewHolder = (GroupViewHolder) convertView.getTag();
+//            groupViewHolder = (ViewHolder) convertView.getTag();
         }
 //        groupViewHolder.tvTitle.setText(groupData[groupPosition]);
         return convertView;

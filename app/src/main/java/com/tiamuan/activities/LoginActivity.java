@@ -73,6 +73,7 @@ public class LoginActivity extends Activity {
                         try {
                             JSONObject json = new JSONObject(response);
                             User user = gson.fromJson(json.getString("data"), User.class);
+                            MyApplication.newInstance().setUser(user);
                             tv_log.setText(user.toString());
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();

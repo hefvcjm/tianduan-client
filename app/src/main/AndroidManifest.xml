@@ -25,6 +25,7 @@
         <activity android:name=".SuggestArgueActivity" />
         <activity android:name=".RepairHistoryActivity" />
         <activity android:name=".RepairDetailActivity" />
+        <activity android:name=".MeDetailActivity" />
     </application>
 
 </manifest>
