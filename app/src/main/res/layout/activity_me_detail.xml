@@ -7,136 +7,155 @@
 
     <include layout="@layout/layout_top_bar" />
 
-    <LinearLayout
-        android:id="@+id/me_detail_picture"
-        style="@style/me_ll_item">
+    <ScrollView
+        android:id="@+id/sv_me_detail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/scroll_linear_layout_me_detail"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="头像"
-            android:textColor="@color/dark"
-            android:textSize="18sp" />
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/general_small_margin">
 
-        <ImageView
-            android:id="@+id/iv_me_head_portrait"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@mipmap/ic_head_portrait" />
+            <LinearLayout
+                android:id="@+id/me_detail_picture"
+                style="@style/me_ll_item">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="头像"
+                    android:textColor="@color/dark"
+                    android:textSize="18sp" />
 
-    <LinearLayout
-        android:id="@+id/me_detail_name"
-        style="@style/me_ll_item"
-        android:layout_marginTop="@dimen/general_small_margin">
+                <ImageView
+                    android:id="@+id/iv_me_head_portrait"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@mipmap/ic_head_portrait" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="姓名"
-            android:textColor="@color/dark"
-            android:textSize="18sp" />
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/et_me_name"
-            android:layout_width="0dp"
-            android:layout_height="22dp"
-            android:layout_marginLeft="@dimen/general_large_margin"
-            android:layout_weight="1"
-            android:background="@null"
-            android:enabled="false"
-            android:gravity="right"
-            android:maxLines="1"
-            android:text="test"
-            android:textColor="@color/gray"
-            android:textSize="18sp" />
+            <LinearLayout
+                android:id="@+id/me_detail_name"
+                style="@style/me_ll_item"
+                android:layout_marginTop="@dimen/general_small_margin">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="姓名"
+                    android:textColor="@color/dark"
+                    android:textSize="18sp" />
 
-    <LinearLayout
-        android:id="@+id/me_detail_sex"
-        style="@style/me_ll_item"
-        android:layout_marginTop="1dp">
+                <EditText
+                    android:id="@+id/et_me_name"
+                    android:layout_width="0dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="@dimen/general_large_margin"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:gravity="right"
+                    android:maxLines="1"
+                    android:text="test"
+                    android:textColor="@color/gray"
+                    android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="性别"
-            android:textColor="@color/dark"
-            android:textSize="18sp" />
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/et_me_sex"
-            android:layout_width="0dp"
-            android:layout_height="22dp"
-            android:layout_marginLeft="@dimen/general_large_margin"
-            android:layout_weight="1"
-            android:background="@null"
-            android:enabled="false"
-            android:gravity="right"
-            android:maxLines="1"
-            android:text="test"
-            android:textColor="@color/gray"
-            android:textSize="18sp" />
+            <LinearLayout
+                android:id="@+id/me_detail_sex"
+                style="@style/me_ll_item"
+                android:layout_marginTop="1dp">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性别"
+                    android:textColor="@color/dark"
+                    android:textSize="18sp" />
 
-    <LinearLayout
-        android:id="@+id/me_detail_phone"
-        style="@style/me_ll_item"
-        android:layout_marginTop="1dp">
+                <EditText
+                    android:id="@+id/et_me_sex"
+                    android:layout_width="0dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="@dimen/general_large_margin"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:gravity="right"
+                    android:maxLines="1"
+                    android:text="test"
+                    android:textColor="@color/gray"
+                    android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="手机号"
-            android:textColor="@color/dark"
-            android:textSize="18sp" />
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/et_me_phone"
-            android:layout_width="0dp"
-            android:layout_height="22dp"
-            android:layout_marginLeft="@dimen/general_large_margin"
-            android:layout_weight="1"
-            android:background="@null"
-            android:enabled="false"
-            android:gravity="right"
-            android:maxLines="1"
-            android:text="test"
-            android:textColor="@color/gray"
-            android:textSize="18sp" />
+            <LinearLayout
+                android:id="@+id/me_detail_phone"
+                style="@style/me_ll_item"
+                android:layout_marginTop="1dp">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="手机号"
+                    android:textColor="@color/dark"
+                    android:textSize="18sp" />
 
-    <LinearLayout
-        android:id="@+id/me_detail_address"
-        style="@style/me_ll_item"
-        android:layout_marginTop="1dp">
+                <EditText
+                    android:id="@+id/et_me_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="@dimen/general_large_margin"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:gravity="right"
+                    android:maxLines="1"
+                    android:text="test"
+                    android:textColor="@color/gray"
+                    android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left|top"
-            android:text="地址"
-            android:textColor="@color/dark"
-            android:textSize="18sp" />
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/et_me_address"
-            android:layout_width="0dp"
-            android:layout_height="22dp"
-            android:layout_marginLeft="@dimen/general_large_margin"
-            android:layout_weight="1"
-            android:background="@null"
-            android:enabled="false"
-            android:gravity="right"
-            android:text="test"
-            android:textColor="@color/gray"
-            android:textSize="18sp" />
+            <LinearLayout
+                android:id="@+id/me_detail_address"
+                style="@style/me_ll_item"
+                android:layout_marginTop="1dp">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|top"
+                    android:text="地址"
+                    android:textColor="@color/dark"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_me_address"
+                    android:layout_width="0dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="@dimen/general_large_margin"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:gravity="right"
+                    android:text="test"
+                    android:textColor="@color/gray"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
