@@ -15,6 +15,70 @@
     </android.support.v7.widget.RecyclerView>
 
 
+    <LinearLayout
+        android:id="@+id/activity_chat_layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/input_bg"
+        android:gravity="center"
+        android:weightSum="8"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/activity_wechat_chat_iv_voice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            android:src="@mipmap/icon_voice" />
+
+        <EditText
+            android:id="@+id/activity_chat_et_msg"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="5"
+            android:background="@drawable/et_underline_style"
+            android:textCursorDrawable="@null" />
+
+        <ImageView
+            android:id="@+id/activity_wechat_chat_iv_emoji"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            android:src="@mipmap/icon_emoji" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/activity_chat_btn_send"
+                android:layout_width="42dp"
+                android:layout_height="32dp"
+                android:text="发送"
+                android:textColor="#ffffff"
+                android:background="@drawable/send_btn_bg"
+                android:layout_gravity="center"/>
+            <ImageView
+                android:id="@+id/activity_chat_iv_add"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:padding="5dip"
+                android:clickable="true"
+                android:src="@mipmap/icon_add" />
+
+
+        </FrameLayout>
+
+    </LinearLayout>
 
 
 </LinearLayout>

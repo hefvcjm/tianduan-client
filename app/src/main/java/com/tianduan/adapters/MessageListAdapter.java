@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tianduan.activities.R;
-import com.tianduan.model.Maintain;
 import com.tianduan.model.MessageItem;
 
 import java.util.List;
