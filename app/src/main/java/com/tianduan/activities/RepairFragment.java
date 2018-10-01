@@ -16,10 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.tianduan.MyApplication;
-import com.tianduan.adapters.Constant;
 import com.tianduan.adapters.MyExpandableListAdapter;
-import com.tianduan.adapters.NormalExpandableListAdapter;
-import com.tianduan.adapters.OnGroupExpandedListener;
 import com.tianduan.model.Maintain;
 import com.tianduan.net.MyHttpRequest;
 
@@ -27,7 +24,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -12,6 +12,19 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
+        <ListView
+            android:id="@+id/lv_message_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </ListView>
+
+        <ImageView
+            android:id="@+id/iv_nothing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_none"
+            android:visibility="gone" />
 
     </LinearLayout>
 

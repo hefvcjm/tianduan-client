@@ -13,7 +13,7 @@ import java.util.List;
 
 public class RepairHistoryListAdapter extends BaseAdapter {
 
-    private static final String TAG = "MyExpandableListAdapter";
+    private static final String TAG = "RepairHistoryListAdapter";
 
     List<Maintain> items;
 
