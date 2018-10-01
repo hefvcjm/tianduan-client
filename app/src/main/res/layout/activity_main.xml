@@ -12,7 +12,7 @@
 
         <fragment
             android:id="@+id/page_fragment"
-            android:name="com.tiamuan.activities.RepairFragment"
+            android:name="com.tianduan.activities.RepairFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
