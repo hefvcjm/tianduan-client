@@ -28,6 +28,7 @@ public class MyService extends Service {
     private int count = 0;
     private boolean isConnected = false;
     private final Timer timer = new Timer();
+    TimerTask task;
     private WebSocketClient client;
 
     @Override
@@ -43,23 +44,24 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        connect();
+        //connect();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
                 Log.d(TAG, "isConnected:" + isConnected);
                 if (isConnected) {
-                    try {
-                        client.send(new JSONObject().put("type", "ping").toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    client.send("{\"type\":\"ping\"}");
                 } else {
+                    if (count > COUNT_OUT) {
+                        timer.cancel();
+                        return;
+                    }
+                    count++;
                     connect();
                 }
             }
         };
-        timer.schedule(task, 5000, 1000 * 2);
+        timer.schedule(task, 0, 1000 * 2);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -125,19 +127,21 @@ public class MyService extends Service {
                 }
             }
         }).start();
-        try {
-            Thread.sleep(3000);
-            client.send(String.format("{\n" +
-                    "\t\"type\":\"message\",\n" +
-                    "\t\"sender\":\"%s\",\n" +
-                    "\t\"receiverType\":\"person\",\n" +
-                    "\t\"receiverId\":\"%s\",\n" +
-                    "\t\"contentType\":\"text\",\n" +
-                    "\t\"content\":\"test for chatting.\"\n" +
-                    "}", user.getObjectId(), user.getObjectId()));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(3000);
+//            client.send(String.format("{" +
+//                    "\"type\":\"message\"," +
+//                    "\"sender\":\"%s\"," +
+//                    "\"receiverType\":\"person\"," +
+//                    "\"receiverId\":\"%s\"," +
+//                    "\"contentType\":\"text\"," +
+//                    "\"content\":\"test for chatting.\"" +
+//                    "}", user.getObjectId(), user.getObjectId()));
+//            Thread.sleep(3000);
+//            client.send("{\"type\":\"ping\"}");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
 }
