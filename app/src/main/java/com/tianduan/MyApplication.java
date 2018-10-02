@@ -18,8 +18,9 @@ public class MyApplication extends Application {
     private static final String COOKIE_KEY = "Cookie";
     private static final String SESSION_COOKIE = "JSESSIONID";
 
-    public static final String BASE_URL = "http://192.168.43.253:8080/tianduan";
-    public static final String BASE_CHAT_URL = "ws://192.168.43.253:8080/tianduan/chat";
+    public static final String BASE_IP = "192.168.43.253";
+    public static final String BASE_URL = "http://" + BASE_IP + ":8080/tianduan";
+    public static final String BASE_CHAT_URL = "ws://" + BASE_IP + ":8080/tianduan/chat";
 
     private static MyApplication instance;
     private RequestQueue requestQueue;

@@ -4,12 +4,25 @@ import java.io.Serializable;
 
 public class MsgData implements Serializable {
 
+    private static final String TAG = "MsgData";
+    public static final int TYPE_RECEIVER = 0;
+    public static final int TYPE_SENDER = 1;
+
+    private int role;
     private String type;
     private String sender;
     private String receiverType;
     private String receiverId;
     private String content;
     private String time;
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
 
     public String getType() {
         return type;

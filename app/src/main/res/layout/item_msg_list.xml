@@ -42,7 +42,7 @@
             android:background="@drawable/receive_msg_bg"
             android:clickable="true"
             android:gravity="center_vertical"
-            android:padding="20dip"
+            android:padding="10dip"
             android:text="测试消息"
             android:textSize="16sp" />
     </LinearLayout>
@@ -58,7 +58,6 @@
             android:id="@+id/item_msg_tv_sender_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
             android:minHeight="45dp"
             android:layout_marginRight="5dip"
             android:layout_toLeftOf="@id/item_msg_iv_sender_profile"

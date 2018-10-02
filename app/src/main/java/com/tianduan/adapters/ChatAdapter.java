@@ -42,8 +42,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MsgViewHolder>
         MsgData preMsgData = null;
         if (position >= 1)
             preMsgData = listData.get(position - 1);
-        switch (currentMsgData.getMsgType()) {
-            case ChatActivity.TYPE_RECEIVER_MSG:
+        switch (currentMsgData.getRole()) {
+            case MsgData.TYPE_RECEIVER:
                 initTimeStamp(holder, currentMsgData, preMsgData);
                 holder.senderLayout.setVisibility(View.GONE);
                 holder.receiverLayout.setVisibility(View.VISIBLE);
@@ -52,7 +52,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MsgViewHolder>
                 break;
 
 
-            case ChatActivity.TYPE_SENDER_MSG:
+            case MsgData.TYPE_SENDER:
                 initTimeStamp(holder, currentMsgData, preMsgData);
                 holder.senderLayout.setVisibility(View.VISIBLE);
                 holder.receiverLayout.setVisibility(View.GONE);
@@ -85,20 +85,23 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MsgViewHolder>
 
     class MsgViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView receiver_profile, send_profile;
-        TextView timeStamp, receiveMsg, sendMsg;
-        RelativeLayout senderLayout;
-        LinearLayout receiverLayout;
+        ImageView item_msg_iv_receiver_profile;
+        ImageView item_msg_iv_sender_profile;
+        TextView item_msg_iv_time_stamp;
+        TextView item_msg_tv_receiver_msg;
+        TextView item_msg_tv_sender_msg;
+        RelativeLayout item_msg_layout_sender;
+        LinearLayout item_msg_layout_receiver;
 
         public MsgViewHolder(View itemView) {
             super(itemView);
-            receiver_profile = itemView.findViewById(R.id.item_wechat_msg_iv_receiver_profile);
-            send_profile = itemView.findViewById(R.id.item_wechat_msg_iv_sender_profile);
-            timeStamp = itemView.findViewById(R.id.item_wechat_msg_iv_time_stamp);
-            receiveMsg = itemView.findViewById(R.id.item_wechat_msg_tv_receiver_msg);
-            sendMsg = itemView.findViewById(R.id.item_wechat_msg_tv_sender_msg);
-            senderLayout = itemView.findViewById(R.id.item_wechat_msg_layout_sender);
-            receiverLayout = itemView.findViewById(R.id.item_wechat_msg_layout_receiver);
+            item_msg_iv_receiver_profile = itemView.findViewById(R.id.item_msg_iv_receiver_profile);
+            item_msg_iv_sender_profile = itemView.findViewById(R.id.item_msg_iv_sender_profile);
+            item_msg_iv_time_stamp = itemView.findViewById(R.id.item_msg_iv_time_stamp);
+            item_msg_tv_receiver_msg = itemView.findViewById(R.id.item_msg_tv_receiver_msg);
+            item_msg_tv_sender_msg = itemView.findViewById(R.id.item_msg_tv_sender_msg);
+            item_msg_layout_sender = itemView.findViewById(R.id.item_msg_layout_sender);
+            item_msg_layout_receiver = itemView.findViewById(R.id.item_msg_layout_receiver);
         }
     }
 }
