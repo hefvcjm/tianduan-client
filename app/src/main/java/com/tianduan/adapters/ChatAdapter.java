@@ -15,10 +15,8 @@ import com.tianduan.model.MsgData;
 import java.util.List;
 
 import com.tianduan.activities.R;
+import com.tianduan.util.ChatUtils;
 
-/**
- * Created by fengshawn on 2017/8/10.
- */
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MsgViewHolder> {
 
@@ -45,19 +43,19 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MsgViewHolder>
         switch (currentMsgData.getRole()) {
             case MsgData.TYPE_RECEIVER:
                 initTimeStamp(holder, currentMsgData, preMsgData);
-                holder.senderLayout.setVisibility(View.GONE);
-                holder.receiverLayout.setVisibility(View.VISIBLE);
-                holder.receiveMsg.setText(currentMsgData.getMsg());
-                holder.receiver_profile.setImageResource(currentMsgData.getProfile_res());
+                holder.item_msg_layout_sender.setVisibility(View.GONE);
+                holder.item_msg_layout_receiver.setVisibility(View.VISIBLE);
+                holder.item_msg_tv_receiver_msg.setText(currentMsgData.getContent());
+                //holder.item_msg_iv_receiver_profile.setImageResource(currentMsgData.getProfile_res());
                 break;
 
 
             case MsgData.TYPE_SENDER:
                 initTimeStamp(holder, currentMsgData, preMsgData);
-                holder.senderLayout.setVisibility(View.VISIBLE);
-                holder.receiverLayout.setVisibility(View.GONE);
-                holder.sendMsg.setText(currentMsgData.getMsg());
-                holder.send_profile.setImageResource(currentMsgData.getProfile_res());
+                holder.item_msg_layout_sender.setVisibility(View.VISIBLE);
+                holder.item_msg_layout_receiver.setVisibility(View.GONE);
+                holder.item_msg_tv_sender_msg.setText(currentMsgData.getContent());
+                //holder.item_msg_iv_sender_profile.setImageResource(currentMsgData.getProfile_res());
                 break;
         }
     }
@@ -65,15 +63,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MsgViewHolder>
     private void initTimeStamp(MsgViewHolder holder, MsgData currentMsgData, MsgData preMsgData) {
         String showTime;
         if (preMsgData == null) {
-            showTime = HelpUtils.calculateShowTime(HelpUtils.getCurrentMillisTime(), currentMsgData.getTimeStamp());
+            showTime = ChatUtils.calculateShowTime(ChatUtils.getCurrentMillisTime(), ChatUtils.getStringToDate(currentMsgData.getTime()));
         } else {
-            showTime = HelpUtils.calculateShowTime(currentMsgData.getTimeStamp(), preMsgData.getTimeStamp());
+            showTime = ChatUtils.calculateShowTime(ChatUtils.getStringToDate(currentMsgData.getTime()), ChatUtils.getStringToDate(preMsgData.getTime()));
         }
         if (showTime != null) {
-            holder.timeStamp.setVisibility(View.VISIBLE);
-            holder.timeStamp.setText(showTime);
+            holder.item_msg_iv_time_stamp.setVisibility(View.VISIBLE);
+            holder.item_msg_iv_time_stamp.setText(showTime);
         } else {
-            holder.timeStamp.setVisibility(View.GONE);
+            holder.item_msg_iv_time_stamp.setVisibility(View.GONE);
         }
 
     }

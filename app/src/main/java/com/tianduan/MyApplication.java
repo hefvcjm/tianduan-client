@@ -18,7 +18,9 @@ public class MyApplication extends Application {
     private static final String COOKIE_KEY = "Cookie";
     private static final String SESSION_COOKIE = "JSESSIONID";
 
-    public static final String BASE_IP = "192.168.43.253";
+    //教研室：192.168.2.224
+    //手机:192.168.43.253
+    public static final String BASE_IP = "192.168.2.224";
     public static final String BASE_URL = "http://" + BASE_IP + ":8080/tianduan";
     public static final String BASE_CHAT_URL = "ws://" + BASE_IP + ":8080/tianduan/chat";
 

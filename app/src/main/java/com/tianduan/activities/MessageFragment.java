@@ -1,10 +1,12 @@
 package com.tianduan.activities;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -51,11 +53,18 @@ public class MessageFragment extends Fragment {
             iv_nothing.setVisibility(View.GONE);
         }
 
+        lv_message_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivity(new Intent(getActivity(), ChatActivity.class));
+            }
+        });
+
         return view;
     }
 
     private List<MessageItem> getMessageList() {
-        List<MessageItem> list =  new ArrayList<>();
+        List<MessageItem> list = new ArrayList<>();
         list.add(new MessageItem());
         list.add(new MessageItem());
         list.add(new MessageItem());

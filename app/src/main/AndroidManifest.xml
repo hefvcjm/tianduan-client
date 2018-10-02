@@ -26,6 +26,7 @@
         <activity android:name=".RepairHistoryActivity" />
         <activity android:name=".RepairDetailActivity" />
         <activity android:name=".MeDetailActivity" />
+        <activity android:name=".ChatActivity" />
 
         <service android:name="com.tianduan.services.MyService" />
 
