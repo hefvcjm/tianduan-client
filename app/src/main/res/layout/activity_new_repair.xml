@@ -107,55 +107,13 @@
                         android:paddingBottom="@dimen/general_margin"
                         android:orientation="horizontal">
 
-                        <ImageView
+                        <Button
+                            android:id="@+id/bn_new_repair_add_picture"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            android:src="@mipmap/ic_head_portrait" />
+                            android:background="@mipmap/icon_add" />
 
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:src="@mipmap/ic_head_portrait" />
 
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:src="@mipmap/ic_head_portrait" />
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:src="@mipmap/ic_head_portrait" />
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:src="@mipmap/ic_head_portrait" />
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:src="@mipmap/ic_head_portrait" />
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:src="@mipmap/ic_head_portrait" />
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:src="@mipmap/ic_head_portrait" />
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:src="@mipmap/ic_head_portrait" />
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:src="@mipmap/ic_head_portrait" />
 
                     </LinearLayout>
 

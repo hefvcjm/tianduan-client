@@ -160,20 +160,6 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             //status description
             childViewHolder.tv_item_detail_status.setText("报修完成");
             childViewHolder.tv_item_detail_description.setText(map.get("报修完成"));
-            //engineer
-            Engineer engineer = null;
-            if (items.get(groupPosition).getEngineers() != null && items.get(groupPosition).getEngineers().iterator().hasNext()) {
-                engineer = items.get(groupPosition).getEngineers().iterator().next();
-            }
-            if (engineer != null) {
-                if (engineer.getUser().getPicture() != null) {
-                    //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
-                }
-                //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
-                childViewHolder.tv_item_detail_engineer_name.setText(engineer.getUser().getName());
-            } else {
-                childViewHolder.ll_expand_detail_engineer.setVisibility(View.GONE);
-            }
         } else if (keySet.contains("派单")) {
             //status bar
             childViewHolder.iv_expand_status_icon_1.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));
@@ -187,20 +173,6 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             //status description
             childViewHolder.tv_item_detail_status.setText("派单");
             childViewHolder.tv_item_detail_description.setText(map.get("派单"));
-            //engineer
-            Engineer engineer = null;
-            if (items.get(groupPosition).getEngineers() != null && items.get(groupPosition).getEngineers().iterator().hasNext()) {
-                engineer = items.get(groupPosition).getEngineers().iterator().next();
-            }
-            if (engineer != null) {
-                if (engineer.getUser().getPicture() != null) {
-                    //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
-                }
-                //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
-                childViewHolder.tv_item_detail_engineer_name.setText(engineer.getUser().getName());
-            } else {
-                childViewHolder.ll_expand_detail_engineer.setVisibility(View.GONE);
-            }
         } else {
             //status bar
             childViewHolder.iv_expand_status_icon_1.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));
@@ -214,20 +186,21 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             //status description
             childViewHolder.tv_item_detail_status.setText("派单");
             childViewHolder.tv_item_detail_description.setText(map.get("派单"));
-            //engineer
-            Engineer engineer = null;
-            if (items.get(groupPosition).getEngineers() != null && items.get(groupPosition).getEngineers().iterator().hasNext()) {
-                engineer = items.get(groupPosition).getEngineers().iterator().next();
-            }
-            if (engineer != null) {
-                if (engineer.getUser().getPicture() != null) {
-                    //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
-                }
+        }
+        //engineer
+        Engineer engineer = null;
+        if (items.get(groupPosition).getEngineers() != null && items.get(groupPosition).getEngineers().iterator().hasNext()) {
+            engineer = items.get(groupPosition).getEngineers().iterator().next();
+        }
+        if (engineer != null) {
+            if (engineer.getUser().getPicture() != null) {
                 //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
-                childViewHolder.tv_item_detail_engineer_name.setText(engineer.getUser().getName());
-            } else {
-                childViewHolder.ll_expand_detail_engineer.setVisibility(View.GONE);
             }
+            childViewHolder.ll_expand_detail_engineer.setVisibility(View.VISIBLE);
+            //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+            childViewHolder.tv_item_detail_engineer_name.setText(engineer.getUser().getName());
+        } else {
+            childViewHolder.ll_expand_detail_engineer.setVisibility(View.GONE);
         }
         return convertView;
     }

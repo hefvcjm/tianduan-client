@@ -35,7 +35,7 @@ public class MyApplication extends Application {
 
     //教研室：192.168.2.224
     //手机:192.168.43.253
-    public static final String BASE_IP = "192.168.2.224";
+    public static final String BASE_IP = "192.168.43.253";
     public static final String BASE_URL = "http://" + BASE_IP + ":8080/tianduan";
     public static final String BASE_CHAT_URL = "ws://" + BASE_IP + ":8080/tianduan/chat";
 
@@ -64,7 +64,7 @@ public class MyApplication extends Application {
         messageItems = new ArrayList<>();
         messageObjectIds = new ArrayList<>();
         asyncHttpClient = new AsyncHttpClient();
-        asyncHttpClient.setConnectTimeout(5 * 60);//5s超时
+        asyncHttpClient.setConnectTimeout(60);//5s超时
     }
 
     public RequestQueue getRequestQueue() {
@@ -107,6 +107,7 @@ public class MyApplication extends Application {
                 builder.append(requestHeaders.get(COOKIE_KEY));
             }
             requestHeaders.put(COOKIE_KEY, builder.toString());
+            asyncHttpClient.addHeader(COOKIE_KEY, builder.toString());
         }
     }
 
@@ -121,6 +122,10 @@ public class MyApplication extends Application {
 
     public User getUser() {
         return user;
+    }
+
+    public AsyncHttpClient getAsyncHttpClient() {
+        return asyncHttpClient;
     }
 
     private WebSocketClient getWebSocketClient() {

@@ -3,6 +3,9 @@
     package="com.tianduan.activities">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name="com.tianduan.MyApplication"
@@ -27,12 +30,15 @@
         <activity android:name=".RepairDetailActivity" />
         <activity android:name=".MeDetailActivity" />
         <activity android:name=".ChatActivity" />
+        <activity
+            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
+            android:configChanges="orientation|screenSize" />
 
         <service android:name="com.tianduan.services.MyService" />
 
-        <receiver android:name="com.tianduan.receivers.WebSocketReceiver" >
+        <receiver android:name="com.tianduan.receivers.WebSocketReceiver">
             <intent-filter>
-                <action android:name="com.tianduan.broadcast.WEBSOCKET"/>
+                <action android:name="com.tianduan.broadcast.WEBSOCKET" />
             </intent-filter>
         </receiver>
     </application>
