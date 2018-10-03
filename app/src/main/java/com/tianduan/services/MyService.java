@@ -107,6 +107,7 @@ public class MyService extends Service {
                                         MyApplication.newInstance().setChatMap(msg.getSender(), data);
                                         Intent intent = new Intent("com.tianduan.broadcast.WEBSOCKET");
                                         intent.putExtra("data", message);
+//                                        sendBroadcast(intent);
                                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
                                         break;
                                     case "pong":

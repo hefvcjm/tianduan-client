@@ -1,6 +1,8 @@
 package com.tianduan;
 
+import android.app.ActivityManager;
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -177,6 +179,24 @@ public class MyApplication extends Application {
             messageObjectIds.add(0, objectId);
         }
     }
+
+    /**
+     * 判断服务是否开启	 * 	 * @return
+     */
+    public boolean isServiceRunning(String ServiceName) {
+        if (("").equals(ServiceName) || ServiceName == null) {
+            return false;
+        }
+        ActivityManager myManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        ArrayList<ActivityManager.RunningServiceInfo> runningService = (ArrayList<ActivityManager.RunningServiceInfo>) myManager.getRunningServices(30);
+        for (int i = 0; i < runningService.size(); i++) {
+            if (runningService.get(i).service.getClassName().toString().equals(ServiceName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public List<MessageItem> getMessageItems() {
         return messageItems;

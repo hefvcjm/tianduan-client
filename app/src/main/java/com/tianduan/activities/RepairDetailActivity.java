@@ -129,6 +129,23 @@ public class RepairDetailActivity extends Activity {
         tv_repair_detail_device_code = findViewById(R.id.tv_repair_detail_device_code);
         tv_repair_detail_fault_part = findViewById(R.id.tv_repair_detail_fault_part);
         tv_repair_detail_question_description = findViewById(R.id.tv_repair_detail_question_description);
+
+        bn_item_detail_engineer_contract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Engineer engineer = null;
+                if (maintain.getEngineers() != null && maintain.getEngineers().iterator().hasNext()) {
+                    engineer = maintain.getEngineers().iterator().next();
+                }
+                if (engineer != null) {
+                    Intent intent = new Intent(RepairDetailActivity.this, ChatActivity.class);
+                    intent.putExtra("name", engineer.getUser().getName());
+                    intent.putExtra("sender", engineer.getUser().getObjectId());
+                    Log.d(TAG, "engineer id:" + engineer.getUser().getObjectId());
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void setData() {

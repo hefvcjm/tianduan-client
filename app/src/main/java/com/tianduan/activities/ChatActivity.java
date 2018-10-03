@@ -50,7 +50,7 @@ public class ChatActivity extends Activity {
     private ChatAdapter adapter;
 
     private IntentFilter intentFilter;
-    private LocalChatReceiver localReceiver;
+    private ChatReceiver localReceiver;
 
     private String name;
     private String senderObjectId;
@@ -62,6 +62,16 @@ public class ChatActivity extends Activity {
         setContentView(R.layout.activity_chat);
 
         initComponents();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void initComponents() {
@@ -78,6 +88,7 @@ public class ChatActivity extends Activity {
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         senderObjectId = intent.getStringExtra("sender");
+        Log.d(TAG, "name:" + name + " ,id:" + senderObjectId);
         profileId = getIntent().getIntExtra("profileId", R.mipmap.ic_head_portrait);
         if (name != null) {
             tv_top_bar_title.setText(name);
@@ -85,7 +96,7 @@ public class ChatActivity extends Activity {
 
         intentFilter = new IntentFilter();
         intentFilter.addAction("com.tianduan.broadcast.WEBSOCKET");
-        localReceiver = new LocalChatReceiver();
+        localReceiver = new ChatReceiver();
         LocalBroadcastManager.getInstance(this).registerReceiver(localReceiver, intentFilter);
 
         iv_back.setOnClickListener(new View.OnClickListener() {
@@ -127,9 +138,9 @@ public class ChatActivity extends Activity {
             }
         });
 
-        data = MyApplication.newInstance().getChatMap().get(senderObjectId);
-        if (data == null) {
-            data = new ArrayList<>();
+        data = new ArrayList<>();
+        if (MyApplication.newInstance().getChatMap().get(senderObjectId) != null) {
+            data = new ArrayList<>(MyApplication.newInstance().getChatMap().get(senderObjectId));
         }
         adapter = new ChatAdapter(this, data);
         rv.setAdapter(adapter);
@@ -154,7 +165,7 @@ public class ChatActivity extends Activity {
                 msgData.setReceiverName(name);
                 MyApplication.newInstance().webSocketClientSend(msgData);
                 Log.d(TAG, "send msg:" + msgData.createMessage().toString());
-                data = MyApplication.newInstance().getChatMap().get(senderObjectId);
+                data.add(msgData);
                 adapter.notifyDataSetChanged();
                 if (data.size() >= 1) {
                     rv.scrollToPosition(data.size() - 1);
@@ -181,27 +192,33 @@ public class ChatActivity extends Activity {
         }
     }
 
-    class LocalChatReceiver extends BroadcastReceiver {
+    public class ChatReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            data = MyApplication.newInstance().getChatMap().get(senderObjectId);
-            adapter.notifyDataSetChanged();
-            if (data.size() >= 1) {
-                rv.scrollToPosition(data.size() - 1);
-            }
             String str = intent.getStringExtra("data");
-            Log.d(TAG, "receive :" + str);
             try {
                 MsgData msg = new MsgData(str);
-                msg.setRole(MsgData.TYPE_RECEIVER);
-                if (senderObjectId.equals(msg.getSender())) {
-                    data.add(data.size(), msg);
-                    adapter.notifyDataSetChanged();
+                data.add(msg);
+                adapter.notifyDataSetChanged();
+                if (data.size() >= 1) {
                     rv.scrollToPosition(data.size() - 1);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+//            String str = intent.getStringExtra("data");
+//            Log.d(TAG, "receive :" + str);
+//            try {
+//                MsgData msg = new MsgData(str);
+//                msg.setRole(MsgData.TYPE_RECEIVER);
+//                if (senderObjectId.equals(msg.getSender())) {
+//                    data.add(data.size(), msg);
+//                    adapter.notifyDataSetChanged();
+//                    rv.scrollToPosition(data.size() - 1);
+//                }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 

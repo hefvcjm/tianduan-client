@@ -37,7 +37,7 @@ public class LoginActivity extends Activity {
 
     private String phone;
     private String password;
-    User user;
+    private User user;
 
     private EditText et_phone;
     private EditText et_password;
@@ -47,6 +47,13 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (MyApplication.newInstance().getUser() != null) {
+            if (!MyApplication.newInstance().isServiceRunning(MyService.class.getName())) {
+                startService(new Intent(LoginActivity.this, MyService.class));
+            }
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

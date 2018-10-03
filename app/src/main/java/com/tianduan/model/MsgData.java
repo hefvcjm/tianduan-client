@@ -14,6 +14,7 @@ import java.util.Set;
 public class MsgData implements Serializable {
 
     private static final String TAG = "MsgData";
+    public static final int TYPE_NONE = -1;
     public static final int TYPE_RECEIVER = 0;
     public static final int TYPE_SENDER = 1;
 

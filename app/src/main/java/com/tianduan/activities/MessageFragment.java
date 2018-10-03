@@ -39,7 +39,7 @@ public class MessageFragment extends Fragment {
     private MessageListAdapter adapter;
 
     private IntentFilter intentFilter;
-    private LocalChatReceiver localReceiver;
+    private ChatReceiver localReceiver;
 
     List<MessageItem> messageItems;
     List<String> objectIds;
@@ -88,7 +88,7 @@ public class MessageFragment extends Fragment {
 
         intentFilter = new IntentFilter();
         intentFilter.addAction("com.tianduan.broadcast.WEBSOCKET");
-        localReceiver = new LocalChatReceiver();
+        localReceiver = new ChatReceiver();
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(localReceiver, intentFilter);
 
         return view;
@@ -124,7 +124,7 @@ public class MessageFragment extends Fragment {
         return list;
     }
 
-    class LocalChatReceiver extends BroadcastReceiver {
+    public class ChatReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             String str = intent.getStringExtra("data");

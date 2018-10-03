@@ -40,21 +40,27 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MsgViewHolder>
         MsgData preMsgData = null;
         if (position >= 1)
             preMsgData = listData.get(position - 1);
-        switch (currentMsgData.getRole()) {
-            case MsgData.TYPE_RECEIVER:
-                initTimeStamp(holder, currentMsgData, preMsgData);
-                holder.item_msg_layout_sender.setVisibility(View.GONE);
-                holder.item_msg_layout_receiver.setVisibility(View.VISIBLE);
-                holder.item_msg_tv_receiver_msg.setText(currentMsgData.getContent());
-                //holder.item_msg_iv_receiver_profile.setImageResource(currentMsgData.getProfile_res());
-                break;
-            case MsgData.TYPE_SENDER:
-                initTimeStamp(holder, currentMsgData, preMsgData);
-                holder.item_msg_layout_sender.setVisibility(View.VISIBLE);
-                holder.item_msg_layout_receiver.setVisibility(View.GONE);
-                holder.item_msg_tv_sender_msg.setText(currentMsgData.getContent());
-                //holder.item_msg_iv_sender_profile.setImageResource(currentMsgData.getProfile_res());
-                break;
+        if (currentMsgData != null) {
+            switch (currentMsgData.getRole()) {
+                case MsgData.TYPE_RECEIVER:
+                    initTimeStamp(holder, currentMsgData, preMsgData);
+                    holder.item_msg_layout_sender.setVisibility(View.GONE);
+                    holder.item_msg_layout_receiver.setVisibility(View.VISIBLE);
+                    holder.item_msg_tv_receiver_msg.setText(currentMsgData.getContent());
+                    //holder.item_msg_iv_receiver_profile.setImageResource(currentMsgData.getProfile_res());
+                    break;
+                case MsgData.TYPE_SENDER:
+                    initTimeStamp(holder, currentMsgData, preMsgData);
+                    holder.item_msg_layout_sender.setVisibility(View.VISIBLE);
+                    holder.item_msg_layout_receiver.setVisibility(View.GONE);
+                    holder.item_msg_tv_sender_msg.setText(currentMsgData.getContent());
+                    //holder.item_msg_iv_sender_profile.setImageResource(currentMsgData.getProfile_res());
+                    break;
+                default:
+                    holder.item_msg_iv_time_stamp.setVisibility(View.GONE);
+                    holder.item_msg_layout_sender.setVisibility(View.GONE);
+                    holder.item_msg_layout_receiver.setVisibility(View.GONE);
+            }
         }
     }
 
