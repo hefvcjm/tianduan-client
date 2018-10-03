@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.loopj.android.http.AsyncHttpClient;
 import com.tianduan.model.MessageItem;
 import com.tianduan.model.MsgData;
 import com.tianduan.model.User;
@@ -20,6 +21,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import cz.msebera.android.httpclient.cookie.Cookie;
+import cz.msebera.android.httpclient.impl.client.BasicCookieStore;
 
 public class MyApplication extends Application {
 
@@ -40,8 +44,9 @@ public class MyApplication extends Application {
     private SharedPreferences preferences;
     private WebSocketClient webSocketClient;
     private Map<String, List<MsgData>> chatMap;
-    List<MessageItem> messageItems;
-    List<String> messageObjectIds;
+    private List<MessageItem> messageItems;
+    private List<String> messageObjectIds;
+    private AsyncHttpClient asyncHttpClient;
 
     private User user;
 
@@ -58,6 +63,8 @@ public class MyApplication extends Application {
         chatMap = new HashMap<>();
         messageItems = new ArrayList<>();
         messageObjectIds = new ArrayList<>();
+        asyncHttpClient = new AsyncHttpClient();
+        asyncHttpClient.setConnectTimeout(5 * 60);//5s超时
     }
 
     public RequestQueue getRequestQueue() {
