@@ -1,11 +1,35 @@
 package com.tianduan.model;
 
-public class MessageItem {
+import java.io.Serializable;
 
+public class MessageItem implements Serializable {
+
+    private String objectId;
+    private long timeStamp;
     private String picture;
     private String name;
     private String time;
     private String content;
+
+    public MessageItem() {
+
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
+    }
 
     public String getPicture() {
         return picture;

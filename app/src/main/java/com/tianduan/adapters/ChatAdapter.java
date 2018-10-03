@@ -15,7 +15,7 @@ import com.tianduan.model.MsgData;
 import java.util.List;
 
 import com.tianduan.activities.R;
-import com.tianduan.util.ChatUtils;
+import com.tianduan.util.ChatUtil;
 
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MsgViewHolder> {
@@ -48,8 +48,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MsgViewHolder>
                 holder.item_msg_tv_receiver_msg.setText(currentMsgData.getContent());
                 //holder.item_msg_iv_receiver_profile.setImageResource(currentMsgData.getProfile_res());
                 break;
-
-
             case MsgData.TYPE_SENDER:
                 initTimeStamp(holder, currentMsgData, preMsgData);
                 holder.item_msg_layout_sender.setVisibility(View.VISIBLE);
@@ -63,9 +61,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MsgViewHolder>
     private void initTimeStamp(MsgViewHolder holder, MsgData currentMsgData, MsgData preMsgData) {
         String showTime;
         if (preMsgData == null) {
-            showTime = ChatUtils.calculateShowTime(ChatUtils.getCurrentMillisTime(), ChatUtils.getStringToDate(currentMsgData.getTime()));
+            showTime = ChatUtil.calculateShowTime(currentMsgData.getTime().getTime(), currentMsgData.getTime().getTime() - 60 * 1000 - 10);
         } else {
-            showTime = ChatUtils.calculateShowTime(ChatUtils.getStringToDate(currentMsgData.getTime()), ChatUtils.getStringToDate(preMsgData.getTime()));
+            showTime = ChatUtil.calculateShowTime(currentMsgData.getTime().getTime(), preMsgData.getTime().getTime());
         }
         if (showTime != null) {
             holder.item_msg_iv_time_stamp.setVisibility(View.VISIBLE);

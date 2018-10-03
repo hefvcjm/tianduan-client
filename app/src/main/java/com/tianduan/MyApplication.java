@@ -3,11 +3,20 @@ package com.tianduan;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.tianduan.model.MessageItem;
+import com.tianduan.model.MsgData;
 import com.tianduan.model.User;
+import com.tianduan.util.ChatUtil;
 
+import org.java_websocket.client.WebSocketClient;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MyApplication extends Application {
@@ -27,6 +36,10 @@ public class MyApplication extends Application {
     private static MyApplication instance;
     private RequestQueue requestQueue;
     private SharedPreferences preferences;
+    private WebSocketClient webSocketClient;
+    private Map<String, List<MsgData>> chatMap;
+    List<MessageItem> messageItems;
+    List<String> messageObjectIds;
 
     private User user;
 
@@ -40,6 +53,9 @@ public class MyApplication extends Application {
         instance = this;
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         requestQueue = Volley.newRequestQueue(this);
+        chatMap = new HashMap<>();
+        messageItems = new ArrayList<>();
+        messageObjectIds = new ArrayList<>();
     }
 
     public RequestQueue getRequestQueue() {
@@ -96,6 +112,69 @@ public class MyApplication extends Application {
 
     public User getUser() {
         return user;
+    }
+
+    private WebSocketClient getWebSocketClient() {
+        return webSocketClient;
+    }
+
+    public void webSocketClientSend(MsgData msg) {
+        if (webSocketClient != null) {
+            List<MsgData> data = getChatMap().get(msg.getReceiverId());
+            if (data == null) {
+                data = new ArrayList<>();
+            }
+            data.add(msg);
+            setChatMap(msg.getReceiverId(), data);
+            getWebSocketClient().send(msg.createMessage().toString());
+        }
+    }
+
+    public void setWebSocketClient(WebSocketClient webSocketClient) {
+        this.webSocketClient = webSocketClient;
+    }
+
+    public Map<String, List<MsgData>> getChatMap() {
+        return chatMap;
+    }
+
+//    public void setChatMap(Map<String, List<MsgData>> chatMap) {
+//        this.chatMap = chatMap;
+//    }
+
+    public void setChatMap(String objectId, List<MsgData> data) {
+        Log.d(TAG, objectId);
+        chatMap.put(objectId, data);
+        MsgData msg = data.get(data.size() - 1);
+        if (messageObjectIds.contains(objectId)) {
+            int index = messageObjectIds.indexOf(objectId);
+            MessageItem item = messageItems.get(index);
+            item.setContent(msg.getContent());
+            item.setTimeStamp(msg.getTime().getTime());
+            item.setTime(ChatUtil.calculateShowTime(item.getTimeStamp(), item.getTimeStamp() - 60 * 1000 - 10));
+            item.setName(objectId);
+            messageItems.remove(item);
+            messageItems.add(0, item);
+            messageObjectIds.remove(objectId);
+            messageObjectIds.add(0, objectId);
+        } else {
+            MessageItem item = new MessageItem();
+            item.setTimeStamp(msg.getTime().getTime());
+            item.setTime(ChatUtil.calculateShowTime(item.getTimeStamp(), item.getTimeStamp() - 60 * 1000 - 10));
+            item.setContent(msg.getContent());
+            item.setObjectId(msg.getSender());
+            item.setName(objectId);
+            messageItems.add(0, item);
+            messageObjectIds.add(0, objectId);
+        }
+    }
+
+    public List<MessageItem> getMessageItems() {
+        return messageItems;
+    }
+
+    public List<String> getMessageObjectIds() {
+        return messageObjectIds;
     }
 }
 

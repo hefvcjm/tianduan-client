@@ -15,7 +15,7 @@ import java.util.Date;
  * Created by fengshawn on 2017/8/8.
  */
 
-public class ChatUtils {
+public class ChatUtil {
 
     public static int getScreenHeight(Context context) {
         return context.getResources().getDisplayMetrics().heightPixels;
@@ -66,19 +66,18 @@ public class ChatUtils {
         String[] preTimeArr = pre.split("-");
         //当天以内,年月日相同，超过一分钟显示
         if (nowTimeArr[0].equals(preTimeArr[0]) && nowTimeArr[1].equals(preTimeArr[1]) && nowTimeArr[2].equals(preTimeArr[2]) && nowTime - preTime > 60000) {
-            return preTimeArr[3] + ":" + preTimeArr[4];
+            return nowTimeArr[3] + ":" + nowTimeArr[4];
         }
         //一周以内
         else if (Integer.valueOf(nowTimeArr[2]) - Integer.valueOf(preTimeArr[2]) > 0 && nowTime - preTime < 7 * 24 * 60 * 60 * 1000) {
-
             if (Integer.valueOf(nowTimeArr[2]) - Integer.valueOf(preTimeArr[2]) == 1)
-                return "昨天 " + preTimeArr[3] + ":" + preTimeArr[4];
+                return "昨天 " + nowTimeArr[3] + ":" + nowTimeArr[4];
             else
-                return preTimeArr[5] + " " + preTimeArr[3] + ":" + preTimeArr[4];
+                return nowTimeArr[5] + " " + nowTimeArr[3] + ":" + nowTimeArr[4];
         }
         //一周以上
         else if (nowTime - preTime > 7 * 24 * 60 * 60 * 1000) {
-            return preTimeArr[0] + "年" + preTimeArr[1] + "月" + preTimeArr[2] + "日" + " " + preTimeArr[3] + ":" + preTimeArr[4];
+            return nowTimeArr[0] + "年" + nowTimeArr[1] + "月" + nowTimeArr[2] + "日" + " " + nowTimeArr[3] + ":" + nowTimeArr[4];
         }
         return null;
     }

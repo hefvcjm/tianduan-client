@@ -1,8 +1,13 @@
 package com.tianduan.activities;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +16,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.tianduan.MyApplication;
 import com.tianduan.adapters.MessageListAdapter;
 import com.tianduan.model.MessageItem;
+import com.tianduan.model.MsgData;
+import com.tianduan.util.ChatUtil;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +36,13 @@ public class MessageFragment extends Fragment {
     private ListView lv_message_list;
     private ImageView iv_nothing;
 
-    MessageListAdapter adapter;
+    private MessageListAdapter adapter;
+
+    private IntentFilter intentFilter;
+    private LocalChatReceiver localReceiver;
+
+    List<MessageItem> messageItems;
+    List<String> objectIds;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,8 +58,54 @@ public class MessageFragment extends Fragment {
         lv_message_list.setVisibility(View.GONE);
         iv_nothing.setVisibility(View.VISIBLE);
 
-        List<MessageItem> messageItems = getMessageList();
-        adapter = new MessageListAdapter(messageItems);
+//        messageItems = MyApplication.newInstance().getMessageItems();
+//        objectIds = MyApplication.newInstance().getMessageObjectIds();
+//        if (messageItems == null) {
+//            messageItems = new ArrayList<>();
+//            objectIds = new ArrayList<>();
+//        }
+//        if (adapter == null) {
+//            adapter = new MessageListAdapter(messageItems);
+//        }
+//        lv_message_list.setAdapter(adapter);
+//        if (messageItems.size() == 0) {
+//            lv_message_list.setVisibility(View.GONE);
+//            iv_nothing.setVisibility(View.VISIBLE);
+//        } else {
+//            lv_message_list.setVisibility(View.VISIBLE);
+//            iv_nothing.setVisibility(View.GONE);
+//        }
+
+        lv_message_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                intent.putExtra("name", messageItems.get(position).getName());
+                intent.putExtra("sender", messageItems.get(position).getObjectId());
+                startActivity(intent);
+            }
+        });
+
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("com.tianduan.broadcast.WEBSOCKET");
+        localReceiver = new LocalChatReceiver();
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(localReceiver, intentFilter);
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        messageItems = MyApplication.newInstance().getMessageItems();
+        objectIds = MyApplication.newInstance().getMessageObjectIds();
+        if (messageItems == null) {
+            messageItems = new ArrayList<>();
+            objectIds = new ArrayList<>();
+        }
+        if (adapter == null) {
+            adapter = new MessageListAdapter(messageItems);
+        }
         lv_message_list.setAdapter(adapter);
         if (messageItems.size() == 0) {
             lv_message_list.setVisibility(View.GONE);
@@ -52,15 +114,6 @@ public class MessageFragment extends Fragment {
             lv_message_list.setVisibility(View.VISIBLE);
             iv_nothing.setVisibility(View.GONE);
         }
-
-        lv_message_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getActivity(), ChatActivity.class));
-            }
-        });
-
-        return view;
     }
 
     private List<MessageItem> getMessageList() {
@@ -69,5 +122,47 @@ public class MessageFragment extends Fragment {
         list.add(new MessageItem());
         list.add(new MessageItem());
         return list;
+    }
+
+    class LocalChatReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String str = intent.getStringExtra("data");
+            Log.d(TAG, "receive :" + str);
+            try {
+                MsgData msg = new MsgData(str);
+                msg.setRole(MsgData.TYPE_RECEIVER);
+                String senderObjectId = msg.getSender();
+                if (objectIds.contains(senderObjectId)) {
+                    int index = objectIds.indexOf(senderObjectId);
+                    MessageItem item = messageItems.get(index);
+                    item.setContent(msg.getContent());
+                    item.setTimeStamp(msg.getTime().getTime());
+                    item.setTime(ChatUtil.calculateShowTime(item.getTimeStamp(), item.getTimeStamp() - 60 * 1000 - 10));
+                    item.setName(msg.getSender());
+                    messageItems.remove(item);
+                    messageItems.add(0, item);
+                    objectIds.remove(senderObjectId);
+                    objectIds.add(0, senderObjectId);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    MessageItem item = new MessageItem();
+                    item.setTimeStamp(msg.getTime().getTime());
+                    item.setTime(ChatUtil.calculateShowTime(item.getTimeStamp(), item.getTimeStamp() - 60 * 1000 - 10));
+                    item.setContent(msg.getContent());
+                    item.setObjectId(msg.getSender());
+                    item.setName(msg.getSender());
+                    messageItems.add(0, item);
+                    objectIds.add(0, senderObjectId);
+                    adapter.notifyDataSetChanged();
+                }
+                if (messageItems.size() != 0) {
+                    lv_message_list.setVisibility(View.VISIBLE);
+                    iv_nothing.setVisibility(View.GONE);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

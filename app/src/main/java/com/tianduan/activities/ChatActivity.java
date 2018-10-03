@@ -1,8 +1,12 @@
 package com.tianduan.activities;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -17,18 +21,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tianduan.MyApplication;
 import com.tianduan.adapters.ChatAdapter;
 import com.tianduan.model.MsgData;
-import com.tianduan.util.ChatUtils;
 
-import java.text.SimpleDateFormat;
+import org.java_websocket.client.WebSocketClient;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 
 public class ChatActivity extends Activity {
+
+    private static final String TAG = "ChatActivity";
 
     private TextView tv_top_bar_title;
     private ImageView iv_back;
@@ -41,7 +48,13 @@ public class ChatActivity extends Activity {
     private int profileId = R.mipmap.ic_head_portrait;
 
     private List<MsgData> data;
-    ChatAdapter adapter;
+    private ChatAdapter adapter;
+
+    private IntentFilter intentFilter;
+    private LocalChatReceiver localReceiver;
+
+    private String name;
+    private String senderObjectId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +63,6 @@ public class ChatActivity extends Activity {
         setContentView(R.layout.activity_chat);
 
         initComponents();
-        String name = getIntent().getStringExtra("name");
-        profileId = getIntent().getIntExtra("profileId", R.mipmap.ic_head_portrait);
-        if (name != null) {
-            tv_top_bar_title.setText(name);
-        }
-
     }
 
     private void initComponents() {
@@ -69,6 +76,18 @@ public class ChatActivity extends Activity {
         rv = findViewById(R.id.rv_chat_view);
         rv.setLayoutManager(new LinearLayoutManager(this));
 
+        Intent intent = getIntent();
+        name = intent.getStringExtra("name");
+        senderObjectId = intent.getStringExtra("sender");
+        profileId = getIntent().getIntExtra("profileId", R.mipmap.ic_head_portrait);
+        if (name != null) {
+            tv_top_bar_title.setText(name);
+        }
+
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("com.tianduan.broadcast.WEBSOCKET");
+        localReceiver = new LocalChatReceiver();
+        LocalBroadcastManager.getInstance(this).registerReceiver(localReceiver, intentFilter);
 
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,26 +128,13 @@ public class ChatActivity extends Activity {
             }
         });
 
-
-        String[] msgs = {"在吗", "不在", "不在怎么回消息的", "我是天才机器人", "机器人这么智能啊", "是啊，时代在发展", "那你唱歌看看"
-                , "你叫唱就唱啊，多没面子", "那你能干嘛", "啥都不能", "那你有啥用？", "没啥用你和我聊啥", "我想看下有到底有啥用",
-                "你这智商看不出来的", "你智商能看出来啥？", "你智商不足", "不带你这么聊天的...", "那你说应该怎么聊天才对？",
-                "没啥对不对就是瞎聊", "看到一条新闻\"43岁男友不回家带饭 27岁女友放火点房子涉刑罪\" ， 好逗！！！", "哈哈哈哈~~~"};
-        data = new ArrayList<>();
-
-        for (int i = 0; i < msgs.length; i++) {
-            MsgData msgData = new MsgData();
-            msgData.setRole(i % 2 == 0 ? MsgData.TYPE_RECEIVER : MsgData.TYPE_SENDER);
-            msgData.setContent(msgs[i]);
-            msgData.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-            data.add(i, msgData);
+        data = MyApplication.newInstance().getChatMap().get(senderObjectId);
+        if (data == null) {
+            data = new ArrayList<>();
         }
-
         adapter = new ChatAdapter(this, data);
         rv.setAdapter(adapter);
         rv.scrollToPosition(data.size() - 1);
-        final Handler smartReplyMsgHandler = new Handler();
-
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,45 +143,21 @@ public class ChatActivity extends Activity {
                 MsgData msgData = new MsgData();
                 msgData.setRole(MsgData.TYPE_SENDER);
                 msgData.setContent(sendMsg);
-                msgData.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-                data.add(data.size(), msgData);
+                msgData.setTime(new Date());
+                msgData.setContentType("text");
+                msgData.setType("message");
+                msgData.setReceiverType("person");
+                msgData.setReceiverId(senderObjectId);
+                msgData.setSender(MyApplication.newInstance().getUser().getObjectId());
+                MyApplication.newInstance().webSocketClientSend(msgData);
+                Log.d(TAG, "send msg:" + msgData.createMessage().toString());
+                data = MyApplication.newInstance().getChatMap().get(senderObjectId);
                 adapter.notifyDataSetChanged();
                 rv.scrollToPosition(data.size() - 1);
                 et_msg.setText("");
-
-                smartReplyMsgHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        {
-                            MsgData msgData1 = getRandomMessage();
-                            data.add(data.size(), msgData1);
-                            adapter.notifyDataSetChanged();
-                            rv.scrollToPosition(data.size() - 1);
-                            smartReplyMsgHandler.removeCallbacksAndMessages(null);
-                        }
-                    }
-                }, 500);
             }
         });
     }
-
-
-    private MsgData getRandomMessage() {
-        String[] randomMsgs = {"我是机器人", "你发再多我主人也看不到", "不要回了", "你好无聊啊", "其实你发的没点用，我会全部把它过滤掉"
-                , "因为我是机器人", "不管你信不信，反正我是不信", "再发我就神经错乱了", "我无法正常跟你沟通", "你说的我懂，我就是不做", "哈哈哈~~~"
-                , "嘻嘻", "呵呵", "你可以走了", "我没逻辑的不要奢求多了", "我就呵呵了", "什么鬼", "我不懂", "啥意思？", "好了，你可以退下了", "本机器宝宝累了"};
-        Random random = new Random();
-        int pos = random.nextInt(randomMsgs.length);
-        MsgData msgData = new MsgData();
-        msgData.setRole(MsgData.TYPE_RECEIVER);
-        msgData.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-        if (pos >= 0 && pos < randomMsgs.length - 1)
-            msgData.setContent(randomMsgs[pos]);
-        else
-            msgData.setContent(randomMsgs[0]);
-        return msgData;
-    }
-
 
     private Animation getVisibleAnim(boolean show, View view) {
         view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
@@ -191,6 +173,28 @@ public class ChatActivity extends Activity {
             ScaleAnimation hiddenAnim = new ScaleAnimation(1f, 0.01f, 1f, 0.01f, x, y);
             hiddenAnim.setDuration(200);
             return hiddenAnim;
+        }
+    }
+
+    class LocalChatReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            data = MyApplication.newInstance().getChatMap().get(senderObjectId);
+            adapter.notifyDataSetChanged();
+            rv.scrollToPosition(data.size() - 1);
+//            String str = intent.getStringExtra("data");
+//            Log.d(TAG, "receive :" + str);
+//            try {
+//                MsgData msg = new MsgData(str);
+//                msg.setRole(MsgData.TYPE_RECEIVER);
+//                if (senderObjectId.equals(msg.getSender())) {
+//                    data.add(data.size(), msg);
+//                    adapter.notifyDataSetChanged();
+//                    rv.scrollToPosition(data.size() - 1);
+//                }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 
