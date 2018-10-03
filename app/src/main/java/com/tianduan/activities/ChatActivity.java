@@ -25,7 +25,6 @@ import com.tianduan.MyApplication;
 import com.tianduan.adapters.ChatAdapter;
 import com.tianduan.model.MsgData;
 
-import org.java_websocket.client.WebSocketClient;
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -134,7 +133,9 @@ public class ChatActivity extends Activity {
         }
         adapter = new ChatAdapter(this, data);
         rv.setAdapter(adapter);
-        rv.scrollToPosition(data.size() - 1);
+        if (data.size() >= 1) {
+            rv.scrollToPosition(data.size() - 1);
+        }
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,11 +150,15 @@ public class ChatActivity extends Activity {
                 msgData.setReceiverType("person");
                 msgData.setReceiverId(senderObjectId);
                 msgData.setSender(MyApplication.newInstance().getUser().getObjectId());
+                msgData.setSenderName(MyApplication.newInstance().getUser().getName());
+                msgData.setReceiverName(name);
                 MyApplication.newInstance().webSocketClientSend(msgData);
                 Log.d(TAG, "send msg:" + msgData.createMessage().toString());
                 data = MyApplication.newInstance().getChatMap().get(senderObjectId);
                 adapter.notifyDataSetChanged();
-                rv.scrollToPosition(data.size() - 1);
+                if (data.size() >= 1) {
+                    rv.scrollToPosition(data.size() - 1);
+                }
                 et_msg.setText("");
             }
         });
@@ -181,20 +186,22 @@ public class ChatActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             data = MyApplication.newInstance().getChatMap().get(senderObjectId);
             adapter.notifyDataSetChanged();
-            rv.scrollToPosition(data.size() - 1);
-//            String str = intent.getStringExtra("data");
-//            Log.d(TAG, "receive :" + str);
-//            try {
-//                MsgData msg = new MsgData(str);
-//                msg.setRole(MsgData.TYPE_RECEIVER);
-//                if (senderObjectId.equals(msg.getSender())) {
-//                    data.add(data.size(), msg);
-//                    adapter.notifyDataSetChanged();
-//                    rv.scrollToPosition(data.size() - 1);
-//                }
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
+            if (data.size() >= 1) {
+                rv.scrollToPosition(data.size() - 1);
+            }
+            String str = intent.getStringExtra("data");
+            Log.d(TAG, "receive :" + str);
+            try {
+                MsgData msg = new MsgData(str);
+                msg.setRole(MsgData.TYPE_RECEIVER);
+                if (senderObjectId.equals(msg.getSender())) {
+                    data.add(data.size(), msg);
+                    adapter.notifyDataSetChanged();
+                    rv.scrollToPosition(data.size() - 1);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 

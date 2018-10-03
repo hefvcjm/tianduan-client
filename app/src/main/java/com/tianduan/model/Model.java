@@ -54,7 +54,7 @@ public class Model implements Serializable {
             String fieldName = field.getName();
             Class<?> fieldType = field.getType();
             if (keySet.contains(fieldName)) {
-                if (object.get(fieldName) == org.json.JSONObject.NULL) {
+                if (object.get(fieldName) == JSONObject.NULL) {
                     continue;
                 }
                 try {
@@ -63,14 +63,14 @@ public class Model implements Serializable {
                     if (fieldType.equals(String.class)) {
                         method.invoke(this, object.getString(fieldName));
                     } else if (fieldType.equals(Set.class)) {
-                        if (object.get(fieldName) != org.json.JSONObject.NULL) {
+                        if (object.get(fieldName) != JSONObject.NULL) {
                             ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
                             Type type = parameterizedType.getActualTypeArguments()[0];
                             if (Class.forName(((Class) type).getName()).getSuperclass().equals(Model.class)) {
                                 Set set = new HashSet();
                                 JSONArray array = (JSONArray) object.get(fieldName);
                                 for (int i = 0; i < array.length(); i++) {
-                                    if (array.get(i) == org.json.JSONObject.NULL) {
+                                    if (array.get(i) == JSONObject.NULL) {
                                         continue;
                                     }
                                     set.add(Class.forName(((Class) type).getName()).getConstructor(String.class).newInstance(array.get(i).toString()));
@@ -80,7 +80,7 @@ public class Model implements Serializable {
                                 Set<String> set = new HashSet<String>();
                                 JSONArray array = (JSONArray) object.get(fieldName);
                                 for (int i = 0; i < array.length(); i++) {
-                                    if (array.get(i) == org.json.JSONObject.NULL) {
+                                    if (array.get(i) == JSONObject.NULL) {
                                         continue;
                                     }
                                     set.add(array.getString(i));

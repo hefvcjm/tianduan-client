@@ -1,5 +1,7 @@
 package com.tianduan.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tianduan.MyApplication;
+import com.tianduan.activities.ChatActivity;
 import com.tianduan.activities.R;
 import com.tianduan.model.Engineer;
 import com.tianduan.model.Maintain;
@@ -26,11 +29,15 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
     private static final String TAG = "MyExpandableListAdapter";
 
-    List<Maintain> items;
+    private Context context;
+    private List<Maintain> items;
+    private ButtonInterface buttonInterface;
     private OnGroupExpandedListener onGroupExpandedListener;
 
-    public MyExpandableListAdapter(List<Maintain> item) {
+    public MyExpandableListAdapter(Context context, List<Maintain> item, ButtonInterface buttonInterface) {
+        this.context = context;
         this.items = item;
+        this.buttonInterface = buttonInterface;
     }
 
     public void setOnGroupExpandedListener(OnGroupExpandedListener onGroupExpandedListener) {
@@ -97,8 +104,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        ChildViewHolder childViewHolder;
+    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        final ChildViewHolder childViewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_expand_child_repair_detail, parent, false);
             childViewHolder = new ChildViewHolder();
@@ -127,6 +134,12 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
+        childViewHolder.bn_item_detail_engineer_contract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonInterface.onClick(v, groupPosition);
+            }
+        });
         Iterator<Status> statusIterator = items.get(groupPosition).getRepair().getStatuses().iterator();
         Map<String, String> map = new HashMap<>();
         while (statusIterator.hasNext()) {
@@ -161,7 +174,6 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             } else {
                 childViewHolder.ll_expand_detail_engineer.setVisibility(View.GONE);
             }
-
         } else if (keySet.contains("派单")) {
             //status bar
             childViewHolder.iv_expand_status_icon_1.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));

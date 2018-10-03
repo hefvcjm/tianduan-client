@@ -58,23 +58,23 @@ public class MessageFragment extends Fragment {
         lv_message_list.setVisibility(View.GONE);
         iv_nothing.setVisibility(View.VISIBLE);
 
-//        messageItems = MyApplication.newInstance().getMessageItems();
-//        objectIds = MyApplication.newInstance().getMessageObjectIds();
-//        if (messageItems == null) {
-//            messageItems = new ArrayList<>();
-//            objectIds = new ArrayList<>();
-//        }
-//        if (adapter == null) {
-//            adapter = new MessageListAdapter(messageItems);
-//        }
-//        lv_message_list.setAdapter(adapter);
-//        if (messageItems.size() == 0) {
-//            lv_message_list.setVisibility(View.GONE);
-//            iv_nothing.setVisibility(View.VISIBLE);
-//        } else {
-//            lv_message_list.setVisibility(View.VISIBLE);
-//            iv_nothing.setVisibility(View.GONE);
-//        }
+        messageItems = MyApplication.newInstance().getMessageItems();
+        objectIds = MyApplication.newInstance().getMessageObjectIds();
+        if (messageItems == null) {
+            messageItems = new ArrayList<>();
+            objectIds = new ArrayList<>();
+        }
+        if (adapter == null) {
+            adapter = new MessageListAdapter(messageItems);
+        }
+        lv_message_list.setAdapter(adapter);
+        if (messageItems.size() == 0) {
+            lv_message_list.setVisibility(View.GONE);
+            iv_nothing.setVisibility(View.VISIBLE);
+        } else {
+            lv_message_list.setVisibility(View.VISIBLE);
+            iv_nothing.setVisibility(View.GONE);
+        }
 
         lv_message_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -139,7 +139,7 @@ public class MessageFragment extends Fragment {
                     item.setContent(msg.getContent());
                     item.setTimeStamp(msg.getTime().getTime());
                     item.setTime(ChatUtil.calculateShowTime(item.getTimeStamp(), item.getTimeStamp() - 60 * 1000 - 10));
-                    item.setName(msg.getSender());
+                    item.setName(msg.getSenderName());
                     messageItems.remove(item);
                     messageItems.add(0, item);
                     objectIds.remove(senderObjectId);
@@ -151,7 +151,7 @@ public class MessageFragment extends Fragment {
                     item.setTime(ChatUtil.calculateShowTime(item.getTimeStamp(), item.getTimeStamp() - 60 * 1000 - 10));
                     item.setContent(msg.getContent());
                     item.setObjectId(msg.getSender());
-                    item.setName(msg.getSender());
+                    item.setName(msg.getSenderName());
                     messageItems.add(0, item);
                     objectIds.add(0, senderObjectId);
                     adapter.notifyDataSetChanged();

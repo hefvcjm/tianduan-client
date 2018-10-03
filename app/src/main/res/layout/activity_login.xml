@@ -75,7 +75,8 @@
             android:layout_weight="1"
             android:fadeScrollbars="true"
             android:gravity="left"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:visibility="gone" />
 
     </LinearLayout>
 

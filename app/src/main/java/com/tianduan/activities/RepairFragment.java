@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -16,7 +17,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.tianduan.MyApplication;
+import com.tianduan.adapters.ButtonInterface;
 import com.tianduan.adapters.MyExpandableListAdapter;
+import com.tianduan.model.Engineer;
 import com.tianduan.model.Maintain;
 import com.tianduan.net.MyHttpRequest;
 
@@ -81,7 +84,29 @@ public class RepairFragment extends Fragment {
                     }
                     Log.d(TAG, maintains.size() + "");
                     Log.d(TAG, "new adapter");
-                    adapter = new MyExpandableListAdapter(maintains);
+                    adapter = new MyExpandableListAdapter(getActivity(), maintains, new ButtonInterface() {
+                        @Override
+                        public void onClick(View view, int position) {
+                            Log.d(TAG, "start chatting");
+                            switch (view.getId()) {
+                                case R.id.bn_item_detail_engineer_contract:
+                                    Engineer engineer = null;
+                                    if (maintains.get(position).getEngineers() != null && maintains.get(position).getEngineers().iterator().hasNext()) {
+                                        engineer = maintains.get(position).getEngineers().iterator().next();
+                                    }
+                                    if (engineer != null) {
+                                        Intent intent = new Intent(getActivity(), ChatActivity.class);
+                                        intent.putExtra("name", engineer.getUser().getName());
+                                        intent.putExtra("sender", engineer.getUser().getObjectId());
+                                        Log.d(TAG, "engineer id:" + engineer.getUser().getObjectId());
+                                        startActivity(intent);
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    });
                     mExpandableListView.setAdapter(adapter);
 //                        adapter.setOnGroupExpandedListener(new OnGroupExpandedListener() {
 //                            @Override
@@ -127,7 +152,7 @@ public class RepairFragment extends Fragment {
                 if (maintains != null) {
                     Intent intent = new Intent(getActivity(), RepairDetailActivity.class);
 //                    Log.d(TAG, maintains.get(groupPosition).toJson().toString());
-                    intent.putExtra("data", new Gson().toJson(maintains.get(groupPosition),Maintain.class));
+                    intent.putExtra("data", new Gson().toJson(maintains.get(groupPosition), Maintain.class));
                     Log.d(TAG, maintains.get(groupPosition).toString());
                     startActivity(intent);
                 }

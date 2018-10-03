@@ -52,7 +52,7 @@ public class MessageListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 //        viewHolder.iv_message_item_head.setImageDrawable();
-//        viewHolder.tv_message_item_name.setText(items.get(position).getName());
+        viewHolder.tv_message_item_name.setText(items.get(position).getName());
         viewHolder.tv_message_item_time.setText(items.get(position).getTime());
         viewHolder.tv_message_item_content.setText(items.get(position).getContent());
         return convertView;

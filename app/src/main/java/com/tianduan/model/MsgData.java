@@ -24,6 +24,8 @@ public class MsgData implements Serializable {
     private static final String KEY_CONTENT_TYPE = "contentType";
     private static final String KEY_CONTENT = "content";
     private static final String KEY_TIME = "time";
+    private static final String KEY_SENDER_NAME = "senderName";
+    private static final String KEY_RECEIVER_NAME = "receiverName";
 
     private int role;
     private String type;
@@ -33,6 +35,8 @@ public class MsgData implements Serializable {
     private String contentType;
     private String content;
     private Date time;
+    private String senderName;
+    private String receiverName;
 
     public MsgData() {
 
@@ -50,6 +54,8 @@ public class MsgData implements Serializable {
         setReceiverId(json.getString(KEY_RECEIVER_ID));
         setContentType(json.getString(KEY_CONTENT_TYPE));
         setContent(json.getString(KEY_CONTENT));
+        setSenderName(json.getString(KEY_SENDER_NAME));
+        setReceiverName(json.getString(KEY_RECEIVER_NAME));
         if (keys.contains(KEY_TIME)) {
             try {
                 setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse((String) json.get(KEY_TIME)));
@@ -73,7 +79,9 @@ public class MsgData implements Serializable {
                     .put(KEY_CONTENT_TYPE, contentType)
                     .put(KEY_CONTENT, content)
                     .put(KEY_RECEIVER_TYPE, receiverType)
-                    .put(KEY_RECEIVER_ID, receiverId);
+                    .put(KEY_RECEIVER_ID, receiverId)
+                    .put(KEY_SENDER_NAME, senderName)
+                    .put(KEY_RECEIVER_NAME, receiverName);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -142,5 +150,21 @@ public class MsgData implements Serializable {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
     }
 }

@@ -152,7 +152,11 @@ public class MyApplication extends Application {
             item.setContent(msg.getContent());
             item.setTimeStamp(msg.getTime().getTime());
             item.setTime(ChatUtil.calculateShowTime(item.getTimeStamp(), item.getTimeStamp() - 60 * 1000 - 10));
-            item.setName(objectId);
+            if (msg.getRole() == MsgData.TYPE_RECEIVER) {
+                item.setName(msg.getSenderName());
+            } else {
+                item.setName(msg.getReceiverName());
+            }
             messageItems.remove(item);
             messageItems.add(0, item);
             messageObjectIds.remove(objectId);
@@ -162,8 +166,13 @@ public class MyApplication extends Application {
             item.setTimeStamp(msg.getTime().getTime());
             item.setTime(ChatUtil.calculateShowTime(item.getTimeStamp(), item.getTimeStamp() - 60 * 1000 - 10));
             item.setContent(msg.getContent());
-            item.setObjectId(msg.getSender());
-            item.setName(objectId);
+            if (msg.getRole() == MsgData.TYPE_RECEIVER) {
+                item.setName(msg.getSenderName());
+                item.setObjectId(msg.getSender());
+            } else {
+                item.setName(msg.getReceiverName());
+                item.setObjectId(msg.getReceiverId());
+            }
             messageItems.add(0, item);
             messageObjectIds.add(0, objectId);
         }

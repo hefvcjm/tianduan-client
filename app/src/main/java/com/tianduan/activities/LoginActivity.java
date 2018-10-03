@@ -11,29 +11,21 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.tianduan.MyApplication;
 import com.tianduan.model.User;
 import com.tianduan.net.MyHttpRequest;
 import com.tianduan.services.MyService;
-import com.tianduan.util.HttpUtil;
 
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.drafts.Draft_10;
-import org.java_websocket.drafts.Draft_17;
-import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,15 +73,22 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onResponse(String response) {
                         Gson gson = new Gson();
+                        Log.d(TAG, response);
                         try {
                             JSONObject json = new JSONObject(response);
-                            user = gson.fromJson(json.getString("data"), User.class);
-                            MyApplication.newInstance().setUser(user);
-                            tv_log.setText(user.toString());
-                            Log.d(TAG, user.toString());
-                            startService(new Intent(LoginActivity.this, MyService.class));
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            finish();
+                            if (json.getInt("code") == 0) {
+                                user = gson.fromJson(json.getString("data"), User.class);
+                                MyApplication.newInstance().setUser(user);
+                                tv_log.setText(user.toString());
+                                Log.d(TAG, user.toString());
+                                startService(new Intent(LoginActivity.this, MyService.class));
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                finish();
+                            } else if (json.getInt("code") == 1004) {
+                                Toast.makeText(LoginActivity.this, json.getJSONObject("data").getString("description"), Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(LoginActivity.this, json.getString("msg"), Toast.LENGTH_LONG).show();
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -98,6 +97,7 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         tv_log.setText("error");
+                        Toast.makeText(LoginActivity.this, "发生错误", Toast.LENGTH_LONG).show();
                     }
                 }) {
                     @Override
