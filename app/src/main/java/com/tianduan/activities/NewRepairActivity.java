@@ -60,6 +60,7 @@ public class NewRepairActivity extends Activity {
 
     private TextView tv_top_bar_title;
     private TextView tv_top_bar_right;
+    private ImageView iv_back;
 
     private EditText et_new_repair_name;
     private EditText et_new_repair_code;
@@ -184,6 +185,13 @@ public class NewRepairActivity extends Activity {
         tv_top_bar_right = findViewById(R.id.tv_top_bar_right);
         tv_top_bar_title.setText("新建报修");
         tv_top_bar_right.setText("保存");
+        iv_back = findViewById(R.id.iv_activity_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         et_new_repair_name = findViewById(R.id.et_new_repair_name);
         et_new_repair_code = findViewById(R.id.et_new_repair_code);
@@ -250,7 +258,7 @@ public class NewRepairActivity extends Activity {
                                     if (videoPath != null) {
                                         map.put("videos", new String[]{videoPath});
                                     }
-                                    if (!map.isEmpty()){
+                                    if (!map.isEmpty()) {
                                         postFiles(repair.getObjectId(), map);
                                     }
                                 } catch (JSONException e) {
@@ -366,6 +374,7 @@ public class NewRepairActivity extends Activity {
                 case RECORD_SYSTEM_VIDEO:
                     Log.e(TAG, data.getData().toString());
                     videoPath = FileUtil.getRealFilePath(data.getData());
+                    Log.e(TAG, videoPath);
                     bn_new_repair_add_video.setVisibility(View.INVISIBLE);
                     layout = new RelativeLayout(NewRepairActivity.this);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(DimensUtil.dip2px(100), DimensUtil.dip2px(100));
@@ -386,6 +395,12 @@ public class NewRepairActivity extends Activity {
                     imageButton.setImageDrawable(getResources().getDrawable(R.mipmap.ic_delete));
                     imageButton.setScaleType(ImageView.ScaleType.CENTER);
                     layout.addView(imageButton);
+                    Button play = new Button(NewRepairActivity.this);
+                    RelativeLayout.LayoutParams playParams = new RelativeLayout.LayoutParams(DimensUtil.dip2px(40), DimensUtil.dip2px(40));
+                    playParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+                    play.setLayoutParams(playParams);
+                    play.setBackgroundResource(R.mipmap.ic_video_play);
+                    layout.addView(play);
                     ll_new_repair_video.addView(layout);
                     imageButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -393,6 +408,17 @@ public class NewRepairActivity extends Activity {
                             layout.setVisibility(View.GONE);
                             bn_new_repair_add_video.setVisibility(View.VISIBLE);
                             videoPath = null;
+                        }
+                    });
+                    final String uri = data.getData().toString();
+                    play.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(NewRepairActivity.this, VideoPlayActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("videoPath", uri);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
                         }
                     });
                     break;

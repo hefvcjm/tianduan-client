@@ -125,12 +125,14 @@ public class MyService extends Service {
                         public void onClose(int code, String reason, boolean remote) {
                             Log.d(TAG, "关闭通道");
                             isConnected = false;
+                            MyApplication.newInstance().setWebSocketClient(null);
                         }
 
                         @Override
                         public void onError(Exception ex) {
                             Log.d(TAG, "连接出错");
                             isConnected = false;
+                            MyApplication.newInstance().setWebSocketClient(null);
                         }
                     };
                     Log.d(TAG, "websocket uri:" + client.getURI().getPath());

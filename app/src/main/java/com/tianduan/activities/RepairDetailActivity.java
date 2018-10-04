@@ -31,6 +31,7 @@ public class RepairDetailActivity extends Activity {
 
     private TextView tv_top_bar_title;
     private TextView tv_top_bar_right;
+    private ImageView iv_back;
 
     TextView title;
     TextView ticket;
@@ -96,6 +97,13 @@ public class RepairDetailActivity extends Activity {
         tv_top_bar_right = findViewById(R.id.tv_top_bar_right);
         tv_top_bar_title.setText("报修详情");
         tv_top_bar_right.setVisibility(View.GONE);
+        iv_back = findViewById(R.id.iv_activity_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         title = findViewById(R.id.tv_item_repair_title);
         ticket = findViewById(R.id.tv_item_repair_ticket);

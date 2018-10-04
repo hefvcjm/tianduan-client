@@ -31,9 +31,8 @@
         <activity android:name=".RepairDetailActivity" />
         <activity android:name=".MeDetailActivity" />
         <activity android:name=".ChatActivity" />
-        <activity
-            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
-            android:configChanges="orientation|screenSize" />
+        <activity android:name=".PlayVideoActivity" />
+        <activity android:name=".VideoPlayActivity" />
 
         <service android:name="com.tianduan.services.MyService" />
 

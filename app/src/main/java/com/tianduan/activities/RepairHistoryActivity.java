@@ -35,6 +35,7 @@ public class RepairHistoryActivity extends Activity {
 
     private TextView tv_top_bar_title;
     private TextView tv_top_bar_right;
+    private ImageView iv_back;
 
     private ListView lv_repair_history;
     private ImageView iv_nothing;
@@ -55,6 +56,13 @@ public class RepairHistoryActivity extends Activity {
         tv_top_bar_right = findViewById(R.id.tv_top_bar_right);
         tv_top_bar_title.setText("我的报修");
         tv_top_bar_right.setVisibility(View.GONE);
+        iv_back = findViewById(R.id.iv_activity_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         lv_repair_history = findViewById(R.id.lv_repair_history);
         iv_nothing = findViewById(R.id.iv_nothing);

@@ -26,6 +26,7 @@ public class MeDetailActivity extends Activity implements View.OnClickListener {
 
     private TextView tv_top_bar_title;
     private TextView tv_top_bar_right;
+    private ImageView iv_back;
 
     private ImageView iv_me_head_portrait;
     private EditText et_me_name;
@@ -44,8 +45,15 @@ public class MeDetailActivity extends Activity implements View.OnClickListener {
     private void init() {
         tv_top_bar_title = findViewById(R.id.tv_top_bar_title);
         tv_top_bar_right = findViewById(R.id.tv_top_bar_right);
+        iv_back = findViewById(R.id.iv_activity_back);
         tv_top_bar_title.setText("我的资料");
         tv_top_bar_right.setText("编辑");
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         iv_me_head_portrait = findViewById(R.id.iv_me_head_portrait);
         et_me_name = findViewById(R.id.et_me_name);

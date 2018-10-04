@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -41,6 +42,7 @@ public class RepairFragment extends Fragment {
 
     private TextView tv_top_bar_title;
     private TextView tv_top_bar_right;
+    private ImageView iv_back;
 
     List<Maintain> maintains;
 
@@ -59,6 +61,8 @@ public class RepairFragment extends Fragment {
         tv_top_bar_right = view.findViewById(R.id.tv_top_bar_right);
         tv_top_bar_title.setText("报修");
         tv_top_bar_right.setText("建议与投诉");
+        iv_back = view.findViewById(R.id.iv_activity_back);
+        iv_back.setVisibility(View.GONE);
 //        if (mExpandableListView == null) {
         Log.d(TAG, "find mExpandableListView");
         mExpandableListView = view.findViewById(R.id.expandable_list);

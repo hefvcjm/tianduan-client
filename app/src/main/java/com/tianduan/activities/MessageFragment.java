@@ -33,6 +33,7 @@ public class MessageFragment extends Fragment {
 
     private TextView tv_top_bar_title;
     private TextView tv_top_bar_right;
+    private ImageView iv_back;
     private ListView lv_message_list;
     private ImageView iv_nothing;
 
@@ -51,6 +52,8 @@ public class MessageFragment extends Fragment {
         tv_top_bar_right = view.findViewById(R.id.tv_top_bar_right);
         tv_top_bar_title.setText("聊天");
         tv_top_bar_right.setVisibility(View.GONE);
+        iv_back = view.findViewById(R.id.iv_activity_back);
+        iv_back.setVisibility(View.GONE);
 
         lv_message_list = view.findViewById(R.id.lv_message_list);
         iv_nothing = view.findViewById(R.id.iv_nothing);

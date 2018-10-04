@@ -76,7 +76,7 @@ public class ChatActivity extends Activity {
 
     private void initComponents() {
         tv_top_bar_title = findViewById(R.id.tv_top_bar_title);
-        iv_back = findViewById(R.id.iv_back);
+        iv_back = findViewById(R.id.iv_activity_back);
         iv_voice = findViewById(R.id.activity_chat_iv_voice);
         et_msg = findViewById(R.id.activity_chat_et_msg);
         iv_emoji = findViewById(R.id.activity_chat_iv_emoji);
