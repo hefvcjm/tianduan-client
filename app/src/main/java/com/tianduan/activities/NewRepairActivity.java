@@ -6,9 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -25,6 +28,7 @@ import com.tianduan.model.Maintain;
 import com.tianduan.model.Repair;
 import com.tianduan.net.MyHttpRequest;
 import com.tianduan.net.MyJsonRequest;
+import com.tianduan.util.DimensUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +43,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cn.finalteam.galleryfinal.GalleryFinal;
+import cn.finalteam.galleryfinal.model.PhotoInfo;
 import cz.msebera.android.httpclient.Header;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
@@ -46,6 +52,8 @@ import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 public class NewRepairActivity extends Activity {
 
     private static final String TAG = "NewRepairActivity";
+
+    private final int REQUEST_CODE_GALLERY = 1001;
 
     private TextView tv_top_bar_title;
     private TextView tv_top_bar_right;
@@ -58,6 +66,8 @@ public class NewRepairActivity extends Activity {
     private Button bn_new_repair_commit;
     private Button bn_new_repair_add_picture;
 
+    private LinearLayout ll_new_repair_images;
+
     private Repair repair;
     private ArrayList<String> images;
 
@@ -68,6 +78,33 @@ public class NewRepairActivity extends Activity {
         setContentView(R.layout.activity_new_repair);
         init();
     }
+
+    /**
+     * 选取图片后的回调
+     */
+    private GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback = new GalleryFinal.OnHanlderResultCallback() {
+        @Override
+        public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
+            if (resultList != null) {
+                Log.e("onHanlderSuccess: ", resultList.get(0).getPhotoPath());
+                for (PhotoInfo info : resultList) {
+                    String path = info.getPhotoPath();
+                    ImageView imageView = new ImageView(NewRepairActivity.this);
+                    imageView.setImageURI(Uri.fromFile(new File(path)));
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(DimensUtil.dip2px(100), DimensUtil.dip2px(100));
+                    params.setMargins(DimensUtil.dip2px(5), 0, DimensUtil.dip2px(5), 0);
+                    imageView.setLayoutParams(params);
+                    imageView.setScaleType(ImageView.ScaleType.CENTER);
+                    ll_new_repair_images.addView(imageView);
+                }
+            }
+        }
+
+        @Override
+        public void onHanlderFailure(int requestCode, String errorMsg) {
+            Log.e("onHanlderSuccess: ", errorMsg);
+        }
+    };
 
     private void init() {
         tv_top_bar_title = findViewById(R.id.tv_top_bar_title);
@@ -81,16 +118,18 @@ public class NewRepairActivity extends Activity {
         et_new_repair_fault_part = findViewById(R.id.et_new_repair_fault_part);
         bn_new_repair_commit = findViewById(R.id.bn_new_repair_commit);
         bn_new_repair_add_picture = findViewById(R.id.bn_new_repair_add_picture);
+        ll_new_repair_images = findViewById(R.id.ll_new_repair_images);
 
         bn_new_repair_add_picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MultiImageSelector.create(NewRepairActivity.this)
-                        .showCamera(true) // show camera or not. true by default
-                        .count(9) // max select image size, 9 by default. used width #.multi()
-                        .multi() // multi mode, default mode;
-                        .origin(images) // original select data set, used width #.multi()
-                        .start(NewRepairActivity.this, 1);
+//                MultiImageSelector.create(NewRepairActivity.this)
+//                        .showCamera(true) // show camera or not. true by default
+//                        //.count(9) // max select image size, 9 by default. used width #.multi()
+//                        .multi() // multi mode, default mode;
+//                        //.origin(images) // original select data set, used width #.multi()
+//                        .start(NewRepairActivity.this, 1);
+                GalleryFinal.openGalleryMuti(REQUEST_CODE_GALLERY, 9, mOnHanlderResultCallback);
             }
         });
 
@@ -135,7 +174,22 @@ public class NewRepairActivity extends Activity {
         });
     }
 
-    private void postFiles(String repairObjectId, Map<String, String[]> pathMap) throws Exception {
+    /**
+     * 老版本的使用方法
+     */
+    private void selectSingleImage() {
+        Intent intent = new Intent();
+        intent.setClass(this, MultiImageSelectorActivity.class);
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);//显示可拍照
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 9);//最多可选9张
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_SINGLE);//单选模式
+//        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_MULTI);//多选模式
+        startActivityForResult(intent, 1);//启动MultiImageSelectorActivity
+    }
+
+
+    private void postFiles(String repairObjectId, Map<String, String[]> pathMap) throws
+            Exception {
         RequestParams params = new RequestParams();
         Set<String> keys = pathMap.keySet();
         for (String key : keys) {
