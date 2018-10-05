@@ -55,5 +55,7 @@ dependencies {
     implementation 'com.czt.mp3recorder:library:1.0.4'
     implementation 'com.bigkoo:svprogresshud:1.0.6'
 
+    implementation 'me.weyye.hipermission:library:1.0.7'
+
 
 }

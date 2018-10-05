@@ -1,20 +1,28 @@
 package com.tianduan.activities;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +37,11 @@ import com.loopj.android.http.RequestParams;
 import com.tianduan.MyApplication;
 import com.tianduan.model.Repair;
 import com.tianduan.net.MyJsonRequest;
+import com.tianduan.record.adapter.RecordAdapter;
+import com.tianduan.record.entity.RecordBean;
+import com.tianduan.record.utils.MediaManager;
+import com.tianduan.record.utils.TimeUtil;
+import com.tianduan.record.view.RecordButton;
 import com.tianduan.util.DimensUtil;
 import com.tianduan.util.FileUtil;
 
@@ -36,6 +49,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,10 +64,16 @@ import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
 import cz.msebera.android.httpclient.Header;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
+import me.weyye.hipermission.HiPermission;
+import me.weyye.hipermission.PermissionCallback;
+import me.weyye.hipermission.PermissionItem;
 
-public class NewRepairActivity extends Activity {
+public class NewRepairActivity extends Activity implements
+        RecordButton.AudioFinishRecordListener {
 
     private static final String TAG = "NewRepairActivity";
+
+    private static final int MAX_RECORD_DURATION = Integer.MAX_VALUE;
 
     private final int REQUEST_CODE_GALLERY = 1001;
     public static final int RECORD_SYSTEM_VIDEO = 1002;
@@ -81,6 +101,17 @@ public class NewRepairActivity extends Activity {
     private Map<View, String> image_path;
 
     private String videoPath;
+
+    private RecordButton btnRecord;
+
+    private View animView;
+
+    private TextView tvDuration;
+    private ImageView ivRecord;
+    private LinearLayout llRecord;
+    private RecordBean recordBean;
+
+    private String dir = Environment.getExternalStorageDirectory() + "/wilson_record_audios";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,15 +249,59 @@ public class NewRepairActivity extends Activity {
         bn_new_repair_add_picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                MultiImageSelector.create(NewRepairActivity.this)
-//                        .showCamera(true) // show camera or not. true by default
-//                        //.count(9) // max select image size, 9 by default. used width #.multi()
-//                        .multi() // multi mode, default mode;
-//                        //.origin(images) // original select data set, used width #.multi()
-//                        .start(NewRepairActivity.this, 1);
                 GalleryFinal.openGalleryMuti(REQUEST_CODE_GALLERY, 9, mOnHanlderResultCallback);
             }
         });
+
+        ivRecord =findViewById(R.id.iv_record);
+        llRecord = findViewById(R.id.ll_record);
+        tvDuration = findViewById(R.id.tv_duration);
+
+
+        btnRecord = findViewById(R.id.btn_record);
+        btnRecord.setmAudioFinishRecordListener(this);
+        ivRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (animView != null) {
+                    animView.setBackgroundResource(R.drawable.adj);
+                    animView = null;
+                }
+                animView = findViewById(R.id.iv_record);
+                animView.setBackgroundResource(R.drawable.record_anim);
+                AnimationDrawable animationDrawable = (AnimationDrawable) animView.getBackground();
+                animationDrawable.start();
+                MediaManager.playSound(recordBean.getRecordPath(), new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        animView.setBackgroundResource(R.drawable.adj);
+                    }
+                });
+            }
+        });
+
+//        lvRecord.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                if (animView != null) {
+//                    animView.setBackgroundResource(R.drawable.adj);
+//                    animView = null;
+//                }
+//                animView = view.findViewById(R.id.iv_record);
+//                animView.setBackgroundResource(R.drawable.record_anim);
+//                AnimationDrawable animationDrawable = (AnimationDrawable) animView.getBackground();
+//                animationDrawable.start();
+//
+//                RecordBean recordBean = recordBeans.get(i);
+//                MediaManager.playSound(recordBean.getRecordPath(), new MediaPlayer.OnCompletionListener() {
+//                    @Override
+//                    public void onCompletion(MediaPlayer mediaPlayer) {
+//                        animView.setBackgroundResource(R.drawable.adj);
+//                    }
+//                });
+//
+//            }
+//        });
 
         bn_new_repair_commit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -280,19 +355,6 @@ public class NewRepairActivity extends Activity {
                 }
             }
         });
-    }
-
-    /**
-     * 老版本的使用方法
-     */
-    private void selectSingleImage() {
-        Intent intent = new Intent();
-        intent.setClass(this, MultiImageSelectorActivity.class);
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);//显示可拍照
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 9);//最多可选9张
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_SINGLE);//单选模式
-//        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_MULTI);//多选模式
-        startActivityForResult(intent, 1);//启动MultiImageSelectorActivity
     }
 
 
@@ -426,5 +488,81 @@ public class NewRepairActivity extends Activity {
                     break;
             }
         }
+    }
+
+    private void initPermission() {
+        List<PermissionItem> permissions = new ArrayList<PermissionItem>();
+        permissions.add(new PermissionItem(Manifest.permission.RECORD_AUDIO, getString(R.string.permission_cus_item_audio), R.drawable.permission_ic_micro_phone));
+        permissions.add(new PermissionItem(Manifest.permission.READ_EXTERNAL_STORAGE, getString(R.string.permission_cus_item_read), R.drawable.permission_ic_storage));
+        permissions.add(new PermissionItem(Manifest.permission.WRITE_EXTERNAL_STORAGE, getString(R.string.permission_cus_item_write), R.drawable.permission_ic_storage));
+
+        HiPermission.create(this)
+                .permissions(permissions)
+                .checkMutiPermission(new PermissionCallback() {
+                    @Override
+                    public void onClose() {
+                    }
+
+                    @Override
+                    public void onFinish() {
+                    }
+
+                    @Override
+                    public void onDeny(String permisson, int position) {
+                    }
+
+                    @Override
+                    public void onGuarantee(String permisson, int position) {
+                    }
+                });
+    }
+
+    @Override
+    public void onFinishRecord(float seconds, String filePath) {
+        recordBean = new RecordBean();
+        recordBean.setRecordPath(filePath);
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer.reset();
+        try {
+            mediaPlayer.setDataSource(recordBean.getRecordPath());
+            mediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int duration = mediaPlayer.getDuration();
+
+        //根据语音时长来重置UI长度显示
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(dm);
+        int maxWidth = (int) (dm.widthPixels * 0.6);
+        int minWidth = (int) (dm.widthPixels * 0.2);
+        ViewGroup.LayoutParams layoutParams = llRecord.getLayoutParams();
+        layoutParams.width = (int) (minWidth + (maxWidth / MAX_RECORD_DURATION * TimeUtil.convertToSecond(Long.valueOf(duration))));
+
+        tvDuration.setText(TimeUtil.formatDuring(duration));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MediaManager.resume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MediaManager.release();
+        File file = new File(dir);
+        if (file.isDirectory()) {
+            com.tianduan.record.utils.FileUtil.deleteDir(file);
+        }
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MediaManager.pause();
     }
 }

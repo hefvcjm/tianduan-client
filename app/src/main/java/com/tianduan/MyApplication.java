@@ -44,7 +44,7 @@ public class MyApplication extends Application {
 
     //教研室：192.168.2.224
     //手机:192.168.43.253
-    public static final String BASE_IP = "192.168.2.224";
+    public static final String BASE_IP = "192.168.43.253";
     public static final String BASE_URL = "http://" + BASE_IP + ":8080/tianduan";
     public static final String BASE_CHAT_URL = "ws://" + BASE_IP + ":8080/tianduan/chat";
 
