@@ -18,13 +18,15 @@ public class AudioManager {
     private MediaRecorder mediaRecorder;
     private String mDir;
     private String mCurPath;
+    private String mName;
 
     private static AudioManager mInstans;
 
     private boolean isPrepared = false;
 
-    public AudioManager(String mDir) {
+    public AudioManager(String mDir, String mName) {
         this.mDir = mDir;
+        this.mName = mName;
     }
 
     private AudioStateListener audioStateListener;
@@ -44,11 +46,11 @@ public class AudioManager {
         this.audioStateListener = audioStateListener;
     }
 
-    public static AudioManager getInstence(String dir) {
+    public static AudioManager getInstence(String dir, String mName) {
         if (mInstans == null) {
             synchronized (AudioManager.class) {
                 if (mInstans == null)
-                    mInstans = new AudioManager(dir);
+                    mInstans = new AudioManager(dir, mName);
             }
         }
         return mInstans;
@@ -61,7 +63,7 @@ public class AudioManager {
             File dir = new File(mDir);
             if (!dir.exists())
                 dir.mkdirs();
-            String fileName = generateFileName();
+            String fileName = mName;
             File file = new File(dir, fileName);
             mCurPath = file.getAbsolutePath();
 
@@ -114,7 +116,7 @@ public class AudioManager {
     }
 
     public void release() {
-        if(mediaRecorder!=null){
+        if (mediaRecorder != null) {
             mediaRecorder.stop();
             mediaRecorder.release();
         }

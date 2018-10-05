@@ -36,6 +36,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.tianduan.MyApplication;
 import com.tianduan.model.Repair;
+import com.tianduan.model.User;
 import com.tianduan.net.MyJsonRequest;
 import com.tianduan.record.adapter.RecordAdapter;
 import com.tianduan.record.entity.RecordBean;
@@ -253,12 +254,15 @@ public class NewRepairActivity extends Activity implements
             }
         });
 
-        ivRecord =findViewById(R.id.iv_record);
+        ivRecord = findViewById(R.id.iv_record);
         llRecord = findViewById(R.id.ll_record);
         tvDuration = findViewById(R.id.tv_duration);
 
 
         btnRecord = findViewById(R.id.btn_record);
+        User user = MyApplication.newInstance().getUser();
+        String fileDir = MyApplication.newInstance().getContext().getFilesDir().getAbsolutePath() + "/" + user.getObjectId() + "/repairs/" + repair.getObjectId() + "/audio";
+        btnRecord.setFIleInfo(fileDir, "audio.amr");
         btnRecord.setmAudioFinishRecordListener(this);
         ivRecord.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -41,6 +41,9 @@ public class RecordButton extends Button implements AudioManager.AudioStateListe
 
     private Context context;
 
+    private String fileDir;
+    private String fileName;
+
 
     public RecordButton(Context context) {
         this(context, null, 0);
@@ -56,7 +59,7 @@ public class RecordButton extends Button implements AudioManager.AudioStateListe
         mDialogManager = new DialogManager(getContext());
 
         String dir = Environment.getExternalStorageDirectory() + "/wilson_record_audios";
-        audioManager = new AudioManager(dir);
+        audioManager = new AudioManager(fileDir, fileName);
         audioManager.setAudioStateListener(this);
         setOnLongClickListener(new OnLongClickListener() {
             @SuppressLint("NewApi")
@@ -68,6 +71,11 @@ public class RecordButton extends Button implements AudioManager.AudioStateListe
             }
         });
 
+    }
+
+    public void setFIleInfo(String fileDir, String fileName) {
+        this.fileDir = fileDir;
+        this.fileName = fileName;
     }
 
     /**
