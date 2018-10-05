@@ -53,7 +53,10 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         User user = MyApplication.newInstance().getUser();
         if (user != null) {
             tv_me_user.setText(user.getName());
-            iv_head_portrait.setImageBitmap(user.getHeadBitmap());
+            Bitmap bitmap = user.getHeadBitmap();
+            if (bitmap != null) {
+                iv_head_portrait.setImageBitmap(bitmap);
+            }
         }
         return view;
     }

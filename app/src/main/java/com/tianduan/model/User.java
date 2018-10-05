@@ -58,7 +58,6 @@ public class User extends Model {
         super(json);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public Bitmap getHeadBitmap() {
         Bitmap bitmap;
         if (picture != null) {

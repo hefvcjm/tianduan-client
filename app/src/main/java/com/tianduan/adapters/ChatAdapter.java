@@ -1,6 +1,7 @@
 package com.tianduan.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.tianduan.model.MsgData;
 import java.util.List;
 
 import com.tianduan.activities.R;
+import com.tianduan.model.User;
 import com.tianduan.util.ChatUtil;
 
 
@@ -55,7 +57,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MsgViewHolder>
                     holder.item_msg_layout_sender.setVisibility(View.VISIBLE);
                     holder.item_msg_layout_receiver.setVisibility(View.GONE);
                     holder.item_msg_tv_sender_msg.setText(currentMsgData.getContent());
-                    holder.item_msg_iv_sender_profile.setImageBitmap(MyApplication.newInstance().getUser().getHeadBitmap());
+                    User user = MyApplication.newInstance().getUser();
+                    Bitmap bitmap = user.getHeadBitmap();
+                    if (bitmap != null) {
+                        holder.item_msg_iv_sender_profile.setImageBitmap(bitmap);
+                    }
                     break;
                 default:
                     holder.item_msg_iv_time_stamp.setVisibility(View.GONE);

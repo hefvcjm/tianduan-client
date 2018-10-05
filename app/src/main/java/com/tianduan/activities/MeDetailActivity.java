@@ -89,7 +89,10 @@ public class MeDetailActivity extends Activity implements View.OnClickListener {
             et_me_sex.setText(user.getSex());
             et_me_phone.setText(user.getPhone());
             et_me_address.setText(user.getAddress());
-            iv_me_head_portrait.setImageBitmap(user.getHeadBitmap());
+            Bitmap bitmap = user.getHeadBitmap();
+            if (bitmap != null) {
+                iv_me_head_portrait.setImageBitmap(bitmap);
+            }
         } else {
             et_me_name.setText("");
             et_me_sex.setText("");
