@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.tianduan.MyApplication;
 import com.tianduan.model.User;
 import com.tianduan.net.MyHttpRequest;
+import com.tianduan.services.InitService;
 import com.tianduan.services.MyService;
 
 import org.json.JSONException;
@@ -89,6 +90,7 @@ public class LoginActivity extends Activity {
                                 tv_log.setText(user.toString());
                                 Log.d(TAG, user.toString());
                                 startService(new Intent(LoginActivity.this, MyService.class));
+                                startService(new Intent(LoginActivity.this, InitService.class));
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                 finish();
                             } else if (json.getInt("code") == 1004) {

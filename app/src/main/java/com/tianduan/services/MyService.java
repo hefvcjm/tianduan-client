@@ -67,8 +67,8 @@ public class MyService extends Service {
                 }
             }
         };
-        timer.schedule(task, 0, 1000 * 2);
-        return super.onStartCommand(intent, flags, startId);
+        timer.schedule(task, 0, 1000 * 5);
+        return Service.START_STICKY;
     }
 
     @Override

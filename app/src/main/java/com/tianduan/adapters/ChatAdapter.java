@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.tianduan.MyApplication;
 import com.tianduan.model.MsgData;
 
 import java.util.List;
@@ -54,7 +55,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MsgViewHolder>
                     holder.item_msg_layout_sender.setVisibility(View.VISIBLE);
                     holder.item_msg_layout_receiver.setVisibility(View.GONE);
                     holder.item_msg_tv_sender_msg.setText(currentMsgData.getContent());
-                    //holder.item_msg_iv_sender_profile.setImageResource(currentMsgData.getProfile_res());
+                    holder.item_msg_iv_sender_profile.setImageBitmap(MyApplication.newInstance().getUser().getHeadBitmap());
                     break;
                 default:
                     holder.item_msg_iv_time_stamp.setVisibility(View.GONE);

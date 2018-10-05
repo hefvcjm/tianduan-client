@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -46,6 +47,8 @@ public class MyApplication extends Application {
     public static final String BASE_IP = "192.168.2.224";
     public static final String BASE_URL = "http://" + BASE_IP + ":8080/tianduan";
     public static final String BASE_CHAT_URL = "ws://" + BASE_IP + ":8080/tianduan/chat";
+
+    public static final String APP_DATA_DIR = Environment.getExternalStorageDirectory() + "/tianduan/files";
 
     private static MyApplication instance;
     private RequestQueue requestQueue;

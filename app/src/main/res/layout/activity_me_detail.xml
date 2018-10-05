@@ -38,6 +38,7 @@
                     android:id="@+id/iv_me_head_portrait"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
+                    android:scaleType="centerCrop"
                     android:src="@mipmap/ic_head_portrait" />
 
             </LinearLayout>

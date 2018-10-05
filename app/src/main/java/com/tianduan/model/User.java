@@ -1,10 +1,26 @@
 package com.tianduan.model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.util.Log;
+
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.tianduan.MyApplication;
 import com.tianduan.annotation.Column;
 
 import org.json.JSONException;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Set;
+
+import cz.msebera.android.httpclient.Header;
 
 public class User extends Model {
 
@@ -40,6 +56,32 @@ public class User extends Model {
 
     public User(String json) throws JSONException {
         super(json);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public Bitmap getHeadBitmap() {
+        Bitmap bitmap;
+        if (picture != null) {
+            String path = MyApplication.newInstance().getContext().getFilesDir().getAbsolutePath() + "/" + getObjectId() + "/user/head_pic";
+            String[] path_split = picture.replace("\\", "/").split("/");
+            File file = new File(path, path_split[path_split.length - 1]);
+            FileInputStream fis = null;
+            if (file.exists()) {
+                try {
+                    fis = new FileInputStream(file);
+                    bitmap = BitmapFactory.decodeStream(fis);
+                    fis.close();
+                    if (bitmap != null) {
+                        return bitmap;
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 
     public String getUsername() {

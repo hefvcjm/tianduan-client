@@ -29,6 +29,7 @@
             android:id="@+id/item_msg_iv_receiver_profile"
             android:layout_width="45dp"
             android:layout_height="45dp"
+            android:scaleType="centerCrop"
             android:src="@mipmap/ic_head_portrait" />
 
         <TextView
@@ -77,6 +78,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentRight="true"
+            android:scaleType="centerCrop"
             android:src="@mipmap/ic_head_portrait" />
     </RelativeLayout>
 
