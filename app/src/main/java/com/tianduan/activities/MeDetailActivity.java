@@ -22,11 +22,14 @@ import com.loopj.android.http.RequestParams;
 import com.tianduan.MyApplication;
 import com.tianduan.model.User;
 import com.tianduan.net.MyJsonRequest;
+import com.tianduan.util.CompressUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -138,7 +141,43 @@ public class MeDetailActivity extends Activity implements View.OnClickListener {
                                     User user = new Gson().fromJson(response.getString("data"), User.class);
                                     if (headPath != null) {
                                         try {
-                                            postFile("picture", headPath);
+                                            Bitmap bitmap = CompressUtil.getSmallBitmap(headPath);
+                                            final String path = MyApplication.newInstance().getContext().getCacheDir().getAbsolutePath() + "/" + user.getObjectId() + "/user/head_pic";
+                                            File file = new File(path);
+                                            if (!file.exists()) {
+                                                file.mkdirs();
+                                            }
+                                            file = new File(path, "picture.png");
+                                            if (!file.exists()) {
+                                                try {
+                                                    file.createNewFile();
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                            FileOutputStream fos = new FileOutputStream(file);
+                                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                                            fos.flush();
+                                            fos.close();
+                                            RequestParams params = new RequestParams();
+                                            params.put("picture", file);
+                                            MyApplication.newInstance().getAsyncHttpClient().post(MyApplication.buildURL("/user/update/head")
+                                                    , params
+                                                    , new AsyncHttpResponseHandler() {
+                                                        @Override
+                                                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                                            Log.d(TAG, new String(responseBody));
+                                                            File file = new File(path, "picture.png");
+                                                            if (file.exists()) {
+                                                                file.delete();
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                                                            Log.d(TAG, new String(responseBody));
+                                                        }
+                                                    });
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }

@@ -2,6 +2,7 @@ package com.tianduan.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -193,11 +194,14 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             engineer = items.get(groupPosition).getEngineers().iterator().next();
         }
         if (engineer != null) {
+            MyApplication.newInstance().addUserMap(engineer.getUser().getObjectId(), engineer.getUser());
             if (engineer.getUser().getPicture() != null) {
-                //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+                Bitmap bitmap = engineer.getUser().getHeadBitmap();
+                if (bitmap != null) {
+                    childViewHolder.iv_repair_expand_repair_engineer_picture.setImageBitmap(bitmap);
+                }
             }
             childViewHolder.ll_expand_detail_engineer.setVisibility(View.VISIBLE);
-            //childViewHolder.iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
             childViewHolder.tv_item_detail_engineer_name.setText(engineer.getUser().getName());
         } else {
             childViewHolder.ll_expand_detail_engineer.setVisibility(View.GONE);

@@ -55,6 +55,7 @@ public class MyApplication extends Application {
     private SharedPreferences preferences;
     private WebSocketClient webSocketClient;
     private Map<String, List<MsgData>> chatMap;
+    private Map<String, User> userMap;
     private List<MessageItem> messageItems;
     private List<String> messageObjectIds;
     private AsyncHttpClient asyncHttpClient;
@@ -72,6 +73,7 @@ public class MyApplication extends Application {
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         requestQueue = Volley.newRequestQueue(this);
         chatMap = new HashMap<>();
+        userMap = new HashMap<>();
         messageItems = new ArrayList<>();
         messageObjectIds = new ArrayList<>();
         asyncHttpClient = new AsyncHttpClient();
@@ -171,6 +173,23 @@ public class MyApplication extends Application {
 
     public Context getContext() {
         return getApplicationContext();
+    }
+
+    public void addUserMap(String objectId, User user) {
+        userMap.put(objectId, user);
+    }
+
+    public void removeUserMap(String objectId) {
+        if (userMap.containsKey(objectId)) {
+            userMap.remove(objectId);
+        }
+    }
+
+    public User getUserByObjectId(String objectId) {
+        if (userMap.containsKey(objectId)) {
+            return userMap.get(objectId);
+        }
+        return null;
     }
 
     private WebSocketClient getWebSocketClient() {

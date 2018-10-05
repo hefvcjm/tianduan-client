@@ -1,5 +1,6 @@
 package com.tianduan.adapters;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,8 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tianduan.MyApplication;
 import com.tianduan.activities.R;
 import com.tianduan.model.MessageItem;
+import com.tianduan.model.User;
 
 import java.util.List;
 
@@ -51,7 +54,13 @@ public class MessageListAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-//        viewHolder.iv_message_item_head.setImageBitmap();
+        User user = MyApplication.newInstance().getUserByObjectId(items.get(position).getObjectId());
+        if (user != null) {
+            Bitmap bitmap = user.getHeadBitmap();
+            if (bitmap != null) {
+                viewHolder.iv_message_item_head.setImageBitmap(bitmap);
+            }
+        }
         viewHolder.tv_message_item_name.setText(items.get(position).getName());
         viewHolder.tv_message_item_time.setText(items.get(position).getTime());
         viewHolder.tv_message_item_content.setText(items.get(position).getContent());

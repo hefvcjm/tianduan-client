@@ -111,12 +111,6 @@ public class RepairFragment extends Fragment {
                         }
                     });
                     mExpandableListView.setAdapter(adapter);
-//                        adapter.setOnGroupExpandedListener(new OnGroupExpandedListener() {
-//                            @Override
-//                            public void onGroupExpanded(int groupPosition) {
-//                                expandOnlyOne(groupPosition);
-//                            }
-//                        });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -128,13 +122,6 @@ public class RepairFragment extends Fragment {
             }
         });
         MyApplication.newInstance().getRequestQueue().add(stringRequest);
-
-//        adapter.setOnGroupExpandedListener(new OnGroupExpandedListener() {
-//            @Override
-//            public void onGroupExpanded(int groupPosition) {
-//                expandOnlyOne(groupPosition);
-//            }
-//        });
 
         //  设置分组项的点击监听事件
         mExpandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -182,34 +169,6 @@ public class RepairFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log.d(TAG, "onActivityCreated");
-//        final NormalExpandableListAdapter adapter = new NormalExpandableListAdapter(Constant.BOOKS, Constant.FIGURES);
-//        mExpandableListView = ((MainActivity) getActivity()).findViewById(R.id.expandable_list);
-//        mExpandableListView.setAdapter(adapter);
-//        adapter.setOnGroupExpandedListener(new OnGroupExpandedListener() {
-//            @Override
-//            public void onGroupExpanded(int groupPosition) {
-//                expandOnlyOne(groupPosition);
-//            }
-//        });
-//
-//        //  设置分组项的点击监听事件
-//        mExpandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-//            @Override
-//            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-//                Log.d(TAG, "onGroupClick: groupPosition:" + groupPosition + ", id:" + id);
-//                // 请务必返回 false，否则分组不会展开
-//                return false;
-//            }
-//        });
-//
-//        //  设置子选项点击监听事件
-//        mExpandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-//            @Override
-//            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-////                Toast.makeText(RepairFragment.this, Constant.FIGURES[groupPosition][childPosition], Toast.LENGTH_SHORT).show();
-//                return true;
-//            }
-//        });
     }
 
     @Override

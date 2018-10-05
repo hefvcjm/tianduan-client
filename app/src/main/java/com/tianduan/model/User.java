@@ -78,6 +78,62 @@ public class User extends Model {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }else{
+                MyApplication.newInstance().getAsyncHttpClient().get(MyApplication.BASE_URL + picture.replace("\\", "/")
+                        , new AsyncHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                Bitmap bitmap = BitmapFactory.decodeByteArray(responseBody, 0, responseBody.length);
+                                if (bitmap != null) {
+                                    String path = MyApplication.newInstance().getContext().getFilesDir().getAbsolutePath() + "/" + getObjectId() + "/user/head_pic";
+                                    File file = new File(path);
+                                    if (!file.exists()) {
+                                        file.mkdirs();
+                                    }
+                                    String[] path_split = picture.replace("\\", "/").split("/");
+                                    file = new File(path, path_split[path_split.length - 1]);
+                                    if (!file.exists()) {
+                                        try {
+                                            file.createNewFile();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    FileOutputStream fos = null;
+                                    BufferedOutputStream bos = null;
+                                    try {
+                                        fos = new FileOutputStream(file);
+                                        bos = new BufferedOutputStream(fos);
+                                        bos.write(responseBody);
+                                        bos.flush();
+                                    } catch (FileNotFoundException e) {
+                                        e.printStackTrace();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    } finally {
+                                        if (bos != null) {
+                                            try {
+                                                bos.close();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                        if (fos != null) {
+                                            try {
+                                                fos.close();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                            }
+                        });
             }
         }
         return null;

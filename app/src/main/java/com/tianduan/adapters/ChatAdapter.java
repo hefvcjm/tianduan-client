@@ -50,7 +50,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MsgViewHolder>
                     holder.item_msg_layout_sender.setVisibility(View.GONE);
                     holder.item_msg_layout_receiver.setVisibility(View.VISIBLE);
                     holder.item_msg_tv_receiver_msg.setText(currentMsgData.getContent());
-                    //holder.item_msg_iv_receiver_profile.setImageResource(currentMsgData.getProfile_res());
+                    User sender = MyApplication.newInstance().getUserByObjectId(currentMsgData.getSender());
+                    if (sender != null) {
+                        Bitmap bitmap = sender.getHeadBitmap();
+                        if (bitmap != null) {
+                            holder.item_msg_iv_receiver_profile.setImageBitmap(bitmap);
+                        }
+                    }
                     break;
                 case MsgData.TYPE_SENDER:
                     initTimeStamp(holder, currentMsgData, preMsgData);

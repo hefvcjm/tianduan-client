@@ -10,6 +10,7 @@
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginLeft="5dp"
+        android:scaleType="centerCrop"
         android:src="@mipmap/ic_head_portrait" />
 
     <LinearLayout
@@ -57,10 +58,10 @@
                 android:id="@+id/tv_message_item_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:singleLine="true"
-                android:ellipsize="end"
                 android:layout_marginRight="@dimen/general_large_margin"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="谢谢你！"
                 android:textColor="@color/dark"
                 android:textSize="15dp" />

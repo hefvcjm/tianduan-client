@@ -85,6 +85,7 @@ public class MessageFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("name", messageItems.get(position).getName());
                 intent.putExtra("sender", messageItems.get(position).getObjectId());
+                intent.putExtra("sender_pic", messageItems.get(position).getPicture());
                 startActivity(intent);
             }
         });

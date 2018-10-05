@@ -2,6 +2,7 @@ package com.tianduan.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -190,21 +191,6 @@ public class RepairDetailActivity extends Activity {
             //status description
             tv_item_detail_status.setText("报修完成");
             tv_item_detail_description.setText(map.get("报修完成"));
-            //engineer
-            Engineer engineer = null;
-            if (maintain.getEngineers() != null && maintain.getEngineers().iterator().hasNext()) {
-                engineer = maintain.getEngineers().iterator().next();
-            }
-            if (engineer != null) {
-                if (engineer.getUser().getPicture() != null) {
-                    //iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
-                }
-                //iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
-                tv_item_detail_engineer_name.setText(engineer.getUser().getName());
-            } else {
-                ll_expand_detail_engineer.setVisibility(View.GONE);
-            }
-
         } else if (keySet.contains("派单")) {
             //status bar
             iv_expand_status_icon_1.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));
@@ -218,20 +204,6 @@ public class RepairDetailActivity extends Activity {
             //status description
             tv_item_detail_status.setText("派单");
             tv_item_detail_description.setText(map.get("派单"));
-            //engineer
-            Engineer engineer = null;
-            if (maintain.getEngineers() != null && maintain.getEngineers().iterator().hasNext()) {
-                engineer = maintain.getEngineers().iterator().next();
-            }
-            if (engineer != null) {
-                if (engineer.getUser().getPicture() != null) {
-                    //iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
-                }
-                //iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
-                tv_item_detail_engineer_name.setText(engineer.getUser().getName());
-            } else {
-                ll_expand_detail_engineer.setVisibility(View.GONE);
-            }
         } else {
             //status bar
             iv_expand_status_icon_1.setImageDrawable(MyApplication.newInstance().getResources().getDrawable(R.mipmap.ic_repair_done));
@@ -245,20 +217,22 @@ public class RepairDetailActivity extends Activity {
             //status description
             tv_item_detail_status.setText("派单");
             tv_item_detail_description.setText(map.get("派单"));
-            //engineer
-            Engineer engineer = null;
-            if (maintain.getEngineers() != null && maintain.getEngineers().iterator().hasNext()) {
-                engineer = maintain.getEngineers().iterator().next();
-            }
-            if (engineer != null) {
-                if (engineer.getUser().getPicture() != null) {
-                    //iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
+        }
+        //engineer
+        Engineer engineer = null;
+        if (maintain.getEngineers() != null && maintain.getEngineers().iterator().hasNext()) {
+            engineer = maintain.getEngineers().iterator().next();
+        }
+        if (engineer != null) {
+            if (engineer.getUser().getPicture() != null) {
+                Bitmap bitmap = engineer.getUser().getHeadBitmap();
+                if (bitmap != null) {
+                    iv_repair_expand_repair_engineer_picture.setImageBitmap(bitmap);
                 }
-                //iv_repair_expand_repair_engineer_picture = convertView.findViewById(R.id.iv_repair_expand_repair_engineer_picture);
-                tv_item_detail_engineer_name.setText(engineer.getUser().getName());
-            } else {
-                ll_expand_detail_engineer.setVisibility(View.GONE);
             }
+            tv_item_detail_engineer_name.setText(engineer.getUser().getName());
+        } else {
+            ll_expand_detail_engineer.setVisibility(View.GONE);
         }
     }
 }
